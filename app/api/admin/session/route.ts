@@ -1,5 +1,5 @@
 import { verifyAdminCredentials } from "@/lib/admin/accounts";
-import { clearAdminSession, getCurrentAdmin, setAdminSession } from "@/lib/admin/session";
+import { clearAdminSession, getCurrentAdmin, isSessionSecretConfigured, setAdminSession } from "@/lib/admin/session";
 
 export async function GET() {
   const admin = await getCurrentAdmin();
@@ -16,6 +16,10 @@ export async function POST(request: Request) {
 
   if (!email || !password) {
     return Response.json({ error: "missing_credentials" }, { status: 400 });
+  }
+
+  if (!isSessionSecretConfigured()) {
+    return Response.json({ error: "session_secret_not_configured" }, { status: 503 });
   }
 
   const admin = verifyAdminCredentials(email, password);

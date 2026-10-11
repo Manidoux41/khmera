@@ -65,8 +65,12 @@ are in-memory mocks; localized names come from `lib/i18n.ts`.
 - Mock account: `admin@khmera.local` / `Khmera#Admin2026` (dev only, stored as a
   scrypt hash).
 - Sessions use an HMAC-signed, `httpOnly` cookie valid for 8 hours. Set
-  `ADMIN_SESSION_SECRET` (32+ chars) in production; the server refuses to sign
-  sessions without it.
+  `ADMIN_SESSION_SECRET` (32+ chars) in production; without it the login form
+  shows "Connexion indisponible" and the API answers `503`.
+- On Vercel: Project → Settings → Environment Variables, add
+  `ADMIN_SESSION_SECRET` (e.g. output of `openssl rand -hex 32`) for
+  Production, then redeploy. If you set `ADMIN_ACCESS_PATH` there, the secret
+  link becomes `https://<your-domain>/<ADMIN_ACCESS_PATH>`.
 
 API (JSON, same session cookie):
 

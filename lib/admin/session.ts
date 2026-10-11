@@ -9,17 +9,29 @@ type SessionPayload = { sub: string; exp: number };
 
 const DEV_SESSION_SECRET = "khmera-dev-only-admin-session-secret-change-me";
 
-function getSessionSecret() {
+export class MissingSessionSecretError extends Error {
+  constructor() {
+    super("ADMIN_SESSION_SECRET must be set (32+ characters) in production.");
+    this.name = "MissingSessionSecretError";
+  }
+}
+
+// In production the dev fallback is never used: without a real secret no
+// session can be created or accepted.
+function getSessionSecret(): string | null {
   const secret = process.env.ADMIN_SESSION_SECRET;
   if (secret && secret.length >= 32) return secret;
-  if (process.env.NODE_ENV === "production") {
-    throw new Error("ADMIN_SESSION_SECRET must be set (32+ characters) in production.");
-  }
-  return DEV_SESSION_SECRET;
+  return process.env.NODE_ENV === "production" ? null : DEV_SESSION_SECRET;
+}
+
+export function isSessionSecretConfigured() {
+  return getSessionSecret() !== null;
 }
 
 function sign(value: string) {
-  return createHmac("sha256", getSessionSecret()).update(value).digest("base64url");
+  const secret = getSessionSecret();
+  if (!secret) throw new MissingSessionSecretError();
+  return createHmac("sha256", secret).update(value).digest("base64url");
 }
 
 export function createSessionToken(adminId: string, now = Date.now()) {
@@ -32,7 +44,7 @@ export function createSessionToken(adminId: string, now = Date.now()) {
 }
 
 export function readSessionToken(token: string | undefined, now?: number): SessionPayload | null {
-  if (!token) return null;
+  if (!token || !isSessionSecretConfigured()) return null;
   const [encoded, signature] = token.split(".");
   if (!encoded || !signature) return null;
 
