@@ -66,7 +66,7 @@ are in-memory mocks; localized names come from `lib/i18n.ts`.
   scrypt hash).
 - Sessions use an HMAC-signed, `httpOnly` cookie valid for 8 hours. Set
   `ADMIN_SESSION_SECRET` (32+ chars) in production; without it the login form
-  shows "Connexion indisponible" and the API answers `503`.
+  shows "Connexion indisponible" and the API answers `503` (`session_secret_missing` or `session_secret_too_short`).
 - On Vercel: Project → Settings → Environment Variables, add
   `ADMIN_SESSION_SECRET` (e.g. output of `openssl rand -hex 32`) for
   Production, then redeploy. If you set `ADMIN_ACCESS_PATH` there, the secret

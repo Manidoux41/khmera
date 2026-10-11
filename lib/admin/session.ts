@@ -19,13 +19,19 @@ export class MissingSessionSecretError extends Error {
 // In production the dev fallback is never used: without a real secret no
 // session can be created or accepted.
 function getSessionSecret(): string | null {
-  const secret = process.env.ADMIN_SESSION_SECRET;
+  const secret = process.env.ADMIN_SESSION_SECRET?.trim();
   if (secret && secret.length >= 32) return secret;
   return process.env.NODE_ENV === "production" ? null : DEV_SESSION_SECRET;
 }
 
 export function isSessionSecretConfigured() {
   return getSessionSecret() !== null;
+}
+
+/** Why the secret is rejected, for operator-facing diagnostics (never the value). */
+export function sessionSecretProblem(): "missing" | "too_short" | null {
+  if (isSessionSecretConfigured()) return null;
+  return process.env.ADMIN_SESSION_SECRET?.trim() ? "too_short" : "missing";
 }
 
 function sign(value: string) {
