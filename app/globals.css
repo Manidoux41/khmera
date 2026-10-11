@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #020617;
+  --foreground: #e2e8f0;
 }
 
 @theme inline {
@@ -10,17 +10,63 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  /* Existing accent utilities share the Cambodian brand palette. */
+  --color-emerald-200: #ffc5cd;
+  --color-emerald-300: #ff9aaa;
+  --color-emerald-400: #dc3049;
+  --color-emerald-500: #c9203b;
+  --color-emerald-950: #3e1021;
+  --color-cyan-400: #86b1ff;
+  --color-cyan-500: #3169c5;
+  --color-sky-200: #b9d0ff;
+  --color-sky-500: #3169c5;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
+  background: #020617;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+.brand-shell {
+  background: radial-gradient(ellipse at 85% 5%, #12295880, transparent 45%), #020617;
+}
+
+.journey-hero {
+  background: radial-gradient(ellipse at 100% 0%, #284b9766, transparent 55%),
+    radial-gradient(ellipse at 0% 100%, #70192c40, transparent 55%), #0b1427;
+  box-shadow: 0 24px 80px #0003;
+}
+
+.brand-orbit {
+  background: radial-gradient(circle at center, #284b9755, transparent 65%);
+}
+
+a:focus-visible, button:focus-visible {
+  outline: 3px solid #86b1ff;
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0s !important; }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
 }
