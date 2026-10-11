@@ -1,4 +1,5 @@
 import type { PhotoId } from "./photos";
+import type { TestimonialId } from "./testimonials";
 
 export const locales = ["en", "fr", "es", "de"] as const;
 export type Locale = (typeof locales)[number];
@@ -61,6 +62,7 @@ type Dictionary = {
     marketplace: string;
     guide: string;
     business: string;
+    testimonials: string;
     login: string;
     cta: string;
   };
@@ -95,12 +97,26 @@ type Dictionary = {
     license: string;
     source: string;
   };
+  testimonials: {
+    eyebrow: string;
+    heading: string;
+    description: string;
+    disclaimer: string;
+    homeHeading: string;
+    readAll: string;
+    resultLabel: string;
+    ctaHeading: string;
+    ctaDescription: string;
+    ctaButton: string;
+    items: Record<TestimonialId, { role: string; place: string; service: string; quote: string; result: string }>;
+  };
   pageTitles: {
     home: string;
     services: string;
     marketplace: string;
     guide: string;
     business: string;
+    testimonials: string;
   };
 };
 
@@ -184,6 +200,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       marketplace: "Marketplace",
       guide: "Visa guide",
       business: "Business",
+      testimonials: "Testimonials",
       login: "Member portal",
       cta: "List a service",
     },
@@ -250,6 +267,12 @@ export const dictionaries: Record<Locale, Dictionary> = {
         "rice-fields": "Green rice fields and sugar palms in the Cambodian countryside",
         "tuk-tuk": "White tuk-tuk parked on a street in Phnom Penh",
         "street-food": "Tray of Cambodian street food skewers at night",
+        "nomad-laptop": "Hands typing on a laptop keyboard",
+        "founder-meeting": "Hands of two people reviewing documents next to laptops",
+        "ikat-weaving": "Hands weaving a red ikat silk pattern on a loom",
+        "rice-planting": "Farmers in hats bending over to plant rice seedlings",
+        "kep-sunset": "Silhouette of a fisherman on a boat under a red sunset in Kep",
+        "siem-reap-fisherman": "Distant figure fishing in a green pond near Angkor Thom",
       },
       places: {
         "angkor-wat-sunrise": "Angkor Wat, Siem Reap",
@@ -262,6 +285,12 @@ export const dictionaries: Record<Locale, Dictionary> = {
         "rice-fields": "Cambodian countryside",
         "tuk-tuk": "Tuk-tuk, Phnom Penh",
         "street-food": "Street food",
+        "nomad-laptop": "Remote work",
+        "founder-meeting": "Business meeting",
+        "ikat-weaving": "Ikat weaving",
+        "rice-planting": "Rice planting",
+        "kep-sunset": "Kep",
+        "siem-reap-fisherman": "Angkor Thom, Siem Reap",
       },
       galleryEyebrow: "Life in Cambodia",
       galleryHeading: "From the temples of Siem Reap to the riverside of Phnom Penh.",
@@ -273,6 +302,62 @@ export const dictionaries: Record<Locale, Dictionary> = {
       license: "License: ",
       source: "View source",
     },
+    testimonials: {
+      eyebrow: "Testimonials",
+      heading: "They built their life in Cambodia with KHMERA.",
+      description: "Freelancers, founders, families and retirees: stories of people who moved, settled and grew with our support.",
+      disclaimer: "Illustrative testimonials: the people and stories are fictional and the photos do not depict them.",
+      homeHeading: "Stories from our community",
+      readAll: "Read all testimonials",
+      resultLabel: "Result",
+      ctaHeading: "Ready to write your own story?",
+      ctaDescription: "Tell us about your project and we will build a step-by-step plan with you.",
+      ctaButton: "Talk to an advisor",
+      items: {
+        "remote-developer": {
+          role: "Freelance developer · France",
+          place: "Phnom Penh",
+          service: "Visa support",
+          quote: "I arrived with a laptop and a tourist visa. KHMERA sorted out my long-stay visa and found me a flat with reliable fibre near BKK1. I was working with my European clients from day one.",
+          result: "Long-stay visa and apartment in 3 weeks",
+        },
+        "consulting-founder": {
+          role: "Founder of a consulting firm · Germany",
+          place: "Phnom Penh",
+          service: "Business setup",
+          quote: "Registering a company abroad looked like a maze. The KHMERA advisor handled the registration, tax number and bank account, and explained every step in plain language.",
+          result: "Company registered and first clients signed in 2 months",
+        },
+        "textile-brand": {
+          role: "Co-founder of an ethical textile brand · Cambodia",
+          place: "Siem Reap",
+          service: "Marketplace",
+          quote: "Through the marketplace we met buyers from France and Spain who care about handmade ikat. Our weavers now have steady orders all year round.",
+          result: "4 new international retailers",
+        },
+        "rice-export": {
+          role: "Food importer · Spain",
+          place: "Battambang",
+          service: "Local advisor",
+          quote: "I wanted to source organic rice directly from cooperatives. KHMERA introduced me to trusted partners and helped with export paperwork and quality checks.",
+          result: "First container shipped to Valencia",
+        },
+        "kep-retirees": {
+          role: "Retired couple · United Kingdom",
+          place: "Kep",
+          service: "Property search",
+          quote: "We dreamed of a quiet place by the sea. KHMERA found us a house with a garden in Kep, handled our retirement visas and even recommended a good doctor.",
+          result: "Settled by the sea in 6 weeks",
+        },
+        "siem-reap-family": {
+          role: "Family of four · Czech Republic",
+          place: "Siem Reap",
+          service: "Family relocation",
+          quote: "Moving with two children was our biggest worry. KHMERA helped us choose an international school, find a home and register our small guesthouse.",
+          result: "Kids at school and guesthouse open within one season",
+        },
+      },
+    },
     footer: {
       rights: "Built for international living, business and travel.",
     },
@@ -282,6 +367,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       marketplace: "Marketplace",
       guide: "Visa guide",
       business: "Business",
+      testimonials: "Testimonials",
     },
   },
   fr: {
@@ -363,6 +449,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       marketplace: "Marché",
       guide: "Guide visa",
       business: "Entreprise",
+      testimonials: "Témoignages",
       login: "Espace membre",
       cta: "Publier un service",
     },
@@ -429,6 +516,12 @@ export const dictionaries: Record<Locale, Dictionary> = {
         "rice-fields": "Rizières vertes et palmiers à sucre dans la campagne cambodgienne",
         "tuk-tuk": "Tuk-tuk blanc garé dans une rue de Phnom Penh",
         "street-food": "Plateau de brochettes de street food cambodgienne la nuit",
+        "nomad-laptop": "Mains tapant sur le clavier d'un ordinateur portable",
+        "founder-meeting": "Mains de deux personnes étudiant des documents à côté d'ordinateurs",
+        "ikat-weaving": "Mains tissant un motif ikat rouge en soie sur un métier",
+        "rice-planting": "Agriculteurs coiffés de chapeaux repiquant des plants de riz",
+        "kep-sunset": "Silhouette d'un pêcheur sur sa barque sous un coucher de soleil rouge à Kep",
+        "siem-reap-fisherman": "Silhouette lointaine pêchant dans un étang verdoyant près d'Angkor Thom",
       },
       places: {
         "angkor-wat-sunrise": "Angkor Wat, Siem Reap",
@@ -441,6 +534,12 @@ export const dictionaries: Record<Locale, Dictionary> = {
         "rice-fields": "Campagne cambodgienne",
         "tuk-tuk": "Tuk-tuk, Phnom Penh",
         "street-food": "Cuisine de rue",
+        "nomad-laptop": "Travail à distance",
+        "founder-meeting": "Réunion d'affaires",
+        "ikat-weaving": "Tissage ikat",
+        "rice-planting": "Repiquage du riz",
+        "kep-sunset": "Kep",
+        "siem-reap-fisherman": "Angkor Thom, Siem Reap",
       },
       galleryEyebrow: "La vie au Cambodge",
       galleryHeading: "Des temples de Siem Reap aux quais de Phnom Penh.",
@@ -452,6 +551,62 @@ export const dictionaries: Record<Locale, Dictionary> = {
       license: "Licence : ",
       source: "Voir la source",
     },
+    testimonials: {
+      eyebrow: "Témoignages",
+      heading: "Ils ont construit leur vie au Cambodge avec KHMERA.",
+      description: "Freelances, fondateurs, familles et retraités : des parcours de personnes qui se sont installées et ont réussi avec notre accompagnement.",
+      disclaimer: "Témoignages illustratifs : les personnes et les récits sont fictifs et les photos ne les représentent pas.",
+      homeHeading: "Les histoires de notre communauté",
+      readAll: "Lire tous les témoignages",
+      resultLabel: "Résultat",
+      ctaHeading: "Prêt à écrire votre propre histoire ?",
+      ctaDescription: "Parlez-nous de votre projet et nous construirons avec vous un plan étape par étape.",
+      ctaButton: "Parler à un conseiller",
+      items: {
+        "remote-developer": {
+          role: "Développeuse freelance · France",
+          place: "Phnom Penh",
+          service: "Accompagnement visa",
+          quote: "Je suis arrivée avec un ordinateur et un visa touristique. KHMERA s'est occupé de mon visa long séjour et m'a trouvé un appartement avec une fibre fiable près de BKK1. J'ai pu travailler avec mes clients européens dès le premier jour.",
+          result: "Visa long séjour et appartement en 3 semaines",
+        },
+        "consulting-founder": {
+          role: "Fondateur d'un cabinet de conseil · Allemagne",
+          place: "Phnom Penh",
+          service: "Création d'entreprise",
+          quote: "Créer une société à l'étranger ressemblait à un labyrinthe. Le conseiller KHMERA a géré l'immatriculation, le numéro fiscal et le compte bancaire, en m'expliquant chaque étape simplement.",
+          result: "Société immatriculée et premiers clients signés en 2 mois",
+        },
+        "textile-brand": {
+          role: "Cofondatrice d'une marque textile éthique · Cambodge",
+          place: "Siem Reap",
+          service: "Marché",
+          quote: "Grâce au marché, nous avons rencontré des acheteurs français et espagnols attachés à l'ikat fait main. Nos tisserandes ont désormais des commandes régulières toute l'année.",
+          result: "4 nouveaux revendeurs à l'international",
+        },
+        "rice-export": {
+          role: "Importateur alimentaire · Espagne",
+          place: "Battambang",
+          service: "Conseiller local",
+          quote: "Je voulais m'approvisionner en riz bio directement auprès des coopératives. KHMERA m'a présenté des partenaires de confiance et m'a aidé pour les formalités d'export et les contrôles qualité.",
+          result: "Premier conteneur expédié vers Valence",
+        },
+        "kep-retirees": {
+          role: "Couple de retraités · Royaume-Uni",
+          place: "Kep",
+          service: "Recherche de logement",
+          quote: "Nous rêvions d'un endroit calme au bord de la mer. KHMERA nous a trouvé une maison avec jardin à Kep, a géré nos visas retraite et nous a même recommandé un bon médecin.",
+          result: "Installés au bord de la mer en 6 semaines",
+        },
+        "siem-reap-family": {
+          role: "Famille de quatre · République tchèque",
+          place: "Siem Reap",
+          service: "Installation en famille",
+          quote: "Déménager avec deux enfants était notre plus grande inquiétude. KHMERA nous a aidés à choisir une école internationale, à trouver une maison et à déclarer notre petite maison d'hôtes.",
+          result: "Enfants scolarisés et maison d'hôtes ouverte en une saison",
+        },
+      },
+    },
     footer: {
       rights: "Conçu pour la vie internationale, les affaires et les voyages.",
     },
@@ -461,6 +616,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       marketplace: "Marché",
       guide: "Guide visa",
       business: "Entreprise",
+      testimonials: "Témoignages",
     },
   },
   es: {
@@ -542,6 +698,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       marketplace: "Mercado",
       guide: "Guía de visado",
       business: "Negocios",
+      testimonials: "Testimonios",
       login: "Portal del miembro",
       cta: "Publicar un servicio",
     },
@@ -608,6 +765,12 @@ export const dictionaries: Record<Locale, Dictionary> = {
         "rice-fields": "Arrozales verdes y palmeras de azúcar en el campo camboyano",
         "tuk-tuk": "Tuk-tuk blanco aparcado en una calle de Phnom Penh",
         "street-food": "Bandeja de brochetas de comida callejera camboyana por la noche",
+        "nomad-laptop": "Manos escribiendo en el teclado de un portátil",
+        "founder-meeting": "Manos de dos personas revisando documentos junto a portátiles",
+        "ikat-weaving": "Manos tejiendo un motivo ikat rojo de seda en un telar",
+        "rice-planting": "Agricultores con sombrero trasplantando plantones de arroz",
+        "kep-sunset": "Silueta de un pescador en su barca bajo un atardecer rojo en Kep",
+        "siem-reap-fisherman": "Figura lejana pescando en un estanque verde cerca de Angkor Thom",
       },
       places: {
         "angkor-wat-sunrise": "Angkor Wat, Siem Reap",
@@ -620,6 +783,12 @@ export const dictionaries: Record<Locale, Dictionary> = {
         "rice-fields": "Campo camboyano",
         "tuk-tuk": "Tuk-tuk, Phnom Penh",
         "street-food": "Comida callejera",
+        "nomad-laptop": "Trabajo remoto",
+        "founder-meeting": "Reunión de negocios",
+        "ikat-weaving": "Tejido ikat",
+        "rice-planting": "Plantación de arroz",
+        "kep-sunset": "Kep",
+        "siem-reap-fisherman": "Angkor Thom, Siem Reap",
       },
       galleryEyebrow: "La vida en Camboya",
       galleryHeading: "De los templos de Siem Reap a la ribera de Phnom Penh.",
@@ -631,6 +800,62 @@ export const dictionaries: Record<Locale, Dictionary> = {
       license: "Licencia: ",
       source: "Ver la fuente",
     },
+    testimonials: {
+      eyebrow: "Testimonios",
+      heading: "Construyeron su vida en Camboya con KHMERA.",
+      description: "Freelancers, fundadores, familias y jubilados: historias de personas que se mudaron, se instalaron y prosperaron con nuestro apoyo.",
+      disclaimer: "Testimonios ilustrativos: las personas y las historias son ficticias y las fotos no las representan.",
+      homeHeading: "Historias de nuestra comunidad",
+      readAll: "Leer todos los testimonios",
+      resultLabel: "Resultado",
+      ctaHeading: "¿Listo para escribir tu propia historia?",
+      ctaDescription: "Cuéntanos tu proyecto y crearemos contigo un plan paso a paso.",
+      ctaButton: "Hablar con un asesor",
+      items: {
+        "remote-developer": {
+          role: "Desarrolladora freelance · Francia",
+          place: "Phnom Penh",
+          service: "Apoyo con visados",
+          quote: "Llegué con un portátil y un visado de turista. KHMERA tramitó mi visado de larga estancia y me encontró un piso con fibra fiable cerca de BKK1. Pude trabajar con mis clientes europeos desde el primer día.",
+          result: "Visado de larga estancia y piso en 3 semanas",
+        },
+        "consulting-founder": {
+          role: "Fundador de una consultora · Alemania",
+          place: "Phnom Penh",
+          service: "Creación de empresas",
+          quote: "Crear una empresa en el extranjero parecía un laberinto. El asesor de KHMERA se encargó del registro, el número fiscal y la cuenta bancaria, y me explicó cada paso con claridad.",
+          result: "Empresa registrada y primeros clientes en 2 meses",
+        },
+        "textile-brand": {
+          role: "Cofundadora de una marca textil ética · Camboya",
+          place: "Siem Reap",
+          service: "Mercado",
+          quote: "Gracias al mercado conocimos a compradores de Francia y España que valoran el ikat hecho a mano. Nuestras tejedoras tienen ahora pedidos estables todo el año.",
+          result: "4 nuevos distribuidores internacionales",
+        },
+        "rice-export": {
+          role: "Importador de alimentos · España",
+          place: "Battambang",
+          service: "Asesor local",
+          quote: "Quería comprar arroz ecológico directamente a cooperativas. KHMERA me presentó socios de confianza y me ayudó con los trámites de exportación y los controles de calidad.",
+          result: "Primer contenedor enviado a Valencia",
+        },
+        "kep-retirees": {
+          role: "Pareja de jubilados · Reino Unido",
+          place: "Kep",
+          service: "Búsqueda de vivienda",
+          quote: "Soñábamos con un lugar tranquilo junto al mar. KHMERA nos encontró una casa con jardín en Kep, gestionó nuestros visados de jubilación e incluso nos recomendó un buen médico.",
+          result: "Instalados junto al mar en 6 semanas",
+        },
+        "siem-reap-family": {
+          role: "Familia de cuatro · República Checa",
+          place: "Siem Reap",
+          service: "Mudanza familiar",
+          quote: "Mudarnos con dos niños era nuestra mayor preocupación. KHMERA nos ayudó a elegir un colegio internacional, encontrar casa y registrar nuestra pequeña casa de huéspedes.",
+          result: "Niños escolarizados y casa de huéspedes abierta en una temporada",
+        },
+      },
+    },
     footer: {
       rights: "Diseñado para la vida internacional, los negocios y el turismo.",
     },
@@ -640,6 +865,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       marketplace: "Mercado",
       guide: "Guía de visado",
       business: "Negocios",
+      testimonials: "Testimonios",
     },
   },
   de: {
@@ -721,6 +947,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       marketplace: "Marktplatz",
       guide: "Visumguide",
       business: "Geschäft",
+      testimonials: "Erfahrungen",
       login: "Mitgliederbereich",
       cta: "Dienst anbieten",
     },
@@ -787,6 +1014,12 @@ export const dictionaries: Record<Locale, Dictionary> = {
         "rice-fields": "Grüne Reisfelder und Zuckerpalmen auf dem kambodschanischen Land",
         "tuk-tuk": "Weißes Tuk-Tuk auf einer Straße in Phnom Penh",
         "street-food": "Tablett mit kambodschanischen Streetfood-Spießen bei Nacht",
+        "nomad-laptop": "Hände tippen auf der Tastatur eines Laptops",
+        "founder-meeting": "Hände zweier Personen prüfen Unterlagen neben Laptops",
+        "ikat-weaving": "Hände weben ein rotes Ikat-Seidenmuster am Webstuhl",
+        "rice-planting": "Bäuerinnen und Bauern mit Hüten pflanzen Reissetzlinge",
+        "kep-sunset": "Silhouette eines Fischers im Boot unter einem roten Sonnenuntergang in Kep",
+        "siem-reap-fisherman": "Ferne Gestalt beim Fischen in einem grünen Teich bei Angkor Thom",
       },
       places: {
         "angkor-wat-sunrise": "Angkor Wat, Siem Reap",
@@ -799,6 +1032,12 @@ export const dictionaries: Record<Locale, Dictionary> = {
         "rice-fields": "Kambodschanisches Land",
         "tuk-tuk": "Tuk-Tuk, Phnom Penh",
         "street-food": "Streetfood",
+        "nomad-laptop": "Remote-Arbeit",
+        "founder-meeting": "Geschäftstermin",
+        "ikat-weaving": "Ikat-Weberei",
+        "rice-planting": "Reispflanzung",
+        "kep-sunset": "Kep",
+        "siem-reap-fisherman": "Angkor Thom, Siem Reap",
       },
       galleryEyebrow: "Leben in Kambodscha",
       galleryHeading: "Von den Tempeln Siem Reaps bis zum Flussufer von Phnom Penh.",
@@ -810,6 +1049,62 @@ export const dictionaries: Record<Locale, Dictionary> = {
       license: "Lizenz: ",
       source: "Quelle ansehen",
     },
+    testimonials: {
+      eyebrow: "Erfahrungsberichte",
+      heading: "Sie haben sich mit KHMERA ein Leben in Kambodscha aufgebaut.",
+      description: "Freelancer, Gründer, Familien und Ruheständler: Geschichten von Menschen, die mit unserer Unterstützung umgezogen sind, sich eingelebt haben und erfolgreich wurden.",
+      disclaimer: "Illustrative Erfahrungsberichte: Personen und Geschichten sind fiktiv, die Fotos zeigen nicht diese Personen.",
+      homeHeading: "Geschichten aus unserer Community",
+      readAll: "Alle Erfahrungsberichte lesen",
+      resultLabel: "Ergebnis",
+      ctaHeading: "Bereit, Ihre eigene Geschichte zu schreiben?",
+      ctaDescription: "Erzählen Sie uns von Ihrem Vorhaben und wir erstellen gemeinsam einen Schritt-für-Schritt-Plan.",
+      ctaButton: "Mit einem Berater sprechen",
+      items: {
+        "remote-developer": {
+          role: "Freiberufliche Entwicklerin · Frankreich",
+          place: "Phnom Penh",
+          service: "Visa-Unterstützung",
+          quote: "Ich kam mit einem Laptop und einem Touristenvisum. KHMERA hat mein Langzeitvisum erledigt und mir eine Wohnung mit stabilem Glasfaseranschluss nahe BKK1 gefunden. Ab dem ersten Tag konnte ich für meine europäischen Kunden arbeiten.",
+          result: "Langzeitvisum und Wohnung in 3 Wochen",
+        },
+        "consulting-founder": {
+          role: "Gründer einer Beratungsfirma · Deutschland",
+          place: "Phnom Penh",
+          service: "Firmengründung",
+          quote: "Eine Firma im Ausland zu gründen wirkte wie ein Labyrinth. Der KHMERA-Berater übernahm Registrierung, Steuernummer und Bankkonto und erklärte jeden Schritt verständlich.",
+          result: "Firma registriert und erste Kunden in 2 Monaten",
+        },
+        "textile-brand": {
+          role: "Mitgründerin einer fairen Textilmarke · Kambodscha",
+          place: "Siem Reap",
+          service: "Marktplatz",
+          quote: "Über den Marktplatz haben wir Einkäufer aus Frankreich und Spanien kennengelernt, die handgewebtes Ikat schätzen. Unsere Weberinnen haben jetzt das ganze Jahr über feste Aufträge.",
+          result: "4 neue internationale Händler",
+        },
+        "rice-export": {
+          role: "Lebensmittelimporteur · Spanien",
+          place: "Battambang",
+          service: "Lokaler Berater",
+          quote: "Ich wollte Bio-Reis direkt bei Kooperativen einkaufen. KHMERA hat mich mit verlässlichen Partnern bekannt gemacht und bei Exportpapieren und Qualitätskontrollen geholfen.",
+          result: "Erster Container nach Valencia verschifft",
+        },
+        "kep-retirees": {
+          role: "Rentnerpaar · Vereinigtes Königreich",
+          place: "Kep",
+          service: "Wohnungssuche",
+          quote: "Wir träumten von einem ruhigen Ort am Meer. KHMERA fand für uns ein Haus mit Garten in Kep, kümmerte sich um unsere Rentnervisa und empfahl uns sogar einen guten Arzt.",
+          result: "In 6 Wochen am Meer angekommen",
+        },
+        "siem-reap-family": {
+          role: "Vierköpfige Familie · Tschechien",
+          place: "Siem Reap",
+          service: "Familienumzug",
+          quote: "Mit zwei Kindern umzuziehen war unsere größte Sorge. KHMERA half uns, eine internationale Schule zu wählen, ein Zuhause zu finden und unser kleines Gästehaus anzumelden.",
+          result: "Kinder eingeschult und Gästehaus in einer Saison eröffnet",
+        },
+      },
+    },
     footer: {
       rights: "Entwickelt für internationales Leben, Business und Reisen.",
     },
@@ -819,6 +1114,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       marketplace: "Marktplatz",
       guide: "Visumguide",
       business: "Geschäft",
+      testimonials: "Erfahrungsberichte",
     },
   },
 };

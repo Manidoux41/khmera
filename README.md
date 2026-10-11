@@ -87,6 +87,16 @@ To add a photo:
 2. Add its id to `photoIds` and an entry (author, license, URLs) to `photos`.
 3. Add its `alt` text and place name under `photos.alt` / `photos.places` for every locale in `lib/i18n.ts`.
 
+## Testimonials
+
+`/{locale}/testimonials` lists the testimonials. The three featured ones (`featuredTestimonialIds`) also appear on the home page. **The testimonials are illustrative:** the people and stories are fictional, the photos never show identifiable faces, and a disclaimer is shown on both pages.
+
+To add a testimonial:
+
+1. Add an id and a persona (name, initials, `photoId`) in `lib/testimonials.ts`.
+2. Add `role`, `place`, `service`, `quote` and `result` under `testimonials.items` for every locale in `lib/i18n.ts`.
+3. If the persona needs a new photo, register it in `lib/photos.ts` (see above).
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.

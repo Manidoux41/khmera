@@ -5,8 +5,10 @@ import { Suspense } from "react";
 
 import { CreditedPhoto } from "@/components/credited-photo";
 import { RouteSkeleton } from "@/components/route-skeleton";
+import { TestimonialCard } from "@/components/testimonial-card";
 import { getDictionary, isLocale } from "@/lib/i18n";
 import { galleryPhotoIds, photos } from "@/lib/photos";
+import { featuredTestimonialIds } from "@/lib/testimonials";
 import { Pictogram, categoryIcons, featureIcons } from "@/components/pictogram";
 
 type LocaleHomePageProps = { params: Promise<{ locale: string }> };
@@ -160,6 +162,31 @@ async function LocaleHomePageContent({
         <Link href={`/${locale}/credits`} className="mt-4 inline-flex gap-1 text-xs text-slate-400 hover:text-slate-200">
           {messages.photos.creditsLink} <span aria-hidden="true">→</span>
         </Link>
+      </section>
+
+      <section className="mt-20">
+        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div className="max-w-2xl">
+            <p className="text-sm font-medium uppercase tracking-[0.2em] text-emerald-300">{messages.testimonials.eyebrow}</p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+              {messages.testimonials.homeHeading}
+            </h2>
+          </div>
+          <Link
+            href={`/${locale}/testimonials`}
+            className="inline-flex shrink-0 gap-1 text-sm font-medium text-emerald-300 transition hover:text-emerald-200"
+          >
+            {messages.testimonials.readAll} <span aria-hidden="true">→</span>
+          </Link>
+        </div>
+        <ul className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {featuredTestimonialIds.map((id) => (
+            <li key={id} className="flex">
+              <TestimonialCard id={id} messages={messages} />
+            </li>
+          ))}
+        </ul>
+        <p className="mt-4 text-xs text-slate-500">{messages.testimonials.disclaimer}</p>
       </section>
 
       <section className="mt-20 grid gap-8 lg:grid-cols-3">

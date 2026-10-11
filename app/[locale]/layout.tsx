@@ -74,6 +74,7 @@ async function LocaleLayoutContent({
             <Link href={`/${locale}/marketplace`} className="transition hover:text-white">{messages.nav.marketplace}</Link>
             <Link href={`/${locale}/visa-guide`} className="transition hover:text-white">{messages.nav.guide}</Link>
             <Link href={`/${locale}/business`} className="transition hover:text-white">{messages.nav.business}</Link>
+            <Link href={`/${locale}/testimonials`} className="transition hover:text-white">{messages.nav.testimonials}</Link>
           </nav>
 
           <div className="flex items-center gap-3">
@@ -100,6 +101,7 @@ async function LocaleLayoutContent({
             <Link href={`/${locale}/services`} className="hover:text-white">{messages.nav.services}</Link>
             <Link href={`/${locale}/marketplace`} className="hover:text-white">{messages.nav.marketplace}</Link>
             <Link href={`/${locale}/visa-guide`} className="hover:text-white">{messages.nav.guide}</Link>
+            <Link href={`/${locale}/testimonials`} className="hover:text-white">{messages.nav.testimonials}</Link>
             <Link href={`/${locale}/credits`} className="hover:text-white">{messages.photos.creditsLink}</Link>
           </div>
         </div>
