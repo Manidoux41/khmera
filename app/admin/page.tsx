@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
-import { logoutAction } from "@/app/admin/actions";
+import { LogoutButton } from "@/app/admin/logout-button";
 import { RouteSkeleton } from "@/components/route-skeleton";
 import { adminHref } from "@/lib/admin/config";
 import { getCurrentAdmin } from "@/lib/admin/session";
@@ -97,11 +97,7 @@ async function AdminDashboard({ searchParams }: { searchParams: SearchParams }) 
             Connecté en tant que <span className="text-slate-200">{admin.name}</span> ({admin.email})
           </p>
         </div>
-        <form action={logoutAction}>
-          <button type="submit" className="rounded-full border border-slate-700 px-4 py-2 text-sm text-slate-200 transition hover:border-slate-500 hover:text-white">
-            Se déconnecter
-          </button>
-        </form>
+        <LogoutButton loginHref={adminHref("/login")} />
       </div>
 
       <dl className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
