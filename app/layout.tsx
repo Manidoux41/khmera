@@ -18,6 +18,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: siteUrl,
   icons: { icon: "/khmera-mark.svg", apple: "/khmera-mark.svg" },
+  verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

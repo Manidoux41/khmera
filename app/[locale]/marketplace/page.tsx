@@ -4,6 +4,7 @@ import { Suspense } from "react";
 
 import { CreditedPhoto } from "@/components/credited-photo";
 import { RouteSkeleton } from "@/components/route-skeleton";
+import { PageSeo } from "@/components/page-seo";
 import { getDictionary, isLocale, listingSlugs } from "@/lib/i18n";
 import { listingPhotoIds, photos } from "@/lib/photos";
 import { Pictogram, listingIcons } from "@/components/pictogram";
@@ -32,6 +33,7 @@ async function MarketplacePageContent({
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+      <PageSeo locale={locale} route={{ page: "marketplace" }} />
       <div className="mb-10 max-w-2xl">
         <p className="text-sm uppercase tracking-[0.2em] text-emerald-300">{messages.pageTitles.marketplace}</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-white">{messages.marketplace.heading}</h1>

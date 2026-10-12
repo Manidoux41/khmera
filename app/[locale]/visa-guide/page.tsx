@@ -3,6 +3,7 @@ import { Suspense } from "react";
 
 import { CreditedPhoto } from "@/components/credited-photo";
 import { RouteSkeleton } from "@/components/route-skeleton";
+import { PageSeo } from "@/components/page-seo";
 import { getDictionary, isLocale } from "@/lib/i18n";
 import { photos } from "@/lib/photos";
 import { Pictogram } from "@/components/pictogram";
@@ -31,6 +32,7 @@ async function VisaGuidePageContent({
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
+      <PageSeo locale={locale} route={{ page: "guide" }} />
       <CreditedPhoto
         photo={photos["royal-palace"]}
         alt={messages.photos.alt["royal-palace"]}

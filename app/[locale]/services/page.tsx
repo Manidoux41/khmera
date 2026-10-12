@@ -4,6 +4,7 @@ import { Suspense } from "react";
 
 import { CreditedPhoto } from "@/components/credited-photo";
 import { RouteSkeleton } from "@/components/route-skeleton";
+import { PageSeo } from "@/components/page-seo";
 import { ServiceOffers } from "@/components/service-offers";
 import { getDictionary, isLocale } from "@/lib/i18n";
 import { photos } from "@/lib/photos";
@@ -33,6 +34,7 @@ async function ServicesPageContent({
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+      <PageSeo locale={locale} route={{ page: "services" }} />
       <CreditedPhoto
         photo={photos["street-food"]}
         alt={messages.photos.alt["street-food"]}

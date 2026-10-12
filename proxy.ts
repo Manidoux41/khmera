@@ -12,11 +12,15 @@ export function proxy(request: NextRequest) {
   if (pathname === adminBasePath || pathname.startsWith(`${adminBasePath}/`)) {
     const url = request.nextUrl.clone();
     url.pathname = `${internalAdminPath}${pathname.slice(adminBasePath.length)}`;
-    return NextResponse.rewrite(url);
+    const response = NextResponse.rewrite(url);
+    response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
+    return response;
   }
 
   if (pathname.startsWith("/api/")) {
-    return NextResponse.next();
+    const response = NextResponse.next();
+    response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
+    return response;
   }
 
   if (pathname === "/") {

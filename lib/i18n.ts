@@ -25,6 +25,15 @@ type Category = { title: string; description: string };
 type Feature = { title: string; text: string };
 
 type Dictionary = {
+  seo: {
+    home: { title: string; description: string };
+    services: { title: string; description: string };
+    guide: { title: string; description: string };
+    business: { title: string; description: string };
+    marketplace: { title: string; description: string };
+    testimonials: { title: string; description: string };
+    credits: { title: string; description: string };
+  };
   commerce: {
     email: {
       greeting: string;
@@ -165,6 +174,15 @@ type Dictionary = {
 
 export const dictionaries: Record<Locale, Dictionary> = {
   en: {
+    seo: {
+      home: { title: "Cambodia relocation, business & travel planning", description: "Prepare your move, business project or discovery trip in Cambodia with KHMERA. Explore guidance packages for Phnom Penh, Siem Reap and beyond." },
+      services: { title: "Cambodia guidance packages & prices", description: "Compare KHMERA's Cambodia diagnostic, relocation, business and discovery trip packages. Clear fees, personalised plans and requests subject to a written quote." },
+      guide: { title: "Cambodia visa guide: preparing your move", description: "Plan your Cambodia visa preparation: identify your visa type, collect documents and review arrival steps. Explore KHMERA's relocation guidance." },
+      business: { title: "Preparing a business project in Cambodia", description: "Prepare your Cambodia business project with a personalised launch plan. Review your budget and questions to validate with local professionals." },
+      marketplace: { title: "Cambodia marketplace: illustrative listings", description: "Explore example housing, business, relocation and transport listings in Cambodia. These illustrative offers cannot be booked on KHMERA." },
+      testimonials: { title: "Illustrative Cambodia journeys", description: "Read fictional examples of relocation, business and travel journeys with KHMERA. These scenarios are illustrations, not verified customer reviews." },
+      credits: { title: "Cambodia photos: sources & licence credits", description: "Find the authors, sources and Creative Commons licences for the Cambodia photos used by KHMERA, from Phnom Penh to Siem Reap." },
+    },
     commerce: {
       email: {
         greeting: "Hello KHMERA,",
@@ -453,6 +471,15 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
   },
   fr: {
+    seo: {
+      home: { title: "Cambodge : installation, business et préparation de voyage", description: "Préparez votre installation, votre projet business ou votre voyage au Cambodge avec KHMERA. Découvrez nos offres pour Phnom Penh, Siem Reap et ailleurs." },
+      services: { title: "Accompagnement au Cambodge : offres et tarifs", description: "Comparez les offres KHMERA : diagnostic, installation, projet business et voyage découverte. Tarifs clairs et plans personnalisés, sous réserve de devis." },
+      guide: { title: "Guide visa Cambodge : préparer son installation", description: "Préparez vos démarches de visa au Cambodge : type de visa, documents et étapes d'arrivée. Découvrez l'accompagnement à l'installation de KHMERA." },
+      business: { title: "Préparer un projet d'entreprise au Cambodge", description: "Préparez votre projet business au Cambodge avec un plan de lancement personnalisé : budget, besoins et points à valider avec des professionnels locaux." },
+      marketplace: { title: "Marché Cambodge : annonces illustratives", description: "Découvrez des exemples d'offres de logement, création d'entreprise, installation et transport au Cambodge. Ces annonces ne sont pas réservables sur KHMERA." },
+      testimonials: { title: "Exemples fictifs de parcours au Cambodge", description: "Découvrez des récits fictifs d'installation, de business et de voyage avec KHMERA. Ces illustrations ne sont pas des avis clients vérifiés." },
+      credits: { title: "Photos du Cambodge : sources et crédits", description: "Retrouvez les auteurs, sources et licences Creative Commons des photos du Cambodge utilisées par KHMERA, de Phnom Penh à Siem Reap." },
+    },
     commerce: {
       email: {
         greeting: "Bonjour KHMERA,",
@@ -741,6 +768,15 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
   },
   es: {
+    seo: {
+      home: { title: "Camboya: traslado, negocios y planificación de viajes", description: "Prepara tu traslado, proyecto empresarial o viaje a Camboya con KHMERA. Descubre paquetes de orientación para Phnom Penh, Siem Reap y otros destinos." },
+      services: { title: "Orientación en Camboya: paquetes y precios", description: "Compara los paquetes KHMERA de diagnóstico, traslado, negocios y viaje de descubrimiento. Precios claros y planes personalizados, sujetos a presupuesto." },
+      guide: { title: "Guía de visado de Camboya: preparar tu traslado", description: "Prepara los trámites de visado de Camboya: tipo de visado, documentos y pasos de llegada. Descubre la orientación de KHMERA para instalarte." },
+      business: { title: "Preparar un proyecto empresarial en Camboya", description: "Prepara tu negocio en Camboya con un plan de lanzamiento personalizado: presupuesto, necesidades y cuestiones para validar con profesionales locales." },
+      marketplace: { title: "Mercado de Camboya: anuncios ilustrativos", description: "Descubre ejemplos de vivienda, negocios, traslado y transporte en Camboya. Estas ofertas ilustrativas no se pueden reservar en KHMERA." },
+      testimonials: { title: "Historias ficticias de proyectos en Camboya", description: "Lee ejemplos ficticios de traslado, negocios y viajes con KHMERA. Son ilustraciones, no opiniones verificadas de clientes." },
+      credits: { title: "Fotos de Camboya: fuentes y licencias", description: "Consulta autores, fuentes y licencias Creative Commons de las fotos de Camboya utilizadas por KHMERA, desde Phnom Penh hasta Siem Reap." },
+    },
     commerce: {
       email: {
         greeting: "Hola KHMERA:",
@@ -1029,6 +1065,15 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
   },
   de: {
+    seo: {
+      home: { title: "Kambodscha: Umzug, Geschäft und Reiseplanung", description: "Bereiten Sie Ihren Umzug, Ihr Geschäftsprojekt oder Ihre Reise nach Kambodscha mit KHMERA vor. Beratungspakete für Phnom Penh, Siem Reap und weitere Ziele." },
+      services: { title: "Kambodscha-Beratung: Pakete und Preise", description: "Vergleichen Sie KHMERA-Pakete für Erstberatung, Umzug, Geschäftsprojekt und Entdeckungsreise. Klare Honorare und persönliche Pläne, vorbehaltlich Angebot." },
+      guide: { title: "Kambodscha-Visumguide: Umzug vorbereiten", description: "Planen Sie Ihre Visumvorbereitung für Kambodscha: Visumtyp, Unterlagen und Ankunftsschritte. Entdecken Sie die Umzugsbegleitung von KHMERA." },
+      business: { title: "Ein Geschäftsprojekt in Kambodscha vorbereiten", description: "Bereiten Sie Ihr Geschäftsprojekt in Kambodscha mit einem persönlichen Startplan vor: Budget, Bedarf und Fragen für qualifizierte Fachleute vor Ort." },
+      marketplace: { title: "Kambodscha-Marktplatz: Beispielangebote", description: "Entdecken Sie Beispielangebote für Wohnung, Geschäft, Umzug und Transport in Kambodscha. Diese Angebote sind bei KHMERA nicht buchbar." },
+      testimonials: { title: "Fiktive Projektgeschichten aus Kambodscha", description: "Lesen Sie fiktive Beispiele für Umzug, Geschäft und Reisen mit KHMERA. Diese Illustrationen sind keine verifizierten Kundenbewertungen." },
+      credits: { title: "Kambodscha-Fotos: Quellen und Bildnachweise", description: "Hier finden Sie Urheber, Quellen und Creative-Commons-Lizenzen der Kambodscha-Fotos bei KHMERA, von Phnom Penh bis Siem Reap." },
+    },
     commerce: {
       email: {
         greeting: "Guten Tag KHMERA,",

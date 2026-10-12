@@ -4,6 +4,7 @@ import { Suspense } from "react";
 
 import { CreditedPhoto } from "@/components/credited-photo";
 import { RouteSkeleton } from "@/components/route-skeleton";
+import { PageSeo } from "@/components/page-seo";
 import { getDictionary, isLocale, listingSlugs } from "@/lib/i18n";
 import { listingPhotoIds, photos } from "@/lib/photos";
 
@@ -36,6 +37,7 @@ async function ListingContent({ params }: ListingPageProps) {
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
+      <PageSeo locale={locale} route={{ page: "listing", slug: listingSlugs[index] }} />
       <Link href={`/${locale}/marketplace`} className="text-sm font-medium text-emerald-300 hover:text-emerald-200">
         {messages.marketplace.back}
       </Link>

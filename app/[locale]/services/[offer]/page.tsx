@@ -4,6 +4,7 @@ import { Suspense } from "react";
 
 import { BookingRequestForm } from "@/components/booking-request-form";
 import { RouteSkeleton } from "@/components/route-skeleton";
+import { PageSeo } from "@/components/page-seo";
 import { getDictionary, isLocale } from "@/lib/i18n";
 import { formatOfferPrice, getOffer, offerSlugs } from "@/lib/services/offers";
 
@@ -26,6 +27,7 @@ async function OfferContent({ params }: OfferPageProps) {
   const item = copy.offers[offer.slug];
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+      <PageSeo locale={locale} route={{ page: "offer", slug: offer.slug }} />
       <Link href={`/${locale}/services`} className="text-sm text-emerald-300 hover:text-emerald-200">{copy.back}</Link>
       <div className="mt-8 grid items-start gap-10 lg:grid-cols-2">
         <div>

@@ -5,6 +5,7 @@ import { Suspense } from "react";
 
 import { CreditedPhoto } from "@/components/credited-photo";
 import { RouteSkeleton } from "@/components/route-skeleton";
+import { PageSeo } from "@/components/page-seo";
 import { ServiceOffers } from "@/components/service-offers";
 import { TestimonialCard } from "@/components/testimonial-card";
 import { getDictionary, isLocale } from "@/lib/i18n";
@@ -35,6 +36,7 @@ async function LocaleHomePageContent({
 
   return (
     <div className="mx-auto max-w-7xl px-4 pb-20 pt-12 sm:px-6 lg:px-8">
+      <PageSeo locale={locale} route={{ page: "home" }} />
       <section className="journey-hero overflow-hidden rounded-[2rem] border border-slate-700/60">
         <div className="grid gap-10 px-6 py-10 sm:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:px-12 lg:py-14">
           <div className="space-y-7">

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 import { RouteSkeleton } from "@/components/route-skeleton";
+import { PageSeo } from "@/components/page-seo";
 import { getDictionary, isLocale } from "@/lib/i18n";
 import { photoIds, photos } from "@/lib/photos";
 
@@ -27,6 +28,7 @@ async function CreditsPageContent({ params }: CreditsPageProps) {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+      <PageSeo locale={locale} route={{ page: "credits" }} />
       <div className="mb-10 max-w-2xl">
         <p className="text-sm uppercase tracking-[0.2em] text-emerald-300">{messages.site.name}</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-white">{messages.photos.creditsHeading}</h1>

@@ -23,9 +23,11 @@ above a shared layout cannot handle content suspending below it during a transit
 Keep parameter-dependent rendering inside these boundaries when adding routes.
 Do not read `params` in `generateMetadata()`: with partial prefetching the
 `/[locale]` App Shell is shared by every locale, so URL data in metadata blocks it.
-Locale-independent metadata (hreflang alternates, icons) is a static `metadata`
-export; the localized `<title>`, description and canonical link are rendered by
-`LocaleHead` inside the layout's Suspense boundary and hoisted into `<head>` by React.
+Locale-independent metadata (icons, verification) is a static `metadata`
+export; page-specific titles, descriptions, canonical and hreflang links are
+rendered by `PageSeo` inside each page's Suspense boundary and hoisted into
+`<head>` by React. Keep this component at the page level, not in a shared layout,
+so navigation between pages updates the tags without duplicate home-page metadata.
 The root layout therefore defines no title, to avoid duplicate `<title>` tags.
 Root paths containing a dot (`/sw.js`, `/apple-touch-icon.png`…) that match no
 public file are rewritten by an `afterFiles` rule in `next.config.ts` to the
@@ -132,6 +134,57 @@ an appropriately configured payment provider, webhook verification and agreed
 commercial/privacy terms. Do not use process-memory mocks to accept real orders
 on Vercel. Run `node --test tests/*.test.mjs` to validate catalog consistency,
 mail links and translation coverage.
+
+## SEO and search engine indexing
+
+The canonical production origin defaults to `https://khmera.vercel.app`.
+Set `NEXT_PUBLIC_SITE_URL` to your public origin (e.g. `https://khmera.com`, no
+path/query/fragment) when moving to a custom domain, then rebuild/redeploy.
+Do not use a Vercel preview URL as the canonical origin.
+
+- `lib/seo.ts` centralizes URLs, alternate languages, indexable paths and JSON-LD.
+- `components/page-seo.tsx` renders unique, translated page titles and descriptions,
+  self-canonical URLs, reciprocal EN/FR/ES/DE and `x-default` alternates, Open Graph
+  and Twitter cards with an existing credited Cambodia image.
+- `app/sitemap.ts` lists the 36 indexable localized pages: home, services, visa
+  guide, business, photo credits and four packages. Each entry includes language
+  alternates. No fabricated `lastModified` timestamps or private routes.
+- `app/robots.ts` publishes `/robots.txt` with the canonical sitemap URL and
+  excludes APIs/internal admin paths. The secret admin URL is not disclosed there.
+  Admin/API responses additionally carry `X-Robots-Tag: noindex, nofollow, noarchive`.
+- Vercel preview/development deployments use noindex metadata, block crawlers
+  in robots.txt and publish an empty sitemap.
+- Marketplace examples and fictional testimonials are `noindex, follow`, absent
+  from the sitemap, and have no structured data. Replace these with genuine
+  validated content before changing their indexing policy.
+- Public pages provide `Organization`, `WebSite`, `WebPage` and breadcrumb JSON-LD.
+  Package details additionally provide `Service`/`Offer`, with actual proposed
+  USD fees and quote conditions. No invented ratings, customer reviews, office
+  address, accreditation or guaranteed availability is included.
+
+After production deployment:
+
+1. Verify `/robots.txt`, `/sitemap.xml` and the final canonical hostname.
+2. Add the site in Google Search Console (and optionally Bing Webmaster Tools).
+   Verify domain ownership with DNS, or set `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`
+   to the Google HTML-tag verification value and redeploy for a URL-prefix
+   property. Never supply an entire HTML tag as the variable value.
+3. Submit `https://<your-domain>/sitemap.xml` in Search Console and inspect/request
+   indexing for the homepage and package URLs.
+4. Validate schema with Google's Rich Results Test or Schema.org's validator.
+   Service schema is descriptive; it does not guarantee a Google rich result.
+5. Publish original useful Cambodia guidance and real service/customer information;
+   acquire legitimate mentions/links and monitor indexing, queries and Core Web Vitals.
+
+These changes make the site crawlable and describe its pages accurately. They
+do not submit it to Google automatically or guarantee indexing, ranking or traffic.
+No Search Console registration or production deployment is performed by these edits.
+Run `node --test tests/*.test.mjs` for SEO and translation regression tests.
+For rendered HTML checks, start a production build locally, then run
+`SEO_TEST_BASE_URL=http://127.0.0.1:3100 node --test tests/seo.test.mjs`
+(adjust the port). This checks all 60 public localized URLs, single head tags,
+same-page language alternates, JSON-LD and admin/API noindex headers. Run against
+the default canonical-origin configuration and default admin access path.
 
 ## Photos
 

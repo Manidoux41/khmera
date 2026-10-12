@@ -1,36 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
-import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { RouteSkeleton } from "@/components/route-skeleton";
 import { getDictionary, isLocale, locales } from "@/lib/i18n";
-import { siteUrl } from "@/lib/site";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
-}
-
-// Static so the shared /[locale] App Shell (and its metadata) stays prefetchable.
-// Locale-dependent tags are rendered by LocaleHead and hoisted into <head> by React.
-export const metadata: Metadata = {
-  alternates: {
-    languages: Object.fromEntries(locales.map((locale) => [locale, `/${locale}`])),
-  },
-};
-
-function LocaleHead({ locale }: { locale: string }) {
-  const messages = getDictionary(locale);
-
-  return (
-    <>
-      <title>{`${messages.site.name} · ${messages.site.tagline}`}</title>
-      <meta name="description" content={messages.site.description} />
-      <link rel="canonical" href={new URL(`/${locale}`, siteUrl).toString()} />
-    </>
-  );
 }
 
 type LocaleLayoutProps = {
@@ -60,7 +38,6 @@ async function LocaleLayoutContent({
 
   return (
     <div lang={locale} className="brand-shell min-h-screen text-slate-100">
-      <LocaleHead locale={locale} />
       <header className="sticky top-0 z-50 border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-8">
           <Link href={`/${locale}`} className="flex items-center gap-2 text-lg font-bold tracking-[0.14em] text-white">

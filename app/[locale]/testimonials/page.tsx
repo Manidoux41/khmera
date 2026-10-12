@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 import { RouteSkeleton } from "@/components/route-skeleton";
+import { PageSeo } from "@/components/page-seo";
 import { TestimonialCard } from "@/components/testimonial-card";
 import { getDictionary, isLocale } from "@/lib/i18n";
 import { testimonialIds } from "@/lib/testimonials";
@@ -29,6 +30,7 @@ async function TestimonialsPageContent({ params }: TestimonialsPageProps) {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <PageSeo locale={locale} route={{ page: "testimonials" }} />
       <div className="mb-12 max-w-3xl">
         <p className="text-sm uppercase tracking-[0.2em] text-emerald-300">{copy.eyebrow}</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-white sm:text-5xl">{copy.heading}</h1>
