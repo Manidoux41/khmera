@@ -1,6 +1,7 @@
 import { defaultLocale, getDictionary, listingSlugs, locales, type Locale, type Messages } from "@/lib/i18n";
 import { getOffer, offerSlugs } from "@/lib/services/offers";
 import { isIndexableDeployment, siteUrl } from "@/lib/site";
+import { getPublishedPost, publishedPosts } from "@/lib/blog/posts";
 
 export const pagePaths = {
   home: "",
@@ -10,12 +11,14 @@ export const pagePaths = {
   marketplace: "/marketplace",
   testimonials: "/testimonials",
   credits: "/credits",
+  blog: "/blog",
 } as const;
 
 type PageKey = keyof typeof pagePaths;
 export type SeoPage =
   | { page: PageKey }
   | { page: "offer"; slug: (typeof offerSlugs)[number] }
+  | { page: "article"; slug: string }
   | { page: "listing"; slug: (typeof listingSlugs)[number] };
 
 export function localizedUrl(locale: Locale, path: string) {
@@ -36,13 +39,19 @@ export const indexablePaths = [
   pagePaths.business,
   pagePaths.credits,
   ...offerSlugs.map((slug) => `/services/${slug}`),
+  ...(publishedPosts.length ? ["/blog", ...publishedPosts.map((post) => `/blog/${post.slug}`)] : []),
 ];
 
 export function getPageSeo(locale: Locale, route: SeoPage) {
   const messages = getDictionary(locale);
   let path: string;
   let copy: { title: string; description: string };
-  if (route.page === "offer") {
+  if (route.page === "article") {
+    const post = getPublishedPost(route.slug);
+    if (!post) throw new Error(`Unpublished blog article: ${route.slug}`);
+    path = `/blog/${post.slug}`;
+    copy = { title: post.translations[locale].title, description: post.translations[locale].excerpt };
+  } else if (route.page === "offer") {
     path = `/services/${route.slug}`;
     const offer = messages.commerce.offers[route.slug];
     copy = { title: offer.name, description: offer.summary };
@@ -104,6 +113,7 @@ export function pageStructuredData(locale: Locale, route: SeoPage) {
   if (route.page !== "home") {
     const crumbs = [{ name: messages.nav.home, url: localizedUrl(locale, "") }];
     if (route.page === "offer") crumbs.push({ name: messages.nav.services, url: localizedUrl(locale, "/services") });
+    if (route.page === "article") crumbs.push({ name: messages.blog.title, url: localizedUrl(locale, "/blog") });
     crumbs.push({ name: seo.title.replace(" | KHMERA", ""), url: seo.canonical });
     graph.push({
       "@type": "BreadcrumbList",
@@ -117,6 +127,24 @@ export function pageStructuredData(locale: Locale, route: SeoPage) {
     });
   }
 
+  if (route.page === "article") {
+    const post = getPublishedPost(route.slug);
+    if (!post) throw new Error(`Unpublished blog article: ${route.slug}`);
+    const articleId = `${seo.canonical}#article`;
+    graph[2].mainEntity = { "@id": articleId };
+    graph.push({
+      "@type": "BlogPosting",
+      "@id": articleId,
+      headline: post.translations[locale].title,
+      description: post.translations[locale].excerpt,
+      articleBody: post.translations[locale].body,
+      inLanguage: locale,
+      author: { "@type": "Person", name: post.author },
+      publisher: { "@id": organizationId },
+      mainEntityOfPage: { "@id": pageId },
+      url: seo.canonical,
+    });
+  }
   if (route.page === "offer") {
     const offer = getOffer(route.slug);
     if (!offer) throw new Error(`Unknown service offer: ${route.slug}`);

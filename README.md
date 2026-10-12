@@ -180,11 +180,42 @@ These changes make the site crawlable and describe its pages accurately. They
 do not submit it to Google automatically or guarantee indexing, ranking or traffic.
 No Search Console registration or production deployment is performed by these edits.
 Run `node --test tests/*.test.mjs` for SEO and translation regression tests.
+The empty blog is also `noindex` until a real article is published. Published blog
+pages and articles are added to the sitemap automatically at build time.
 For rendered HTML checks, start a production build locally, then run
 `SEO_TEST_BASE_URL=http://127.0.0.1:3100 node --test tests/seo.test.mjs`
-(adjust the port). This checks all 60 public localized URLs, single head tags,
+(adjust the port). This checks all 64 public localized URLs, single head tags,
 same-page language alternates, JSON-LD and admin/API noindex headers. Run against
 the default canonical-origin configuration and default admin access path.
+
+## Blog and founder story
+
+`/{locale}/blog` is linked in the header and footer in all four languages.
+The first article, "How we ended up in Siem Reap", starts as a **private draft**
+in `lib/blog/founder-story.json`. Only its proposed title and summary exist;
+the creator's personal story has not been invented. Public visitors see a
+coming-soon message, not the draft, and the article URL returns not-found.
+
+In the admin dashboard, use **Blog → Modifier et prévisualiser l'article**,
+or the secret admin path followed by `/blog`. The editor is session-protected.
+It edits author, title, summary and plain-text paragraphs for EN/FR/ES/DE, with
+a live preview and JSON download. HTML is rendered as text, never executed.
+Nothing is autosaved, stored in a database or published by this editor.
+Export before closing/reloading the tab to avoid losing changes.
+
+To integrate an export:
+
+1. Download `founder-story.json` from the editor.
+2. Replace `lib/blog/founder-story.json` with that file in the project.
+3. Keep `status: "draft"` while preparing the story. To publish, complete the
+   real story and all translations, then select the publication-prepared status
+   and export (`status: "published"`). This does not translate text automatically.
+4. Run tests and build, commit/push and redeploy. Only then will the article appear
+   at `/{locale}/blog/notre-arrivee-a-siem-reap`, with canonical/hreflang tags,
+   BlogPosting metadata and a sitemap entry. No fabricated publication date is used.
+
+There is no remote save API or durable content-management system yet. Publication
+requires integrating the export into the project; the editor explicitly says so.
 
 ## Photos
 

@@ -22,6 +22,8 @@ function load(path, dependencies = {}, env = {}) {
 
 const i18n = load("lib/i18n.ts");
 const offers = load("lib/services/offers.ts");
+const founderStory = JSON.parse(readFileSync(new URL("../lib/blog/founder-story.json", import.meta.url), "utf8"));
+const blog = load("lib/blog/posts.ts", { "./founder-story.json": { default: founderStory } });
 
 function setup(env = {}) {
   const site = load("lib/site.ts", {}, env);
@@ -29,6 +31,7 @@ function setup(env = {}) {
     "@/lib/i18n": i18n,
     "@/lib/services/offers": offers,
     "@/lib/site": site,
+    "@/lib/blog/posts": blog,
   });
   const dependencies = { "@/lib/seo": seo, "@/lib/site": site, "@/lib/i18n": i18n };
   return {
@@ -43,6 +46,45 @@ test("canonical origin defaults to the live domain and accepts a custom origin",
   assert.equal(setup({ NEXT_PUBLIC_SITE_URL: " https://khmera.test " }).site.siteUrl.origin, "https://khmera.test");
   for (const value of ["not-a-url", "ftp://khmera.test", "https://user:pass@khmera.test", "https://khmera.test/fr", "https://khmera.test?preview=1", "https://khmera.test/#fragment"]) {
     assert.throws(() => setup({ NEXT_PUBLIC_SITE_URL: value }));
+  }
+});
+
+test("founder draft is private and exports round-trip without inventing a story", () => {
+  assert.equal(blog.blogPosts[0].status, "draft");
+  assert.equal(blog.publishedPosts.length, 0);
+  assert.equal(blog.getPublishedPost(founderStory.slug), undefined);
+  for (const translation of Object.values(founderStory.translations)) assert.equal(translation.body, "");
+  assert.deepEqual(JSON.parse(blog.serializeBlogPost(blog.blogPosts[0])), founderStory);
+  const edited = structuredClone(founderStory);
+  edited.translations.fr.body = "Notre récit réel.\n\nUn second paragraphe.";
+  assert.equal(JSON.parse(blog.serializeBlogPost(edited)).translations.fr.body, edited.translations.fr.body);
+  edited.status = "published";
+  assert.throws(() => blog.serializeBlogPost(edited), /Complétez le récit/);
+  for (const translation of Object.values(edited.translations)) translation.body = "A real story supplied by the author.";
+  assert.equal(blog.validateBlogPost(edited), null);
+  assert.equal(JSON.parse(blog.serializeBlogPost(edited)).status, "published");
+});
+
+test("published founder article gains blog routes and accurate structured data", () => {
+  const published = structuredClone(founderStory);
+  published.status = "published";
+  for (const translation of Object.values(published.translations)) translation.body = "The author's verified account.";
+  const publishedBlog = load("lib/blog/posts.ts", { "./founder-story.json": { default: published } });
+  const seo = load("lib/seo.ts", {
+    "@/lib/i18n": i18n,
+    "@/lib/services/offers": offers,
+    "@/lib/site": setup().site,
+    "@/lib/blog/posts": publishedBlog,
+  });
+  assert.ok(seo.indexablePaths.includes("/blog"));
+  assert.ok(seo.indexablePaths.includes(`/blog/${published.slug}`));
+  for (const locale of i18n.locales) {
+    const route = { page: "article", slug: published.slug };
+    assert.equal(seo.getPageSeo(locale, route).index, true);
+    const article = seo.pageStructuredData(locale, route)["@graph"].find((item) => item["@type"] === "BlogPosting");
+    assert.equal(article.author.name, published.author);
+    assert.equal(article.articleBody, published.translations[locale].body);
+    assert.equal(article.datePublished, undefined);
   }
 });
 
@@ -68,7 +110,7 @@ test("every page has unique localized SEO and reciprocal same-page alternates", 
         assert.deepEqual(seo.getPageSeo(alternate, route).alternates, metadata.alternates);
       }
       assert.equal(metadata.alternates["x-default"], metadata.alternates.en);
-      assert.equal(metadata.index, !["marketplace", "listing", "testimonials"].includes(route.page));
+      assert.equal(metadata.index, !["marketplace", "listing", "testimonials", "blog"].includes(route.page));
     }
   }
 });

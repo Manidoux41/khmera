@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
 import { LogoutButton } from "@/app/admin/logout-button";
+import { blogPosts } from "@/lib/blog/posts";
 import { RouteSkeleton } from "@/components/route-skeleton";
 import { adminHref } from "@/lib/admin/config";
 import { getCurrentAdmin } from "@/lib/admin/session";
@@ -116,6 +117,17 @@ async function AdminDashboard({ searchParams }: { searchParams: SearchParams }) 
           </div>
         ))}
       </dl>
+
+      <section className="mt-8 rounded-3xl border border-slate-700 bg-slate-900/60 p-6">
+        <h2 className="text-2xl font-semibold text-white">Blog</h2>
+        <p className="mt-4 text-lg text-slate-200">{blogPosts[0].translations.fr.title}</p>
+        <p className="mt-2 text-sm text-slate-400">
+          {blogPosts[0].status === "draft" ? "Brouillon privé — récit à compléter" : "Article publié"}
+          {" · "}Auteur : {blogPosts[0].author}
+        </p>
+        <p className="mt-3 text-sm leading-7 text-slate-300">Complétez le récit et ses traductions, consultez l&apos;aperçu et exportez le JSON. Les modifications ne sont pas sauvegardées sur le serveur.</p>
+        <Link href={adminHref("/blog")} className="mt-5 inline-flex rounded-full bg-emerald-500 px-5 py-3 text-sm font-medium text-white">Modifier et prévisualiser l&apos;article</Link>
+      </section>
 
       <section className="mt-8 rounded-3xl border border-emerald-500/30 bg-slate-900/60 p-6">
         <h2 className="text-2xl font-semibold text-white">Vos offres commerciales</h2>

@@ -1,0 +1,27 @@
+{
+  "slug": "notre-arrivee-a-siem-reap",
+  "status": "draft",
+  "author": "Manfred Parbatia",
+  "translations": {
+    "fr": {
+      "title": "Comment nous avons atterri à Siem Reap : l'histoire du créateur de Khmera",
+      "excerpt": "Le récit de notre arrivée à Siem Reap et de la naissance de Khmera, à compléter par son créateur.",
+      "body": ""
+    },
+    "en": {
+      "title": "How we ended up in Siem Reap: the story of KHMERA's founder",
+      "excerpt": "Our arrival in Siem Reap and the beginnings of KHMERA, to be completed by its founder.",
+      "body": ""
+    },
+    "es": {
+      "title": "Cómo llegamos a Siem Reap: la historia del creador de KHMERA",
+      "excerpt": "Nuestra llegada a Siem Reap y el nacimiento de KHMERA, un relato que completará su creador.",
+      "body": ""
+    },
+    "de": {
+      "title": "Wie wir nach Siem Reap kamen: die Geschichte des KHMERA-Gründers",
+      "excerpt": "Unsere Ankunft in Siem Reap und die Entstehung von KHMERA, vom Gründer noch zu vervollständigen.",
+      "body": ""
+    }
+  }
+}

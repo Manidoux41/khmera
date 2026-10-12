@@ -40,7 +40,7 @@ test("all locales have the same translation keys and non-empty text", () => {
 
 test("new page copy is translated rather than falling back to English", () => {
   for (const locale of locales.filter((locale) => locale !== "en")) {
-    for (const section of ["seo", "commerce", "home", "services", "marketplace", "visa", "business", "testimonials", "languageNames", "notFound"]) {
+    for (const section of ["blog", "seo", "commerce", "home", "services", "marketplace", "visa", "business", "testimonials", "languageNames", "notFound"]) {
       const english = new Map(leaves(dictionaries.en[section]));
       for (const [key, value] of leaves(dictionaries[locale][section])) {
         if (section === "home" && key === ".city") continue;
@@ -55,6 +55,8 @@ test("public components contain no hard-coded prose in JSX", () => {
   const paths = [
     "app/[locale]/page.tsx",
     "app/[locale]/services/page.tsx",
+    "app/[locale]/blog/page.tsx",
+    "app/[locale]/blog/[slug]/page.tsx",
     "app/[locale]/services/[offer]/page.tsx",
     "components/service-offers.tsx",
     "components/booking-request-form.tsx",

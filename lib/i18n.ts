@@ -25,7 +25,17 @@ type Category = { title: string; description: string };
 type Feature = { title: string; text: string };
 
 type Dictionary = {
+  blog: {
+    title: string;
+    description: string;
+    comingSoon: string;
+    draftNotice: string;
+    read: string;
+    back: string;
+    by: string;
+  };
   seo: {
+    blog: { title: string; description: string };
     home: { title: string; description: string };
     services: { title: string; description: string };
     guide: { title: string; description: string };
@@ -174,7 +184,17 @@ type Dictionary = {
 
 export const dictionaries: Record<Locale, Dictionary> = {
   en: {
+    blog: {
+      title: "Stories from Cambodia",
+      description: "The beginnings of KHMERA and stories about discovering Cambodia.",
+      comingSoon: "First story coming soon",
+      draftNotice: "The founder is preparing this story. It has not been published yet.",
+      read: "Read the story",
+      back: "Back to the blog",
+      by: "Written by",
+    },
     seo: {
+      blog: { title: "KHMERA blog: stories from Cambodia", description: "Discover the KHMERA blog. Its founder is preparing the first story about arriving in Siem Reap and creating the project." },
       home: { title: "Cambodia relocation, business & travel planning", description: "Prepare your move, business project or discovery trip in Cambodia with KHMERA. Explore guidance packages for Phnom Penh, Siem Reap and beyond." },
       services: { title: "Cambodia guidance packages & prices", description: "Compare KHMERA's Cambodia diagnostic, relocation, business and discovery trip packages. Clear fees, personalised plans and requests subject to a written quote." },
       guide: { title: "Cambodia visa guide: preparing your move", description: "Plan your Cambodia visa preparation: identify your visa type, collect documents and review arrival steps. Explore KHMERA's relocation guidance." },
@@ -471,7 +491,17 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
   },
   fr: {
+    blog: {
+      title: "Récits du Cambodge",
+      description: "Les origines de Khmera et des récits pour découvrir le Cambodge.",
+      comingSoon: "Premier récit à venir",
+      draftNotice: "Le créateur prépare ce récit. Il n'est pas encore publié.",
+      read: "Lire le récit",
+      back: "Retour au blog",
+      by: "Écrit par",
+    },
     seo: {
+      blog: { title: "Blog Khmera : récits du Cambodge", description: "Découvrez le blog Khmera. Son créateur prépare un premier récit sur son arrivée à Siem Reap et la naissance du projet." },
       home: { title: "Cambodge : installation, business et préparation de voyage", description: "Préparez votre installation, votre projet business ou votre voyage au Cambodge avec KHMERA. Découvrez nos offres pour Phnom Penh, Siem Reap et ailleurs." },
       services: { title: "Accompagnement au Cambodge : offres et tarifs", description: "Comparez les offres KHMERA : diagnostic, installation, projet business et voyage découverte. Tarifs clairs et plans personnalisés, sous réserve de devis." },
       guide: { title: "Guide visa Cambodge : préparer son installation", description: "Préparez vos démarches de visa au Cambodge : type de visa, documents et étapes d'arrivée. Découvrez l'accompagnement à l'installation de KHMERA." },
@@ -768,7 +798,17 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
   },
   es: {
+    blog: {
+      title: "Relatos de Camboya",
+      description: "Los orígenes de KHMERA y relatos para descubrir Camboya.",
+      comingSoon: "Primer relato próximamente",
+      draftNotice: "El creador está preparando este relato. Todavía no se ha publicado.",
+      read: "Leer el relato",
+      back: "Volver al blog",
+      by: "Escrito por",
+    },
     seo: {
+      blog: { title: "Blog KHMERA: relatos de Camboya", description: "Descubre el blog KHMERA. Su creador prepara el primer relato sobre su llegada a Siem Reap y el nacimiento del proyecto." },
       home: { title: "Camboya: traslado, negocios y planificación de viajes", description: "Prepara tu traslado, proyecto empresarial o viaje a Camboya con KHMERA. Descubre paquetes de orientación para Phnom Penh, Siem Reap y otros destinos." },
       services: { title: "Orientación en Camboya: paquetes y precios", description: "Compara los paquetes KHMERA de diagnóstico, traslado, negocios y viaje de descubrimiento. Precios claros y planes personalizados, sujetos a presupuesto." },
       guide: { title: "Guía de visado de Camboya: preparar tu traslado", description: "Prepara los trámites de visado de Camboya: tipo de visado, documentos y pasos de llegada. Descubre la orientación de KHMERA para instalarte." },
@@ -1065,7 +1105,17 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
   },
   de: {
+    blog: {
+      title: "Geschichten aus Kambodscha",
+      description: "Die Anfänge von KHMERA und Geschichten zum Entdecken Kambodschas.",
+      comingSoon: "Erste Geschichte folgt bald",
+      draftNotice: "Der Gründer bereitet diese Geschichte vor. Sie wurde noch nicht veröffentlicht.",
+      read: "Geschichte lesen",
+      back: "Zurück zum Blog",
+      by: "Geschrieben von",
+    },
     seo: {
+      blog: { title: "KHMERA-Blog: Geschichten aus Kambodscha", description: "Entdecken Sie den KHMERA-Blog. Der Gründer bereitet die erste Geschichte über seine Ankunft in Siem Reap und die Entstehung des Projekts vor." },
       home: { title: "Kambodscha: Umzug, Geschäft und Reiseplanung", description: "Bereiten Sie Ihren Umzug, Ihr Geschäftsprojekt oder Ihre Reise nach Kambodscha mit KHMERA vor. Beratungspakete für Phnom Penh, Siem Reap und weitere Ziele." },
       services: { title: "Kambodscha-Beratung: Pakete und Preise", description: "Vergleichen Sie KHMERA-Pakete für Erstberatung, Umzug, Geschäftsprojekt und Entdeckungsreise. Klare Honorare und persönliche Pläne, vorbehaltlich Angebot." },
       guide: { title: "Kambodscha-Visumguide: Umzug vorbereiten", description: "Planen Sie Ihre Visumvorbereitung für Kambodscha: Visumtyp, Unterlagen und Ankunftsschritte. Entdecken Sie die Umzugsbegleitung von KHMERA." },
