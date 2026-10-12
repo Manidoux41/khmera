@@ -1,5 +1,6 @@
 import type { PhotoId } from "./photos";
 import type { TestimonialId } from "./testimonials";
+import type { OfferSlug } from "./services/offers";
 
 export const locales = ["en", "fr", "es", "de"] as const;
 export type Locale = (typeof locales)[number];
@@ -24,6 +25,48 @@ type Category = { title: string; description: string };
 type Feature = { title: string; text: string };
 
 type Dictionary = {
+  commerce: {
+    email: {
+      greeting: string;
+      introduction: string;
+      offer: string;
+      price: string;
+      preferredDate: string;
+      language: string;
+      languageName: string;
+      closing: string;
+      subjectLabel: string;
+    };
+    eyebrow: string;
+    heading: string;
+    description: string;
+    pricingNote: string;
+    quoteLabel: string;
+    exclusions: string;
+    request: string;
+    included: string;
+    processHeading: string;
+    steps: string[];
+    back: string;
+    offers: Record<OfferSlug, { name: string; audience: string; summary: string; includes: string[] }>;
+    form: {
+      heading: string;
+      explanation: string;
+      name: string;
+      email: string;
+      city: string;
+      date: string;
+      project: string;
+      consent: string;
+      privacy: string;
+      prepare: string;
+      draftHeading: string;
+      draftNotice: string;
+      openEmail: string;
+      fallback: string;
+      subject: string;
+    };
+  };
   home: {
     nextMove: string;
     city: string;
@@ -122,6 +165,45 @@ type Dictionary = {
 
 export const dictionaries: Record<Locale, Dictionary> = {
   en: {
+    commerce: {
+      email: {
+        greeting: "Hello KHMERA,",
+        introduction: "I would like to request a written quote for the following package. Please confirm availability and the next steps.",
+        offer: "Requested package",
+        price: "Proposed fee (USD)",
+        preferredDate: "Preferred date",
+        language: "Preferred reply language",
+        languageName: "English",
+        closing: "Thank you. I look forward to your reply.",
+        subjectLabel: "Email subject",
+      },
+      eyebrow: "KHMERA launch packages",
+      heading: "A clear service. A clear price. Your Cambodia project.",
+      description: "Choose practical guidance for exploring Cambodia, planning your move or preparing a business. Phnom Penh, Siem Reap and beyond: start with remote consultations and a personalised written plan.",
+      pricingNote: "Proposed launch fees in USD, subject to a written quote. Availability, schedule, any applicable taxes and the final amount are confirmed before booking. No online payment or automatic reservation.",
+      quoteLabel: "Subject to a quote",
+      exclusions: "Guidance fees only. Visa and government fees, rent, flights, transport, accommodation, guides, admission tickets and third-party professionals are not included. Travellers make and pay for their own travel bookings. No visa approval, company registration or investment outcome is guaranteed. This is not legal or tax advice.",
+      request: "Request this package",
+      included: "What is included",
+      processHeading: "From your request to your service",
+      steps: ["Choose a package and prepare your request.", "Send the email; KHMERA discusses your needs and sends a written quote.", "Accept the quote and agree on payment and appointment arrangements before the service starts."],
+      back: "Compare all packages",
+      offers: {
+        "cambodia-diagnostic": { name: "Cambodia diagnostic", audience: "Travellers and first-time arrivals", summary: "Clarify your plans before committing to a trip or a move.", includes: ["One 45-minute remote consultation", "Review of your goals, destination and budget", "A personalised written roadmap after the call"] },
+        "settle-in": { name: "Settle in with confidence", audience: "Individuals, couples and families", summary: "Structure your relocation without committing blindly to housing or administrative steps.", includes: ["Two 45-minute remote consultations", "A personalised housing, budget and arrival checklist", "A written relocation plan and review at the second meeting"] },
+        "business-launch": { name: "Business project", audience: "Founders and independent professionals", summary: "Prepare your launch and identify questions to validate with qualified local professionals.", includes: ["Three 45-minute remote consultations", "Review of your idea, startup budget and operational needs", "A written launch plan with administrative questions to verify"] },
+        "discovery-trip": { name: "Discovery trip", audience: "Solo travellers, couples and families", summary: "Prepare a Cambodia discovery trip around your dates, interests and pace: Phnom Penh, Siem Reap, Angkor and your chosen stops. Trip planning only, not a booked tour.", includes: ["One 45-minute remote consultation about your travel plans", "A personalised written itinerary with sightseeing suggestions and travel times between stops", "An estimated trip budget and a departure checklist; you book and pay for travel services yourself"] },
+      },
+      form: {
+        heading: "Prepare your booking request",
+        explanation: "This form prepares an email, not a confirmed booking. You send it from your own mail app; KHMERA confirms the scope and quote with you.",
+        name: "Full name", email: "Your email", city: "Destination or city", date: "Preferred date (optional)", project: "Your project and expectations",
+        consent: "I understand the proposed fee and exclusions, and agree to send these details to KHMERA for a response to my request.",
+        privacy: "Nothing is saved to a database or sent automatically. Only the email you choose to send shares your details with KHMERA. Do not include passports, banking details or other sensitive documents.",
+        prepare: "Prepare my email", draftHeading: "Email ready to send", draftNotice: "Your request has NOT been sent. Open your mail app and send the email to submit it. No booking or payment is confirmed.",
+        openEmail: "Open my mail app", fallback: "No mail app configured? Copy this text into your email and send it to:", subject: "KHMERA booking request",
+      },
+    },
     home: {
       nextMove: "Next move",
       city: "Phnom Penh",
@@ -202,20 +284,20 @@ export const dictionaries: Record<Locale, Dictionary> = {
       business: "Business",
       testimonials: "Testimonials",
       login: "Member portal",
-      cta: "List a service",
+      cta: "View packages",
     },
     hero: {
       eyebrow: "Expat • Business • Travel",
       title: "Settle and grow with confidence in Cambodia.",
       description:
         "Find the trusted guidance, local services and business opportunities you need to move, work and thrive in Phnom Penh and beyond.",
-      primaryCta: "Explore opportunities",
+      primaryCta: "Compare packages and prices",
       secondaryCta: "Speak with an advisor",
     },
     stats: [
-      { value: "18k+", label: "expats guided" },
-      { value: "420+", label: "verified local partners" },
-      { value: "96%", label: "member satisfaction" },
+      { value: "$49", label: "Cambodia diagnostic" },
+      { value: "$249", label: "Relocation guidance" },
+      { value: "$399", label: "Business planning" },
     ],
     categories: [
       {
@@ -371,6 +453,45 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
   },
   fr: {
+    commerce: {
+      email: {
+        greeting: "Bonjour KHMERA,",
+        introduction: "Je souhaite recevoir un devis écrit pour l'offre suivante. Merci de me confirmer les disponibilités et les prochaines étapes.",
+        offer: "Offre demandée",
+        price: "Honoraires proposés (USD)",
+        preferredDate: "Date souhaitée",
+        language: "Langue de réponse souhaitée",
+        languageName: "Français",
+        closing: "Merci, dans l'attente de votre réponse.",
+        subjectLabel: "Objet de l'e-mail",
+      },
+      eyebrow: "Les offres de lancement KHMERA",
+      heading: "Une prestation claire. Un prix clair. Votre projet au Cambodge.",
+      description: "Choisissez un accompagnement concret pour découvrir le Cambodge, préparer votre installation ou lancer votre activité. Phnom Penh, Siem Reap et ailleurs : commencez par des rendez-vous à distance et un plan écrit personnalisé.",
+      pricingNote: "Honoraires de lancement proposés en dollars américains, sous réserve d'un devis écrit. Disponibilité, calendrier, taxes éventuelles et montant final sont confirmés avant réservation. Aucun paiement en ligne ni réservation automatique.",
+      quoteLabel: "Sous réserve de devis",
+      exclusions: "Honoraires d'accompagnement uniquement. Frais de visa et administratifs, loyers, vols, transports, hébergement, guides, entrées et professionnels tiers non inclus. Le voyageur effectue et règle lui-même ses réservations de voyage. Aucun visa, enregistrement de société ni résultat d'investissement garanti. Ce service ne constitue pas un conseil juridique ou fiscal.",
+      request: "Demander cette offre",
+      included: "Ce qui est inclus",
+      processHeading: "De votre demande à votre accompagnement",
+      steps: ["Choisissez une offre et préparez votre demande.", "Envoyez l'e-mail ; KHMERA échange avec vous et vous transmet un devis écrit.", "Acceptez le devis et convenez du paiement et des rendez-vous avant le début de la prestation."],
+      back: "Comparer toutes les offres",
+      offers: {
+        "cambodia-diagnostic": { name: "Diagnostic Cambodge", audience: "Voyageurs et futurs arrivants", summary: "Clarifiez votre projet avant de vous engager dans un séjour ou une installation.", includes: ["Un rendez-vous de 45 minutes à distance", "Un bilan de vos objectifs, de votre destination et de votre budget", "Une feuille de route écrite personnalisée après l'appel"] },
+        "settle-in": { name: "Installation sereine", audience: "Personnes seules, couples et familles", summary: "Organisez votre installation sans vous engager à l'aveugle dans un logement ou des démarches.", includes: ["Deux rendez-vous de 45 minutes à distance", "Une checklist personnalisée : logement, budget et arrivée", "Un plan d'installation écrit et un bilan au second rendez-vous"] },
+        "business-launch": { name: "Projet business", audience: "Entrepreneurs et indépendants", summary: "Préparez votre lancement et identifiez les points à valider avec des professionnels locaux qualifiés.", includes: ["Trois rendez-vous de 45 minutes à distance", "Un bilan de votre idée, du budget de lancement et des besoins opérationnels", "Un plan de lancement écrit avec les questions administratives à vérifier"] },
+        "discovery-trip": { name: "Voyage découverte", audience: "Voyageurs seuls, couples et familles", summary: "Préparez un voyage découverte au Cambodge selon vos dates, vos envies et votre rythme : Phnom Penh, Siem Reap, Angkor et les étapes de votre choix. Une préparation de voyage, pas un circuit réservé.", includes: ["Un rendez-vous de 45 minutes à distance pour définir votre projet de voyage", "Un itinéraire écrit personnalisé avec suggestions de visites et temps de trajet entre les étapes", "Un budget prévisionnel et une checklist de départ ; vous réservez et réglez vous-même les prestations de voyage"] },
+      },
+      form: {
+        heading: "Préparer votre demande de réservation",
+        explanation: "Ce formulaire prépare un e-mail, pas une réservation confirmée. Vous l'envoyez depuis votre messagerie ; KHMERA confirme avec vous le périmètre et le devis.",
+        name: "Nom complet", email: "Votre e-mail", city: "Destination ou ville", date: "Date souhaitée (facultative)", project: "Votre projet et vos attentes",
+        consent: "Je comprends le tarif proposé et les exclusions, et j'accepte de transmettre ces informations à KHMERA pour obtenir une réponse à ma demande.",
+        privacy: "Rien n'est enregistré en base de données ni envoyé automatiquement. Seul l'e-mail que vous choisissez d'envoyer transmet vos coordonnées à KHMERA. N'incluez pas de passeport, coordonnées bancaires ou documents sensibles.",
+        prepare: "Préparer mon e-mail", draftHeading: "E-mail prêt à envoyer", draftNotice: "Votre demande n'a PAS été envoyée. Ouvrez votre messagerie et envoyez l'e-mail pour la transmettre. Aucune réservation ni aucun paiement n'est confirmé.",
+        openEmail: "Ouvrir ma messagerie", fallback: "Pas de messagerie configurée ? Copiez ce texte dans un e-mail et envoyez-le à :", subject: "Demande de réservation KHMERA",
+      },
+    },
     home: {
       nextMove: "Votre prochaine destination",
       city: "Phnom Penh",
@@ -451,20 +572,20 @@ export const dictionaries: Record<Locale, Dictionary> = {
       business: "Entreprise",
       testimonials: "Témoignages",
       login: "Espace membre",
-      cta: "Publier un service",
+      cta: "Voir les offres",
     },
     hero: {
       eyebrow: "Expatriation • Affaires • Voyages",
       title: "Installez-vous et développez-vous sereinement au Cambodge.",
       description:
         "Trouvez les bons conseils, services locaux et opportunités professionnelles pour vivre, travailler et réussir à Phnom Penh et ailleurs.",
-      primaryCta: "Découvrir les opportunités",
+      primaryCta: "Comparer les offres et les tarifs",
       secondaryCta: "Parler à un conseiller",
     },
     stats: [
-      { value: "18k+", label: "expatriés accompagnés" },
-      { value: "420+", label: "partenaires locaux vérifiés" },
-      { value: "96%", label: "satisfaction membre" },
+      { value: "49 $", label: "Diagnostic Cambodge" },
+      { value: "249 $", label: "Accompagnement installation" },
+      { value: "399 $", label: "Préparation business" },
     ],
     categories: [
       {
@@ -620,6 +741,45 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
   },
   es: {
+    commerce: {
+      email: {
+        greeting: "Hola KHMERA:",
+        introduction: "Me gustaría recibir un presupuesto escrito para el siguiente paquete. Por favor, confirmen la disponibilidad y los próximos pasos.",
+        offer: "Paquete solicitado",
+        price: "Honorarios propuestos (USD)",
+        preferredDate: "Fecha preferida",
+        language: "Idioma preferido para la respuesta",
+        languageName: "Español",
+        closing: "Gracias. Quedo a la espera de su respuesta.",
+        subjectLabel: "Asunto del correo",
+      },
+      eyebrow: "Paquetes de lanzamiento KHMERA",
+      heading: "Un servicio claro. Un precio claro. Tu proyecto en Camboya.",
+      description: "Elige orientación práctica para descubrir Camboya, organizar tu traslado o preparar un negocio. Phnom Penh, Siem Reap y más allá: empieza con consultas a distancia y un plan escrito personalizado.",
+      pricingNote: "Honorarios de lanzamiento propuestos en dólares estadounidenses, sujetos a un presupuesto escrito. Disponibilidad, calendario, posibles impuestos e importe final se confirman antes de reservar. Sin pago en línea ni reserva automática.",
+      quoteLabel: "Sujeto a presupuesto",
+      exclusions: "Solo honorarios de orientación. No incluyen visados, tasas oficiales, alquileres, vuelos, transporte, alojamiento, guías, entradas ni profesionales externos. El viajero realiza y paga sus propias reservas de viaje. No se garantiza ningún visado, registro de empresa ni resultado de inversión. No es asesoramiento jurídico ni fiscal.",
+      request: "Solicitar este paquete",
+      included: "Qué incluye",
+      processHeading: "De tu solicitud al servicio",
+      steps: ["Elige un paquete y prepara tu solicitud.", "Envía el correo; KHMERA analiza tus necesidades y envía un presupuesto escrito.", "Acepta el presupuesto y acuerda el pago y las citas antes de comenzar el servicio."],
+      back: "Comparar todos los paquetes",
+      offers: {
+        "cambodia-diagnostic": { name: "Diagnóstico Camboya", audience: "Viajeros y futuros residentes", summary: "Aclara tus planes antes de comprometerte con un viaje o un traslado.", includes: ["Una consulta de 45 minutos a distancia", "Revisión de tus objetivos, destino y presupuesto", "Una hoja de ruta escrita personalizada después de la llamada"] },
+        "settle-in": { name: "Instalación tranquila", audience: "Personas, parejas y familias", summary: "Organiza tu instalación antes de comprometerte con una vivienda o trámites.", includes: ["Dos consultas de 45 minutos a distancia", "Lista personalizada de vivienda, presupuesto y llegada", "Un plan escrito de instalación y revisión en la segunda cita"] },
+        "business-launch": { name: "Proyecto empresarial", audience: "Emprendedores y autónomos", summary: "Prepara tu lanzamiento e identifica los puntos a validar con profesionales locales cualificados.", includes: ["Tres consultas de 45 minutos a distancia", "Revisión de tu idea, presupuesto inicial y necesidades operativas", "Un plan escrito de lanzamiento con cuestiones administrativas a verificar"] },
+        "discovery-trip": { name: "Viaje de descubrimiento", audience: "Viajeros solos, parejas y familias", summary: "Prepara un viaje para descubrir Camboya según tus fechas, intereses y ritmo: Phnom Penh, Siem Reap, Angkor y las etapas que elijas. Es planificación de viaje, no un circuito reservado.", includes: ["Una consulta de 45 minutos a distancia sobre tu proyecto de viaje", "Un itinerario escrito personalizado con sugerencias de visitas y tiempos de traslado entre etapas", "Un presupuesto estimado y una lista para la salida; tú reservas y pagas los servicios de viaje"] },
+      },
+      form: {
+        heading: "Prepara tu solicitud de reserva",
+        explanation: "Este formulario prepara un correo, no una reserva confirmada. Lo envías desde tu aplicación de correo; KHMERA confirma contigo el alcance y el presupuesto.",
+        name: "Nombre completo", email: "Tu correo electrónico", city: "Destino o ciudad", date: "Fecha preferida (opcional)", project: "Tu proyecto y expectativas",
+        consent: "Entiendo el precio propuesto y las exclusiones, y acepto enviar estos datos a KHMERA para recibir una respuesta a mi solicitud.",
+        privacy: "Nada se guarda en una base de datos ni se envía automáticamente. Solo el correo que decidas enviar comparte tus datos con KHMERA. No incluyas pasaportes, datos bancarios ni documentos sensibles.",
+        prepare: "Preparar mi correo", draftHeading: "Correo listo para enviar", draftNotice: "Tu solicitud NO se ha enviado. Abre tu aplicación de correo y envíalo para transmitirla. No hay reserva ni pago confirmado.",
+        openEmail: "Abrir mi correo", fallback: "¿No tienes aplicación de correo? Copia este texto en un correo y envíalo a:", subject: "Solicitud de reserva KHMERA",
+      },
+    },
     home: {
       nextMove: "Tu próximo destino",
       city: "Nom Pen",
@@ -700,20 +860,20 @@ export const dictionaries: Record<Locale, Dictionary> = {
       business: "Negocios",
       testimonials: "Testimonios",
       login: "Portal del miembro",
-      cta: "Publicar un servicio",
+      cta: "Ver paquetes",
     },
     hero: {
       eyebrow: "Expat • Negocios • Viajes",
       title: "Instálate y crece con confianza en Camboya.",
       description:
         "Encuentra la orientación fiable, servicios locales y oportunidades de negocio que necesitas para mudarte, trabajar y prosperar.",
-      primaryCta: "Explorar oportunidades",
+      primaryCta: "Comparar paquetes y precios",
       secondaryCta: "Hablar con un asesor",
     },
     stats: [
-      { value: "18k+", label: "expatriados guiados" },
-      { value: "420+", label: "socios locales verificados" },
-      { value: "96%", label: "satisfacción de miembros" },
+      { value: "49 US$", label: "Diagnóstico Camboya" },
+      { value: "249 US$", label: "Orientación para instalarse" },
+      { value: "399 US$", label: "Planificación empresarial" },
     ],
     categories: [
       {
@@ -869,6 +1029,45 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
   },
   de: {
+    commerce: {
+      email: {
+        greeting: "Guten Tag KHMERA,",
+        introduction: "Ich möchte ein schriftliches Angebot für das folgende Paket erhalten. Bitte bestätigen Sie die Verfügbarkeit und die nächsten Schritte.",
+        offer: "Angefragtes Paket",
+        price: "Vorgeschlagenes Honorar (USD)",
+        preferredDate: "Wunschtermin",
+        language: "Gewünschte Antwortsprache",
+        languageName: "Deutsch",
+        closing: "Vielen Dank. Ich freue mich auf Ihre Antwort.",
+        subjectLabel: "E-Mail-Betreff",
+      },
+      eyebrow: "KHMERA Einführungspakete",
+      heading: "Klare Leistung. Klarer Preis. Ihr Kambodscha-Projekt.",
+      description: "Wählen Sie praktische Orientierung für Ihre Reise, Ihren Umzug oder die Vorbereitung einer Geschäftsidee. Phnom Penh, Siem Reap und darüber hinaus: beginnen Sie mit Online-Gesprächen und einem persönlichen schriftlichen Plan.",
+      pricingNote: "Vorgeschlagene Einführungshonorare in US-Dollar, vorbehaltlich eines schriftlichen Angebots. Verfügbarkeit, Termine, mögliche Steuern und Endbetrag werden vor der Buchung bestätigt. Keine Online-Zahlung oder automatische Reservierung.",
+      quoteLabel: "Vorbehaltlich eines Angebots",
+      exclusions: "Nur Beratungshonorare. Visa- und Behördengebühren, Miete, Flüge, Transport, Unterkunft, Reiseführer, Eintrittskarten und externe Fachleute sind nicht enthalten. Reisende buchen und bezahlen ihre Reiseleistungen selbst. Keine Garantie für Visa, Firmeneintragung oder Investitionsergebnisse. Keine Rechts- oder Steuerberatung.",
+      request: "Dieses Paket anfragen",
+      included: "Enthaltene Leistungen",
+      processHeading: "Von Ihrer Anfrage zur Begleitung",
+      steps: ["Wählen Sie ein Paket und bereiten Sie Ihre Anfrage vor.", "Senden Sie die E-Mail; KHMERA bespricht Ihren Bedarf und erstellt ein schriftliches Angebot.", "Nehmen Sie das Angebot an und vereinbaren Sie Zahlung und Termine vor Leistungsbeginn."],
+      back: "Alle Pakete vergleichen",
+      offers: {
+        "cambodia-diagnostic": { name: "Kambodscha-Erstberatung", audience: "Reisende und künftige Neuankömmlinge", summary: "Klären Sie Ihre Pläne, bevor Sie eine Reise oder einen Umzug verbindlich planen.", includes: ["Ein Online-Gespräch von 45 Minuten", "Besprechung Ihrer Ziele, Ihres Reiseziels und Budgets", "Ein persönlicher schriftlicher Fahrplan nach dem Gespräch"] },
+        "settle-in": { name: "Entspannt ankommen", audience: "Einzelpersonen, Paare und Familien", summary: "Planen Sie Ihren Umzug, bevor Sie sich auf eine Wohnung oder Behördenschritte festlegen.", includes: ["Zwei Online-Gespräche von je 45 Minuten", "Persönliche Checkliste für Wohnung, Budget und Ankunft", "Ein schriftlicher Umzugsplan und Auswertung im zweiten Gespräch"] },
+        "business-launch": { name: "Geschäftsprojekt", audience: "Gründer und Selbstständige", summary: "Bereiten Sie Ihren Start vor und erkennen Sie Fragen für qualifizierte Fachleute vor Ort.", includes: ["Drei Online-Gespräche von je 45 Minuten", "Besprechung Ihrer Idee, Ihres Startbudgets und Betriebsbedarfs", "Ein schriftlicher Startplan mit zu prüfenden Behördenfragen"] },
+        "discovery-trip": { name: "Entdeckungsreise", audience: "Alleinreisende, Paare und Familien", summary: "Planen Sie Ihre Kambodscha-Entdeckungsreise nach Ihren Terminen, Interessen und Ihrem Tempo: Phnom Penh, Siem Reap, Angkor und Ihre Wunschziele. Reisevorbereitung, keine gebuchte Rundreise.", includes: ["Ein Online-Gespräch von 45 Minuten über Ihre Reisepläne", "Eine persönliche schriftliche Reiseroute mit Besichtigungsvorschlägen und Fahrtzeiten zwischen den Etappen", "Ein geschätztes Reisebudget und eine Abreise-Checkliste; Reiseleistungen buchen und bezahlen Sie selbst"] },
+      },
+      form: {
+        heading: "Buchungsanfrage vorbereiten",
+        explanation: "Dieses Formular erstellt eine E-Mail, keine bestätigte Buchung. Sie senden sie über Ihr E-Mail-Programm; KHMERA bestätigt Leistungsumfang und Angebot mit Ihnen.",
+        name: "Vollständiger Name", email: "Ihre E-Mail-Adresse", city: "Ziel oder Stadt", date: "Wunschtermin (optional)", project: "Ihr Projekt und Ihre Erwartungen",
+        consent: "Ich verstehe das vorgeschlagene Honorar und die Ausschlüsse und möchte diese Angaben für eine Antwort auf meine Anfrage an KHMERA senden.",
+        privacy: "Nichts wird in einer Datenbank gespeichert oder automatisch versendet. Nur Ihre bewusst gesendete E-Mail übermittelt Ihre Angaben an KHMERA. Bitte keine Pässe, Bankdaten oder vertraulichen Dokumente angeben.",
+        prepare: "E-Mail vorbereiten", draftHeading: "E-Mail zum Versenden bereit", draftNotice: "Ihre Anfrage wurde NICHT gesendet. Öffnen Sie Ihr E-Mail-Programm und senden Sie die Nachricht. Keine Buchung oder Zahlung ist bestätigt.",
+        openEmail: "E-Mail-Programm öffnen", fallback: "Kein E-Mail-Programm eingerichtet? Kopieren Sie diesen Text in eine E-Mail und senden Sie ihn an:", subject: "KHMERA Buchungsanfrage",
+      },
+    },
     home: {
       nextMove: "Ihr nächstes Ziel",
       city: "Phnom Penh",
@@ -949,20 +1148,20 @@ export const dictionaries: Record<Locale, Dictionary> = {
       business: "Geschäft",
       testimonials: "Erfahrungen",
       login: "Mitgliederbereich",
-      cta: "Dienst anbieten",
+      cta: "Pakete ansehen",
     },
     hero: {
       eyebrow: "Expat • Business • Reisen",
       title: "Wohnort und Geschäft in Kambodscha sicher aufbauen.",
       description:
         "Finden Sie verlässliche Beratung, lokale Dienstleistungen und Geschäftsmöglichkeiten für Ihren Umzug, Ihr Arbeiten und Ihr Leben in Phnom Penh.",
-      primaryCta: "Möglichkeiten entdecken",
+      primaryCta: "Pakete und Preise vergleichen",
       secondaryCta: "Mit einem Berater sprechen",
     },
     stats: [
-      { value: "18k+", label: "begleitete Expatriates" },
-      { value: "420+", label: "verifizierte lokale Partner" },
-      { value: "96%", label: "Mitgliederzufriedenheit" },
+      { value: "49 $", label: "Kambodscha-Erstberatung" },
+      { value: "249 $", label: "Umzugsbegleitung" },
+      { value: "399 $", label: "Geschäftsplanung" },
     ],
     categories: [
       {

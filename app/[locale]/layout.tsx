@@ -80,7 +80,7 @@ async function LocaleLayoutContent({
           <div className="flex items-center gap-3">
             <LanguageSwitcher currentLocale={locale} />
             <Link
-              href={`/${locale}/marketplace`}
+              href={`/${locale}/services`}
               className="hidden rounded-full bg-emerald-500 px-4 py-3 text-sm font-medium text-white transition hover:bg-emerald-400 lg:inline-flex"
             >
               {messages.nav.cta}

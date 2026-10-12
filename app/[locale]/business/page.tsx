@@ -52,6 +52,9 @@ async function BusinessPageContent({
             <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-500/15 text-lg font-semibold text-sky-200">
               <Pictogram name="business" />
             </div>
+            <Link href={`/${locale}/services/business-launch`} className="mt-8 inline-flex rounded-full bg-emerald-500 px-6 py-3 text-sm font-medium text-white">
+              {messages.commerce.request} · {messages.commerce.offers["business-launch"].name}
+            </Link>
             <p className="text-base leading-7">{pillar}</p>
           </div>
         ))}
@@ -59,3 +62,4 @@ async function BusinessPageContent({
     </div>
   );
 }
+import Link from "next/link";

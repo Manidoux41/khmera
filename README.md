@@ -81,6 +81,58 @@ API (JSON, same session cookie):
 | `DELETE` | `/api/admin/session` | Log out |
 | `GET` | `/api/admin/services` | List services; optional `locale`, `status` (`active`/`beta`/`inactive`), `kind` (`core`/`marketplace`) |
 
+## Commercial packages and booking requests
+
+The home page and `/{locale}/services` present four KHMERA launch packages:
+
+| Package | Proposed fee (USD) | Deliverables |
+| --- | --- | --- |
+| Cambodia diagnostic | 49 | One 45-minute remote consultation and a written roadmap |
+| Settle in with confidence | 249 | Two 45-minute remote consultations, arrival checklist and relocation plan |
+| Business project | 399 | Three 45-minute remote consultations, budget review and launch plan |
+| Discovery trip | 99 | One 45-minute remote consultation, personalised itinerary, estimated travel budget and departure checklist |
+
+Prices and stable slugs are shared in `lib/services/offers.ts`; package copy,
+deliverables, exclusions and form labels are translated in `lib/i18n.ts`.
+Package detail pages at `/{locale}/services/{slug}` prepare a request email to
+`manfredparbatia@gmail.com`. The visitor must send the email from their own mail
+app. A selectable text preview provides a fallback if no mail app is configured.
+**Preparing or opening the email does not send a request, reserve a service or
+take a payment.** No client data is stored or automatically transmitted.
+
+The request email follows the page language (EN/FR/ES/DE), including its subject,
+greeting, package details, field labels, consent, exclusions and closing.
+`lib/services/booking-email.ts` generates the shared template. Optional dates use
+the locale's long date format in UTC (no day shift), and the email identifies
+the preferred reply language. Visitor-written text is preserved, not translated.
+Both subject and body can be copied from the preview if no mail app is configured.
+There are no automatic outgoing emails or translated auto-replies yet.
+
+The admin dashboard and services API list these packages using the same prices
+as the public pages. The dashboard explains manual qualification, written
+quotes and invoicing. There is no orders table, payment ledger or claimed revenue.
+Marketplace listings remain illustrative; no partner commissions are collected.
+The old fictional home-page customer counts have been replaced with package fees.
+
+Before accepting a request, confirm that you can deliver the package and agree
+on scope, dates, any applicable taxes, final price, payment and cancellation terms
+in a written quote. Guidance does not include visa/government fees, housing,
+travel or external professionals, and guarantees no administrative outcome.
+No legal or tax advice is sold.
+
+The tourism planning package is available at
+`/{locale}/services/discovery-trip`, translated in all four locales and listed
+under Tourism in the admin catalog. It covers Phnom Penh, Siem Reap, Angkor and
+the traveller's chosen stops. The 99 USD fee is for planning only, subject to a
+written quote: KHMERA does not book a tour or include flights, hotels, transport,
+guides or admission tickets. Travellers book and pay for those services themselves.
+
+Future in-app booking and checkout require durable storage, an email provider,
+an appropriately configured payment provider, webhook verification and agreed
+commercial/privacy terms. Do not use process-memory mocks to accept real orders
+on Vercel. Run `node --test tests/*.test.mjs` to validate catalog consistency,
+mail links and translation coverage.
+
 ## Photos
 
 Photos of Cambodia (Siem Reap, Phnom Penh, Tonlé Sap…) come from [Wikimedia Commons](https://commons.wikimedia.org) under CC0 or Creative Commons (CC BY / CC BY-SA) licenses. They are stored in `public/images/photos/` (resized to 1600px) and cataloged in `lib/photos.ts` with author, license and source. The `CreditedPhoto` component (`components/credited-photo.tsx`) renders each image with its attribution, and all credits are listed at `/{locale}/credits`.

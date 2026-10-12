@@ -55,6 +55,9 @@ async function VisaGuidePageContent({
             <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500/15 text-sm font-semibold text-emerald-200">
               {index + 1}
             </div>
+            <Link href={`/${locale}/services/settle-in`} className="mt-8 inline-flex rounded-full bg-emerald-500 px-6 py-3 text-sm font-medium text-white">
+              {messages.commerce.request} · {messages.commerce.offers["settle-in"].name}
+            </Link>
             <p className="text-base leading-7 text-slate-200">{step}</p>
           </div>
         ))}
@@ -62,3 +65,4 @@ async function VisaGuidePageContent({
     </div>
   );
 }
+import Link from "next/link";

@@ -1,8 +1,9 @@
 import { getDictionary, listingSlugs, locales, type Locale } from "@/lib/i18n";
+import { formatOfferPrice, offers } from "@/lib/services/offers";
 
 export type ServiceKind = "core" | "marketplace";
 export type ServiceStatus = "active" | "beta" | "inactive";
-export type ServiceCategory = "visa" | "housing" | "business" | "advisory" | "relocation" | "transport";
+export type ServiceCategory = "visa" | "housing" | "business" | "advisory" | "relocation" | "transport" | "tourism";
 
 type ServiceDefinition = {
   id: string;
@@ -64,10 +65,23 @@ function toRecord(definition: ServiceDefinition, locale: Locale): ServiceRecord 
 export type ServiceFilters = { status?: ServiceStatus; kind?: ServiceKind };
 
 export async function listServices(locale: Locale, filters: ServiceFilters = {}): Promise<ServiceRecord[]> {
-  return serviceDefinitions
+  const copy = getDictionary(locale).commerce;
+  const paidServices: ServiceRecord[] = offers.map((offer) => ({
+    id: `offer_${offer.slug}`,
+    kind: "core",
+    category: offer.category,
+    status: "active",
+    provider: "KHMERA",
+    pricing: `${formatOfferPrice(offer.priceUsd, locale)} · ${copy.quoteLabel}`,
+    updatedAt: "2026-10-12",
+    name: copy.offers[offer.slug].name,
+    description: copy.offers[offer.slug].summary,
+    publicPath: `/${locale}/services/${offer.slug}`,
+    locales,
+  }));
+  return [...paidServices, ...serviceDefinitions.map((service) => toRecord(service, locale))]
     .filter((service) => !filters.status || service.status === filters.status)
-    .filter((service) => !filters.kind || service.kind === filters.kind)
-    .map((service) => toRecord(service, locale));
+    .filter((service) => !filters.kind || service.kind === filters.kind);
 }
 
 export function isServiceStatus(value: string | null): value is ServiceStatus {

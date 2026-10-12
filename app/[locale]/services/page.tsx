@@ -4,6 +4,7 @@ import { Suspense } from "react";
 
 import { CreditedPhoto } from "@/components/credited-photo";
 import { RouteSkeleton } from "@/components/route-skeleton";
+import { ServiceOffers } from "@/components/service-offers";
 import { getDictionary, isLocale } from "@/lib/i18n";
 import { photos } from "@/lib/photos";
 import { Pictogram, serviceIcons } from "@/components/pictogram";
@@ -42,9 +43,16 @@ async function ServicesPageContent({
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 to-transparent" />
         <p className="absolute bottom-4 left-5 text-sm font-medium text-white">{messages.photos.places["street-food"]}</p>
       </CreditedPhoto>
+      <ServiceOffers locale={locale} messages={messages} primary />
+      <section className="my-12 rounded-3xl border border-slate-800 bg-slate-900/40 p-8">
+        <h2 className="text-2xl font-semibold text-white">{messages.commerce.processHeading}</h2>
+        <ol className="mt-5 list-decimal space-y-4 pl-5 text-slate-300">
+          {messages.commerce.steps.map((step) => <li key={step}>{step}</li>)}
+        </ol>
+      </section>
       <div className="mb-10 max-w-2xl">
         <p className="text-sm uppercase tracking-[0.2em] text-emerald-300">{messages.pageTitles.services}</p>
-        <h1 className="mt-3 text-4xl font-semibold tracking-tight text-white">{messages.services.heading}</h1>
+        <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white">{messages.services.heading}</h2>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
@@ -64,7 +72,7 @@ async function ServicesPageContent({
         <p className="mt-3 max-w-2xl text-slate-300">
           {messages.services.planDescription}
         </p>
-        <Link href={`/${locale}/visa-guide`} className="mt-6 inline-flex rounded-full bg-emerald-500 px-5 py-3 text-sm font-medium text-white">
+        <Link href={`/${locale}/services/cambodia-diagnostic`} className="mt-6 inline-flex rounded-full bg-emerald-500 px-5 py-3 text-sm font-medium text-white">
           {messages.services.advisor}
         </Link>
       </div>

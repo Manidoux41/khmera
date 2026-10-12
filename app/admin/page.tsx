@@ -6,7 +6,8 @@ import { LogoutButton } from "@/app/admin/logout-button";
 import { RouteSkeleton } from "@/components/route-skeleton";
 import { adminHref } from "@/lib/admin/config";
 import { getCurrentAdmin } from "@/lib/admin/session";
-import { defaultLocale, isLocale, localeLabels, locales, type Locale } from "@/lib/i18n";
+import { defaultLocale, getDictionary, isLocale, localeLabels, locales, type Locale } from "@/lib/i18n";
+import { bookingEmail, formatOfferPrice, offers } from "@/lib/services/offers";
 import {
   isServiceKind,
   isServiceStatus,
@@ -32,6 +33,7 @@ const categoryLabels: Record<ServiceCategory, string> = {
   advisory: "Conseil",
   relocation: "Relocation",
   transport: "Transport",
+  tourism: "Tourisme",
 };
 
 export default function AdminDashboardPage({ searchParams }: { searchParams: SearchParams }) {
@@ -59,6 +61,7 @@ async function AdminDashboard({ searchParams }: { searchParams: SearchParams }) 
   const status = isServiceStatus(statusParam) ? statusParam : undefined;
   const kind = isServiceKind(kindParam) ? kindParam : undefined;
   const locale: Locale = isLocale(localeParam) ? localeParam : defaultLocale;
+  const commerce = getDictionary(locale).commerce;
 
   const [allServices, services] = await Promise.all([
     listServices(locale),
@@ -113,6 +116,33 @@ async function AdminDashboard({ searchParams }: { searchParams: SearchParams }) 
           </div>
         ))}
       </dl>
+
+      <section className="mt-8 rounded-3xl border border-emerald-500/30 bg-slate-900/60 p-6">
+        <h2 className="text-2xl font-semibold text-white">Vos offres commerciales</h2>
+        <p className="mt-3 text-sm leading-7 text-slate-300">
+          KHMERA facture ses prestations de conseil : diagnostic, installation, préparation business et voyage découverte.
+          Les prix ci-dessous sont des honoraires proposés par vente, pas un chiffre d&apos;affaires encaissé.
+          Les offres marketplace restent des exemples, sans commission ni réservation active.
+        </p>
+        <div className="mt-5 flex flex-wrap gap-3">
+          {offers.map((offer) => (
+            <Link key={offer.slug} href={`/${locale}/services/${offer.slug}`} className="rounded-full border border-slate-700 px-4 py-2 text-sm text-emerald-200 hover:border-emerald-400">
+              {formatOfferPrice(offer.priceUsd, locale)} · {commerce.offers[offer.slug].name}
+            </Link>
+          ))}
+        </div>
+        <p className="mt-5 text-sm leading-7 text-slate-300">
+          Les clients préparent un e-mail qu&apos;ils doivent envoyer à{" "}
+          <a href={`mailto:${bookingEmail}`} className="text-emerald-300">{bookingEmail}</a>.
+          Répondez pour qualifier le besoin, confirmer votre capacité à fournir la prestation et proposer un devis écrit
+          précisant les taxes éventuelles, le montant final, le calendrier et les modalités de paiement et d&apos;annulation.
+          Ne confirmez un rendez-vous qu&apos;après accord du client.
+        </p>
+        <p className="mt-3 text-xs leading-6 text-slate-400">
+          Aucun suivi des demandes, stockage client ou encaissement en ligne pour le moment.
+          Gérez les échanges dans votre messagerie ; aucune demande n&apos;est enregistrée dans ce tableau.
+        </p>
+      </section>
 
       <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
         <nav aria-label="Filtrer par statut" className="flex flex-wrap gap-2">

@@ -5,6 +5,7 @@ import { Suspense } from "react";
 
 import { CreditedPhoto } from "@/components/credited-photo";
 import { RouteSkeleton } from "@/components/route-skeleton";
+import { ServiceOffers } from "@/components/service-offers";
 import { TestimonialCard } from "@/components/testimonial-card";
 import { getDictionary, isLocale } from "@/lib/i18n";
 import { galleryPhotoIds, photos } from "@/lib/photos";
@@ -55,7 +56,7 @@ async function LocaleHomePageContent({
                 <Pictogram name="plane" className="h-5 w-5" />
               </Link>
               <Link
-                href={`/${locale}/visa-guide`}
+                href={`/${locale}/services/cambodia-diagnostic`}
                 className="inline-flex items-center justify-center rounded-full border border-slate-700 bg-slate-900/70 px-6 py-3 text-sm font-medium text-white transition hover:border-slate-500 hover:bg-slate-800"
               >
                 {messages.hero.secondaryCta}
@@ -110,6 +111,10 @@ async function LocaleHomePageContent({
           </div>
         </div>
       </section>
+
+      <div className="mt-20">
+        <ServiceOffers locale={locale} messages={messages} />
+      </div>
 
       <section className="mt-20">
         <div className="mb-8 max-w-2xl">
@@ -209,10 +214,10 @@ async function LocaleHomePageContent({
             <p className="mt-4 text-slate-300">{messages.cta.description}</p>
           </div>
           <Link
-            href={`/${locale}/marketplace`}
+            href={`/${locale}/services`}
             className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-medium text-slate-950 transition hover:bg-slate-200"
           >
-            {messages.cta.button}
+            {messages.commerce.back}
           </Link>
         </div>
       </section>
