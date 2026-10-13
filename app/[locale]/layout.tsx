@@ -75,7 +75,7 @@ async function LocaleLayoutContent({
             <Image src="/khmera-mark.svg" width={40} height={40} alt="" />
             <p>{messages.site.name} · {messages.footer.rights}</p>
           </div>
-          <div className="flex items-center gap-5">
+          <div className="flex flex-wrap items-center gap-5">
             <Link href={`/${locale}/services`} className="hover:text-white">{messages.nav.services}</Link>
             <Link href={`/${locale}/marketplace`} className="hover:text-white">{messages.nav.marketplace}</Link>
             <Link href={`/${locale}/visa-guide`} className="hover:text-white">{messages.nav.guide}</Link>

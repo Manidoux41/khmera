@@ -1,6 +1,7 @@
 import type { PhotoId } from "./photos";
 import type { TestimonialId } from "./testimonials";
 import type { OfferSlug } from "./services/offers";
+import { partnerCopy, type PartnerCopy } from "./partners/copy";
 
 export const locales = ["en", "fr", "es", "de"] as const;
 export type Locale = (typeof locales)[number];
@@ -25,6 +26,7 @@ type Category = { title: string; description: string };
 type Feature = { title: string; text: string };
 
 type Dictionary = {
+  partners: PartnerCopy;
   blog: {
     title: string;
     description: string;
@@ -184,6 +186,7 @@ type Dictionary = {
 
 export const dictionaries: Record<Locale, Dictionary> = {
   en: {
+    partners: partnerCopy.en,
     blog: {
       title: "Stories from Cambodia",
       description: "The beginnings of KHMERA and stories about discovering Cambodia.",
@@ -491,6 +494,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
   },
   fr: {
+    partners: partnerCopy.fr,
     blog: {
       title: "Récits du Cambodge",
       description: "Les origines de Khmera et des récits pour découvrir le Cambodge.",
@@ -798,6 +802,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
   },
   es: {
+    partners: partnerCopy.es,
     blog: {
       title: "Relatos de Camboya",
       description: "Los orígenes de KHMERA y relatos para descubrir Camboya.",
@@ -1105,6 +1110,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
   },
   de: {
+    partners: partnerCopy.de,
     blog: {
       title: "Geschichten aus Kambodscha",
       description: "Die Anfänge von KHMERA und Geschichten zum Entdecken Kambodschas.",

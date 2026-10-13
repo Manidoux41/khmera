@@ -21,12 +21,14 @@ function load(path, dependencies = {}) {
   return exports;
 }
 
-const i18n = load("lib/i18n.ts");
+const partnerCopy = load("lib/partners/copy.ts");
+const i18n = load("lib/i18n.ts", { "./partners/copy": partnerCopy });
 const pricing = load("lib/services/offers.ts");
 const booking = load("lib/services/booking-email.ts", {
   "@/lib/i18n": i18n,
   "@/lib/services/offers": pricing,
 });
+const partnerEmail = load("lib/partners/email.ts", { "@/lib/i18n": i18n });
 const catalog = load("lib/services/catalog.ts", {
   "@/lib/i18n": i18n,
   "@/lib/services/offers": pricing,
@@ -177,5 +179,63 @@ test("complete booking emails follow the locale for every package and preserve v
 test("booking dates reject malformed or impossible dates instead of silently shifting days", () => {
   for (const value of ["2026-02-30", "2026-13-01", "not-a-date", "11/01/2026"]) {
     assert.throws(() => booking.formatBookingDate(value, "fr"), /Invalid booking date/);
+  }
+});
+
+test("partner enquiries use localized fields and preserve details without booking language", () => {
+  const details = {
+    name: " André & Léa ", email: "demo@example.test",
+    organization: " Maison & voyages\r\nSiem Reap ", activity: "Hébergement",
+    city: " Siem Reap ", project: "Proposition personnelle : découverte & accueil 東京.",
+  };
+  for (const locale of i18n.locales) {
+    const copy = i18n.dictionaries[locale];
+    const draft = partnerEmail.createPartnerEmail(locale, details);
+    assert.equal(draft.subject, `${copy.partners.form.subject} - Maison & voyages  Siem Reap`);
+    assert.doesNotMatch(draft.subject, /[\r\n]/);
+    assert.ok(draft.body.startsWith(copy.commerce.email.greeting));
+    assert.ok(draft.body.endsWith(copy.partners.form.closing));
+    for (const line of [
+      `${copy.commerce.form.name}: André & Léa`,
+      `${copy.commerce.form.email}: demo@example.test`,
+      `${copy.partners.form.organization}: ${details.organization.trim()}`,
+      `${copy.partners.form.activity}: Hébergement`,
+      `${copy.commerce.form.city}: Siem Reap`,
+      `${copy.commerce.email.language}: ${copy.commerce.email.languageName} (${locale})`,
+      `${copy.partners.form.project}: ${details.project}`,
+      copy.partners.form.consent,
+      copy.partners.form.introduction,
+    ]) assert.ok(draft.body.includes(line), `${locale}: ${line}`);
+    assert.ok(!draft.body.includes(copy.commerce.form.subject));
+    const link = new URL(pricing.bookingMailto(draft.subject, draft.body));
+    assert.equal(link.pathname, pricing.bookingEmail);
+    assert.equal(link.searchParams.get("subject"), draft.subject);
+    assert.equal(link.searchParams.get("body"), draft.body);
+    assert.deepEqual(Array.from(link.searchParams.keys()), ["subject", "body"]);
+  }
+});
+
+test("partner presentation targets local providers and explains future client introductions", () => {
+  const sectors = {
+    en: [/travel agencies/i, /guesthouses.*hotels/i, /real estate agencies/i],
+    fr: [/agences de voyages/i, /guesthouses.*hôtels/i, /agences immobilières/i],
+    es: [/agencias de viajes/i, /guesthouses.*hoteles/i, /agencias inmobiliarias/i],
+    de: [/reisebüros/i, /guesthouses.*hotels/i, /immobilienagenturen/i],
+  };
+  for (const locale of i18n.locales) {
+    const copy = i18n.dictionaries[locale].partners;
+    assert.match(copy.title, /Siem Reap/);
+    assert.equal(copy.audiences.length, 3);
+    sectors[locale].forEach((sector, index) => assert.match(copy.audiences[index], sector));
+    assert.equal(copy.referralSteps.length, 3);
+    assert.ok(copy.responsibilities);
+    assert.ok(copy.transparency);
+    const presentation = [
+      copy.title, copy.pitch, ...copy.audiences, ...copy.referralSteps,
+      copy.responsibilities, copy.collaboration, copy.transparency,
+    ].join("\n");
+    assert.doesNotMatch(presentation, /49|249|399|99|USD/);
+    assert.ok(!Object.hasOwn(copy, "packagesHeading"));
+    assert.ok(!Object.hasOwn(copy, "pricing"));
   }
 });

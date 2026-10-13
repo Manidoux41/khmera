@@ -9,7 +9,16 @@ const { outputText } = ts.transpileModule(source, {
   compilerOptions: { module: ts.ModuleKind.CommonJS },
 });
 const exports = {};
-runInNewContext(outputText, { exports });
+const partnerSource = readFileSync(new URL("../lib/partners/copy.ts", import.meta.url), "utf8");
+const partnerExports = {};
+runInNewContext(ts.transpileModule(partnerSource, { compilerOptions: { module: ts.ModuleKind.CommonJS } }).outputText, { exports: partnerExports });
+runInNewContext(outputText, {
+  exports,
+  require(name) {
+    assert.equal(name, "./partners/copy");
+    return partnerExports;
+  },
+});
 const { dictionaries, locales, listingSlugs } = exports;
 
 test("marketplace links have unique slugs and translated detail content", () => {
@@ -40,7 +49,7 @@ test("all locales have the same translation keys and non-empty text", () => {
 
 test("new page copy is translated rather than falling back to English", () => {
   for (const locale of locales.filter((locale) => locale !== "en")) {
-    for (const section of ["blog", "seo", "commerce", "home", "services", "marketplace", "visa", "business", "testimonials", "languageNames", "notFound"]) {
+    for (const section of ["partners", "blog", "seo", "commerce", "home", "services", "marketplace", "visa", "business", "testimonials", "languageNames", "notFound"]) {
       const english = new Map(leaves(dictionaries.en[section]));
       for (const [key, value] of leaves(dictionaries[locale][section])) {
         if (section === "home" && key === ".city") continue;
@@ -60,6 +69,8 @@ test("public components contain no hard-coded prose in JSX", () => {
     "app/[locale]/services/[offer]/page.tsx",
     "components/service-offers.tsx",
     "components/booking-request-form.tsx",
+    "components/partner-contact-form.tsx",
+    "components/print-presentation-button.tsx",
     "app/[locale]/marketplace/page.tsx",
     "app/[locale]/marketplace/[slug]/page.tsx",
     "app/[locale]/visa-guide/page.tsx",

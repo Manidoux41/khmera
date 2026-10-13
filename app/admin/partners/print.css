@@ -1,0 +1,48 @@
+@media print {
+  @page { size: A4; margin: 12mm; }
+
+  html:has(.partner-presentation) { height: auto !important; }
+
+  body:has(.partner-presentation),
+  body:has(.partner-presentation) .admin-shell {
+    min-height: 0 !important;
+    height: auto !important;
+    background: white !important;
+    color: #111 !important;
+  }
+
+  body:has(.partner-presentation) header,
+  body:has(.partner-presentation) .admin-banner,
+  body:has(.partner-presentation) footer,
+  body:has(.partner-presentation) .partner-screen-only {
+    display: none !important;
+  }
+
+  .partner-page {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: none !important;
+  }
+
+  .partner-presentation {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: white !important;
+    font-size: 10pt;
+    line-height: 1.35;
+  }
+
+  .partner-presentation * {
+    color: #111 !important;
+    border-color: #bbb !important;
+    box-shadow: none !important;
+  }
+
+  .partner-presentation > * + * { margin-top: 10pt !important; }
+  .partner-presentation h1 { font-size: 22pt; line-height: 1.15; }
+  .partner-presentation h2 { font-size: 12pt; line-height: 1.3; }
+  .partner-presentation p,
+  .partner-presentation li { font-size: 9pt; line-height: 1.35; }
+  .partner-presentation section { break-inside: avoid; }
+}

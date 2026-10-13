@@ -1,0 +1,380 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Locale {
+  en
+  fr
+  es
+  de
+}
+
+enum AdminRole {
+  superadmin
+  admin
+}
+
+enum ContactCategory {
+  tourist
+  retiree
+  referrer
+  partner
+}
+
+enum ServiceKind {
+  core
+  marketplace
+}
+
+enum ServiceStatus {
+  active
+  beta
+  inactive
+}
+
+enum ServiceCategory {
+  visa
+  housing
+  business
+  advisory
+  relocation
+  transport
+  tourism
+}
+
+enum PublicationStatus {
+  draft
+  published
+}
+
+enum RequestKind {
+  booking
+  partnership
+}
+
+enum RequestStatus {
+  new
+  qualified
+  closed
+}
+
+enum PortraitTreatment {
+  fade
+  transparent
+}
+
+enum AssetVisibility {
+  public
+  private
+}
+
+model AdminAccount {
+  id           String         @id @default(cuid())
+  name         String         @db.VarChar(120)
+  email        String         @unique @db.VarChar(254)
+  role         AdminRole      @default(admin)
+  passwordHash String
+  passwordSalt String?
+  active       Boolean        @default(true)
+  sessions     AdminSession[]
+  agent        Agent?
+  auditEvents  AuditEvent[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+}
+
+// Future revocable sessions; existing HMAC cookies remain unchanged.
+model AdminSession {
+  id           String       @id @default(cuid())
+  tokenHash    String       @unique
+  adminId      String
+  admin        AdminAccount @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  expiresAt    DateTime
+  revokedAt    DateTime?
+  createdAt    DateTime     @default(now())
+
+  @@index([adminId, expiresAt])
+}
+
+model Agent {
+  id             String         @id @default(cuid())
+  firstName      String         @db.VarChar(26)
+  lastName       String         @db.VarChar(26)
+  role           String         @db.VarChar(40)
+  telegram       String         @db.VarChar(24)
+  whatsapp       String         @db.VarChar(24)
+  email          String         @db.VarChar(64)
+  translations   AgentTranslation[]
+  active         Boolean        @default(true)
+  adminId        String?        @unique
+  admin          AdminAccount?  @relation(fields: [adminId], references: [id], onDelete: SetNull)
+  portraitId     String?
+  portrait       MediaAsset?    @relation("AgentPortrait", fields: [portraitId], references: [id], onDelete: SetNull)
+  cards          BusinessCard[]
+  contacts       Contact[]
+  requests       ContactRequest[]
+  authoredPosts  BlogPost[]
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+}
+
+model BusinessCard {
+  id                String            @id @default(cuid())
+  agentId           String
+  agent             Agent             @relation(fields: [agentId], references: [id], onDelete: Cascade)
+  backgroundId      String
+  background        MediaAsset        @relation("CardBackground", fields: [backgroundId], references: [id], onDelete: Restrict)
+  portraitTreatment PortraitTreatment @default(fade)
+  locale            Locale            @default(fr)
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  @@index([agentId])
+}
+
+model AgentTranslation {
+  agentId String
+  agent   Agent  @relation(fields: [agentId], references: [id], onDelete: Cascade)
+  locale  Locale
+  role    String @db.VarChar(40)
+
+  @@id([agentId, locale])
+}
+
+model Contact {
+  id           String            @id @default(cuid()) @db.VarChar(100)
+  name         String            @db.VarChar(120)
+  email        String?           @db.VarChar(254)
+  phone        String?           @db.VarChar(60)
+  organization String?           @db.VarChar(160)
+  city         String?           @db.VarChar(100)
+  notes        String?           @db.VarChar(2000)
+  categories   ContactCategory[]
+  agentId      String?
+  agent        Agent?            @relation(fields: [agentId], references: [id], onDelete: SetNull)
+  requests     ContactRequest[]
+  services     Service[]
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+
+  @@index([name])
+  @@index([email])
+  @@index([agentId])
+  @@index([categories], type: Gin)
+}
+
+// Nothing is captured from existing mailto forms until server submission is explicitly enabled.
+model ContactRequest {
+  id              String         @id @default(cuid())
+  kind            RequestKind
+  status          RequestStatus  @default(new)
+  locale          Locale
+  name            String         @db.VarChar(120)
+  email           String         @db.VarChar(254)
+  city            String         @db.VarChar(100)
+  organization    String?        @db.VarChar(160)
+  activity        String?
+  project         String
+  preferredDate   DateTime?      @db.Date
+  consentAt       DateTime
+  consentText     String
+  contactId       String?
+  contact         Contact?       @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  agentId         String?
+  agent           Agent?         @relation(fields: [agentId], references: [id], onDelete: SetNull)
+  offerId         String?
+  offer           Offer?         @relation(fields: [offerId], references: [id], onDelete: SetNull)
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  @@index([status, createdAt])
+  @@index([contactId])
+  @@index([agentId])
+}
+
+model Service {
+  id           String               @id @default(cuid())
+  slug         String?              @unique
+  kind         ServiceKind
+  category     ServiceCategory
+  status       ServiceStatus
+  providerName String
+  partnerId    String?
+  partner      Contact?             @relation(fields: [partnerId], references: [id], onDelete: SetNull)
+  isDemo       Boolean              @default(true)
+  translations ServiceTranslation[]
+  offer        Offer?
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+
+  @@index([kind, status])
+  @@index([partnerId])
+}
+
+model ServiceTranslation {
+  serviceId   String
+  service     Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  locale      Locale
+  name        String
+  description String
+  pricing     String
+  publicPath  String
+
+  @@id([serviceId, locale])
+}
+
+model Offer {
+  id           String             @id @default(cuid())
+  slug         String             @unique
+  serviceId    String             @unique
+  service      Service            @relation(fields: [serviceId], references: [id], onDelete: Restrict)
+  priceUsd     Decimal            @db.Decimal(10, 2)
+  quoteOnly    Boolean            @default(true)
+  translations OfferTranslation[]
+  requests     ContactRequest[]
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+}
+
+model OfferTranslation {
+  offerId      String
+  offer        Offer   @relation(fields: [offerId], references: [id], onDelete: Cascade)
+  locale       Locale
+  name         String
+  summary      String
+  audience     String
+  includes     String[]
+  exclusions   String
+  pricingNote  String
+
+  @@id([offerId, locale])
+}
+
+model BlogPost {
+  id           String                @id @default(cuid())
+  slug         String                @unique
+  status       PublicationStatus     @default(draft)
+  authorName   String
+  authorId     String?
+  author       Agent?                @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  publishedAt  DateTime?
+  translations BlogPostTranslation[]
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+
+  @@index([status, publishedAt])
+}
+
+model BlogPostTranslation {
+  postId  String
+  post    BlogPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  locale  Locale
+  title   String
+  excerpt String
+  body    String
+
+  @@id([postId, locale])
+}
+
+model MediaAsset {
+  id           String                  @id @default(cuid())
+  storageKey   String                  @unique
+  visibility   AssetVisibility         @default(private)
+  mimeType     String
+  bytes        Int?
+  author       String?
+  license      String?
+  licenseUrl   String?
+  sourceUrl    String?
+  modification String?
+  translations MediaAssetTranslation[]
+  portraits    Agent[]                 @relation("AgentPortrait")
+  backgrounds  BusinessCard[]          @relation("CardBackground")
+  testimonials Testimonial[]
+  createdAt    DateTime                @default(now())
+  updatedAt    DateTime                @updatedAt
+}
+
+model MediaAssetTranslation {
+  assetId String
+  asset   MediaAsset @relation(fields: [assetId], references: [id], onDelete: Cascade)
+  locale  Locale
+  alt     String
+  caption String
+
+  @@id([assetId, locale])
+}
+
+model Testimonial {
+  id           String                   @id @default(cuid())
+  name         String
+  initials     String
+  fictional    Boolean                  @default(true)
+  status       PublicationStatus        @default(draft)
+  photoId      String
+  photo        MediaAsset               @relation(fields: [photoId], references: [id], onDelete: Restrict)
+  translations TestimonialTranslation[]
+  createdAt    DateTime                 @default(now())
+  updatedAt    DateTime                 @updatedAt
+}
+
+model TestimonialTranslation {
+  testimonialId String
+  testimonial   Testimonial @relation(fields: [testimonialId], references: [id], onDelete: Cascade)
+  locale        Locale
+  role          String
+  location      String
+  service       String
+  quote         String
+  outcome       String
+
+  @@id([testimonialId, locale])
+}
+
+model PartnerPresentation {
+  id           String                           @id @default(cuid())
+  translations PartnerPresentationTranslation[]
+  createdAt    DateTime                         @default(now())
+  updatedAt    DateTime                         @updatedAt
+}
+
+model PartnerPresentationTranslation {
+  presentationId String
+  presentation   PartnerPresentation @relation(fields: [presentationId], references: [id], onDelete: Cascade)
+  locale         Locale
+  content        Json
+  version        Int                 @default(1)
+
+  @@id([presentationId, locale])
+}
+
+// Site copy is structured JSON to preserve the existing nested dictionaries.
+model SiteTranslation {
+  locale    Locale   @id
+  content   Json
+  version   Int      @default(1)
+  updatedAt DateTime @updatedAt
+}
+
+model SiteSetting {
+  key       String   @id
+  value     Json
+  updatedAt DateTime @updatedAt
+}
+
+model AuditEvent {
+  id        String        @id @default(cuid())
+  adminId   String?
+  admin     AdminAccount? @relation(fields: [adminId], references: [id], onDelete: SetNull)
+  action    String
+  entity    String
+  entityId  String
+  createdAt DateTime      @default(now())
+
+  @@index([entity, entityId, createdAt])
+}

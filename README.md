@@ -74,6 +74,52 @@ are in-memory mocks; localized names come from `lib/i18n.ts`.
   Production, then redeploy. If you set `ADMIN_ACCESS_PATH` there, the secret
   link becomes `https://<your-domain>/<ADMIN_ACCESS_PATH>`.
 
+The private dashboard also includes a business-card editor (`#business-cards`),
+prefilled for Manfred Parbatia, "Conseiller en mise en relation", with
+Telegram/WhatsApp `076-252-3154`. All identity,
+role and contact fields are editable for future agents. Optional JPEG/PNG/WebP
+portraits (max 5 MiB) stay in browser memory and never upload to the server.
+Without a portrait, no photo placeholder is printed. Nothing is persisted.
+Print or save a PDF before leaving/reloading the page.
+Portraits have no border or rounded frame. Classic photos use feathered contours;
+already cut-out transparent PNG/WebP portraits use the transparent mode, with a
+subtle bottom fade. No automatic background removal is performed.
+The agent JSON export preserves the identity, messaging contacts, background ID
+and portrait treatment; no image bytes or temporary `blob:` URL is exported.
+Keep portrait files separately for the future private media storage.
+The card language selector supports FR/EN/ES/DE, translating the professional
+title, tagline, portrait label and printed photo credit. Custom job titles are
+kept separately per language in the current editor; names and contact details
+stay unchanged. The agent export is now version 2 and includes all four role
+translations, the selected card locale and the editable email address (default
+`manfredparbatia@gmail.com`). Prisma prepares the same fields with
+`AgentTranslation`, `Agent.email` and `BusinessCard.locale`.
+Telegram/WhatsApp pictograms and the email envelope print as inline vector
+icons. A lighter blue/white overlay keeps Angkor visible with dark navy text.
+Only the card's Khmera wordmark uses Taprom, a Khmer handwriting-inspired
+typeface by Danh Hong and Neapolitan. The brand remains in Latin letters
+(Taprom's Latin design derives from Seaweed Script), with flowing handwritten
+forms rather than a Khmer transliteration. The unmodified font is self-hosted
+in `public/fonts/taprom/`, with its SIL OFL 1.1 license.
+Other card text keeps its readable sans-serif font. Printing waits for fonts
+to load; no third-party font request is needed at runtime.
+
+Cards are 85 x 55 mm: print either one or eight on A4 at 100% / actual size,
+with browser headers/footers disabled and background graphics enabled. Only
+cards print, not the dashboard or editor. Cut along their thin borders; there
+is no professional bleed. The Angkor Wat background reuses Vladimir Pankratov's
+CC BY-SA 2.0 photo, cropped/tinted under the same license, with source/license
+links retained on every printed card. Add an international calling code when
+needed; the tool does not infer it or verify messaging-account availability.
+
+Card unit tests are included in `node --test tests/*.test.mjs`. The optional
+real-browser/PDF test runs with `ADMIN_TEST_BASE_URL=http://localhost:3100`
+and `CARD_CDP_URL=http://127.0.0.1:9337`, against a production preview and an
+isolated headless Chrome profile with its local remote-debugging port enabled.
+It tests editing, optional-photo rejection/addition/removal, long-field layout,
+print-dialog invocation and exactly one A4 PDF page for 1 and 8 cards.
+`CARD_PDF_DIR` optionally saves PDF samples outside the repository.
+
 API (JSON, same session cookie):
 
 | Method | Route | Description |
@@ -82,6 +128,75 @@ API (JSON, same session cookie):
 | `GET` | `/api/admin/session` | Current admin, or `401` |
 | `DELETE` | `/api/admin/session` | Log out |
 | `GET` | `/api/admin/services` | List services; optional `locale`, `status` (`active`/`beta`/`inactive`), `kind` (`core`/`marketplace`) |
+| `GET` | `/api/admin/data-export` | Authenticated offline catalogue download for future Prisma import; no credentials or browser-only records |
+
+## Future PostgreSQL / Prisma storage (not enabled)
+
+`prisma/schema.prisma` prepares the application's persistent data model using
+Prisma 7.10 and PostgreSQL. **There is no database, migration applied, Prisma
+client instance, server-side write, or replacement of the mocks today.**
+The generated types are used only at compile time by the preparation functions.
+The CLI has no datasource unless `DATABASE_URL` is explicitly supplied in the
+command environment; it does not auto-load a dotenv file or use a dummy URL.
+
+Prepared models:
+
+- Admin accounts, hashed passwords, future revocable sessions and audit events
+  (no cleartext passwords or raw session tokens).
+- Agents, optional portrait asset and business-card background/treatment.
+- Contacts with several categories, optional assigned agent and partner services.
+- Future booking/partnership requests, language, recorded consent, optional
+  preferred date, contact, agent and offer. Current mailto drafts are **not**
+  captured and do not prove an email was sent or a request accepted.
+- Services / marketplace, localized pricing descriptions, quote-only USD offers
+  with decimal prices, translations and explicit demo flags.
+- Blog drafts/publications and four language variants.
+- Media metadata, private/public visibility, storage keys, licensing and
+  translated captions; actual media files will need separate storage.
+- Testimonials retaining fictional status and translated content.
+- Private partner presentation, full nested site dictionaries and site settings.
+
+Commands that work **without any database**:
+
+```bash
+npm run db:validate
+npm run db:generate
+```
+
+`npm run build` generates ignored Prisma types before the Next build, so a clean
+checkout also compiles without `DATABASE_URL`. No automatic seed or migration
+command is configured. SQL migrations will be generated and reviewed during
+the later activation step; the schema is the current source of truth.
+
+`lib/data/preparation.ts` validates and converts existing contact exports,
+agent/card details, blog posts and localized service records into generated
+Prisma create-input types, without executing writes. Preserve contact IDs
+when importing. Empty optional fields become null, multiple categories remain
+intact. Database imports must use these validators (the database alone does not
+enforce category nonemptiness or uniqueness inside the PostgreSQL array).
+
+The dashboard's private catalogue download prepares media metadata, the twelve
+services, four offers, blog draft, illustrative testimonials, partner copy and
+four full dictionaries. `version`, `importOrder` and `excluded` document the
+offline payload. Dates serialize as ISO strings and must be converted back by
+the future validated importer. Assets/services must exist before dependent
+`connect` references. Agents and contacts export separately from the browser;
+there are no fabricated clients, imported credentials, or unsent requests.
+Downloading a catalogue does not transfer or provision the actual media files.
+
+Later activation requires an explicit implementation/deployment step:
+provision PostgreSQL, privately configure `DATABASE_URL`, review/generate/apply
+migrations, install the PostgreSQL adapter, instantiate Prisma on the server
+only, then replace mocks and browser-only CRUD with authenticated repositories.
+Create real admin credentials rather than importing the development account;
+validate imports transactionally, define duplicate/update policies and preserve
+draft/demo/fictional flags. Implement private portrait uploads, permission checks,
+consent/retention rules, backups, request submission and integration tests before
+claiming persistence. No payments, commissions or customer login are implemented.
+
+Prisma's CLI dependencies `deepmerge-ts` and `mysql2` are pinned via scoped
+overrides to patched versions, approved and verified with schema generation and
+build. These do not enable MySQL: the selected datasource remains PostgreSQL.
 
 ## Commercial packages and booking requests
 
@@ -143,6 +258,50 @@ an appropriately configured payment provider, webhook verification and agreed
 commercial/privacy terms. Do not use process-memory mocks to accept real orders
 on Vercel. Run `node --test tests/*.test.mjs` to validate catalog consistency,
 mail links and translation coverage.
+
+## Private partner launch kit and contact directory
+
+After admin login, the dashboard links to `/<ADMIN_ACCESS_PATH>/partners`
+and `/<ADMIN_ACCESS_PATH>/contacts`. Both pages check the session on the server
+before rendering. The old `/{locale}/partners` URLs return 404; there are no
+public navigation links or sitemap entries. Admin responses remain noindex.
+Do not distribute the secret administration link with a PDF.
+
+The private partners page provides a localized (EN/FR/ES/DE, selected with
+`?locale=fr` etc.) one-page presentation, an A4 print/PDF button, a guided demo
+and an email-draft contact form. Print with browser headers/footers disabled.
+The PDF prints only the presentation and links to the public home page, never
+the administration path.
+The presentation addresses local travel agencies, guesthouses, hotels and real
+estate agencies, not end customers. It describes future client introductions,
+consent and each party's role, without displaying client package fees.
+Partners would quote and contract directly with clients; introductions would
+initially be manual and commercial terms remain to be agreed.
+
+Partner enquiries go to the existing shared contact
+`manfredparbatia@gmail.com`. Nothing is automatically submitted, saved or sent.
+The form previews a localized subject/body, has required consent and lets the
+visitor send with their mail app or copy the draft. No partnership or
+commission is promised. The demo uses fictional details without sending email.
+
+No professional mailbox has been provisioned: creating one requires a domain,
+a mail provider and DNS verification. See the
+[launch action plan](docs/plan-lancement.md) for the proposed mailbox format,
+setup checklist, outreach script and two-week launch schedule.
+
+The contact directory starts empty and supports adding, listing, editing,
+deleting (with confirmation), searching and category filtering. Each contact
+can have several categories: tourist, retiree, business referrer and partner.
+Fields: name, email, phone, organisation, city and notes. Apply changes in the
+tab, then export `khmera-contacts-prives.json` to retain them.
+Nothing is persisted on the server or in local/session storage. Reloading,
+leaving the page or closing the tab loses the working list; import the JSON to
+resume. An unload warning reminds users about unapplied/unexported edits.
+Export confirmation is a download trigger, not proof the file was saved.
+Never commit these personal-data files or upload them to a public folder.
+Imports are validated before replacement (explicit confirmation), reject
+invalid categories/duplicate IDs, and are limited to 1000 contacts and 16 MB.
+The form is not an automatic inbox, bookings service or client database.
 
 ## SEO and search engine indexing
 

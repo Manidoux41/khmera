@@ -1,0 +1,74 @@
+@font-face {
+  font-family: "Khmera Taprom";
+  src: url("/fonts/taprom/Taprom-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+.business-card-scroll { overflow-x: auto; padding-bottom: 8px; }
+.business-card-sheet { width: max-content; }
+.khmera-business-card {
+  position: relative;
+  width: 85mm;
+  height: 55mm;
+  overflow: hidden;
+  border: 0.2mm solid #94a3b8;
+  background: #e5efff;
+  color: #10214b;
+  font-family: Arial, Helvetica, sans-serif;
+  break-inside: avoid;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+.khmera-business-card:not(:first-child) { display: none; }
+.business-card-background { object-fit: cover; object-position: 65% center; }
+.business-card-tint { position: absolute; inset: 0; background: linear-gradient(90deg, #f5f8fff5 0%, #edf3ffef 58%, #e5efff85 100%); }
+.business-card-content { position: relative; height: 100%; padding: 9px 12px 7px; border-top: 4px solid #c9203b; border-bottom: 4px solid #3169c5; }
+.business-card-brand { display: flex; align-items: center; gap: 6px; height: 32px; }
+.business-card-brand strong { font-family: "Khmera Taprom", cursive; font-weight: 400; font-size: 30px; letter-spacing: 1px; line-height: 1; }
+.business-card-brand strong span { color: #c9203b; }
+.business-card-tagline { margin: 2px 0 5px; font-size: 7px; letter-spacing: 0.8px; }
+.business-card-name { margin: 0; font-size: 18px; line-height: 19px; font-weight: 700; }
+.business-card-name span { display: block; white-space: nowrap; }
+.has-agent-photo .business-card-name,
+.has-agent-photo .business-card-role { width: 215px; }
+.business-card-agent-photo {
+  position: absolute;
+  top: 60px;
+  right: 9px;
+  width: 62px;
+  height: 76px;
+  object-fit: cover;
+  object-position: center 25%;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  mask-image: radial-gradient(ellipse 50% 55% at 50% 45%, #000 60%, transparent 100%);
+}
+.business-card-agent-photo.is-transparent {
+  object-fit: contain;
+  mask-image: linear-gradient(#000 85%, transparent);
+}
+.business-card-role { margin: 2px 0 4px; font-size: 9px; line-height: 12px; overflow-wrap: anywhere; }
+.business-card-contact { display: flex; align-items: center; gap: 4px; margin: 0; font-size: 10px; line-height: 14px; }
+.business-card-contact-icon { flex: 0 0 12px; width: 12px; height: 12px; }
+.business-card-email a { white-space: nowrap; }
+.business-card-contact strong { display: inline-block; width: 62px; }
+.business-card-site { display: block; margin-top: 3px; font-size: 9px; line-height: 12px; color: #10214b; overflow-wrap: anywhere; }
+.business-card-credit { position: absolute; bottom: 3px; left: 12px; right: 8px; margin: 0; font-size: 6px; line-height: 8px; color: #10214b; }
+
+@media print {
+  @page { size: A4; margin: 12mm; }
+  html:has(.business-card-editor),
+  body:has(.business-card-editor),
+  body:has(.business-card-editor) .admin-shell { min-height: 0 !important; height: auto !important; background: white !important; }
+  body:has(.business-card-editor) .admin-banner,
+  .admin-dashboard:has(.business-card-editor) > :not(.business-card-editor),
+  .business-card-controls { display: none !important; }
+  .admin-dashboard:has(.business-card-editor),
+  .business-card-editor { margin: 0 !important; padding: 0 !important; border: 0 !important; max-width: none !important; background: none !important; }
+  .business-card-scroll { padding: 0; overflow: visible; }
+  .business-card-sheet { display: grid; grid-template-columns: repeat(2, 85mm); gap: 5mm; }
+  .khmera-business-card:not(:first-child) { display: block; }
+}

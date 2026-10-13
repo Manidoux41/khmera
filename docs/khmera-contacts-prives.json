@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "contacts": [
+    {
+      "id": "f7b87c2e-2eec-4d3e-abd6-22bcaa7f2a53",
+      "name": "Contact Démo Modifié",
+      "email": "demo@example.test",
+      "phone": "",
+      "organization": "Guesthouse Démo",
+      "city": "Siem Reap",
+      "categories": [
+        "retiree",
+        "partner",
+        "referrer"
+      ],
+      "notes": ""
+    }
+  ]
+}

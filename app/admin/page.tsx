@@ -3,12 +3,14 @@ import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
 import { LogoutButton } from "@/app/admin/logout-button";
+import { BusinessCardEditor } from "@/app/admin/business-card-editor";
 import { blogPosts } from "@/lib/blog/posts";
 import { RouteSkeleton } from "@/components/route-skeleton";
 import { adminHref } from "@/lib/admin/config";
 import { getCurrentAdmin } from "@/lib/admin/session";
 import { defaultLocale, getDictionary, isLocale, localeLabels, locales, type Locale } from "@/lib/i18n";
 import { bookingEmail, formatOfferPrice, offers } from "@/lib/services/offers";
+import { siteUrl } from "@/lib/site";
 import {
   isServiceKind,
   isServiceStatus,
@@ -92,7 +94,7 @@ async function AdminDashboard({ searchParams }: { searchParams: SearchParams }) 
     `rounded-full border px-3 py-1.5 text-xs transition ${active ? "border-emerald-400 bg-emerald-500/15 text-emerald-100" : "border-slate-700 text-slate-300 hover:border-slate-500 hover:text-white"}`;
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <div className="admin-dashboard mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <p className="text-sm uppercase tracking-[0.2em] text-emerald-300">Tableau de bord</p>
@@ -117,6 +119,24 @@ async function AdminDashboard({ searchParams }: { searchParams: SearchParams }) 
           </div>
         ))}
       </dl>
+
+      <section className="mt-8 rounded-3xl border border-slate-700 bg-slate-900/60 p-6">
+        <h2 className="text-2xl font-semibold text-white">Clients et partenaires</h2>
+        <p className="mt-3 text-sm leading-7 text-slate-300">Gérez vos futurs contacts : touristes, retraités, apporteurs d&apos;affaires et partenaires. Plusieurs catégories sont possibles par fiche. Sans base de données, exportez vos modifications avant de quitter l&apos;onglet.</p>
+        <div className="mt-5 flex flex-wrap gap-4">
+          <Link href={adminHref("/contacts")} className="rounded-full bg-emerald-500 px-5 py-3 text-sm font-medium text-white">Gérer le répertoire privé</Link>
+          <Link href={adminHref("/partners")} className="rounded-full border border-slate-600 px-5 py-3 text-sm font-medium text-white">Présentation partenaires — aperçu et impression</Link>
+          <a href="#business-cards" className="rounded-full border border-slate-600 px-5 py-3 text-sm font-medium text-white">Créer une carte de visite</a>
+        </div>
+      </section>
+
+      <BusinessCardEditor publicUrl={siteUrl.toString()} />
+
+      <section className="mt-8 rounded-3xl border border-slate-700 bg-slate-900/60 p-6">
+        <h2 className="text-2xl font-semibold text-white">Préparation de la future base Prisma</h2>
+        <p className="mt-3 text-sm leading-7 text-slate-300">Schéma PostgreSQL préparé, aucune base connectée. Exportez le catalogue et ses quatre langues pour une future importation contrôlée. Les contacts temporaires et les agents se téléchargent séparément depuis leurs éditeurs ; les photos de profil restent des fichiers à conserver à part. Aucun identifiant de connexion, session ou demande e-mail non envoyée n&apos;est exporté.</p>
+        <a href="/api/admin/data-export" download className="mt-5 inline-flex rounded-full border border-slate-600 px-5 py-3 text-sm font-medium text-white">Exporter le catalogue pour Prisma</a>
+      </section>
 
       <section className="mt-8 rounded-3xl border border-slate-700 bg-slate-900/60 p-6">
         <h2 className="text-2xl font-semibold text-white">Blog</h2>
@@ -151,8 +171,8 @@ async function AdminDashboard({ searchParams }: { searchParams: SearchParams }) 
           Ne confirmez un rendez-vous qu&apos;après accord du client.
         </p>
         <p className="mt-3 text-xs leading-6 text-slate-400">
-          Aucun suivi des demandes, stockage client ou encaissement en ligne pour le moment.
-          Gérez les échanges dans votre messagerie ; aucune demande n&apos;est enregistrée dans ce tableau.
+          Aucun stockage client sur le serveur ni encaissement en ligne. Le répertoire privé est temporaire,
+          avec import/export JSON ; les demandes reçues par e-mail n&apos;y sont pas ajoutées automatiquement.
         </p>
       </section>
 

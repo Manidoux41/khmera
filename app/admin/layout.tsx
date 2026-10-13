@@ -8,8 +8,8 @@ export const metadata: Metadata = {
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div lang="fr" className="min-h-screen bg-slate-950 text-slate-100">
-      <div className="border-b border-slate-800 bg-slate-950/80">
+    <div lang="fr" className="admin-shell min-h-screen bg-slate-950 text-slate-100">
+      <div className="admin-banner border-b border-slate-800 bg-slate-950/80">
         <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-4 sm:px-6 lg:px-8">
           <Image src="/khmera-mark.svg" width={40} height={40} alt="" />
           <p className="text-lg font-bold tracking-[0.14em] text-white">

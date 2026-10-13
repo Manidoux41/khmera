@@ -20,7 +20,8 @@ function load(path, dependencies = {}, env = {}) {
   return exports;
 }
 
-const i18n = load("lib/i18n.ts");
+const partnerCopy = load("lib/partners/copy.ts");
+const i18n = load("lib/i18n.ts", { "./partners/copy": partnerCopy });
 const offers = load("lib/services/offers.ts");
 const founderStory = JSON.parse(readFileSync(new URL("../lib/blog/founder-story.json", import.meta.url), "utf8"));
 const blog = load("lib/blog/posts.ts", { "./founder-story.json": { default: founderStory } });
@@ -120,8 +121,11 @@ test("sitemap includes all 36 real localized pages, no placeholders or private r
   const entries = sitemap();
   assert.equal(entries.length, 36);
   assert.equal(new Set(entries.map((entry) => entry.url)).size, 36);
+  for (const locale of i18n.locales) {
+    assert.ok(!entries.some((entry) => entry.url === `https://khmera.vercel.app/${locale}/partners`));
+  }
   for (const entry of entries) {
-    assert.doesNotMatch(entry.url, /example|admin|api|marketplace|testimonials|console/);
+    assert.doesNotMatch(entry.url, /example|admin|api|marketplace|testimonials|console|partners|contacts/);
     assert.equal(entry.lastModified, undefined);
     const url = new URL(entry.url);
     const [, locale, ...segments] = url.pathname.split("/");
@@ -219,6 +223,18 @@ test("crawler HTML exposes single page-specific head tags, alternates and valid 
   const sitemap = await fetch(new URL("/sitemap.xml", base));
   assert.equal(sitemap.status, 200);
   assert.equal(((await sitemap.text()).match(/<loc>/g) ?? []).length, 36);
+  for (const locale of i18n.locales) {
+    const response = await fetch(new URL(`/${locale}/partners`, base));
+    assert.equal(response.status, 404);
+    assert.ok(!(await response.text()).includes('class="partner-presentation'));
+  }
+  for (const path of ["/khm-console-7f3a9c/partners", "/khm-console-7f3a9c/contacts"]) {
+    const response = await fetch(new URL(path, base));
+    const html = await response.text();
+    assert.ok(!html.includes('class="partner-presentation'));
+    assert.ok(!html.includes("Répertoire privé — clients et partenaires"));
+    assert.equal(response.headers.get("x-robots-tag"), "noindex, nofollow, noarchive");
+  }
   for (const path of ["/khm-console-7f3a9c/login", "/api/admin/services"]) {
     const response = await fetch(new URL(path, base));
     assert.equal(response.headers.get("x-robots-tag"), "noindex, nofollow, noarchive");
