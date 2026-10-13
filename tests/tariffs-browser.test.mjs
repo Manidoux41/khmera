@@ -52,11 +52,20 @@ test("tariff language/package navigation keeps recipient and prints sixteen one-
             recipient: document.querySelector('.tariff-recipient-value').textContent,
             overflow: document.querySelector('.tariff-recipient-value').scrollWidth>recipient.clientWidth,
             sheets: document.querySelectorAll('.tariff-sheet').length,
+            paddingLeft: parseFloat(getComputedStyle(document.querySelector('.tariff-sheet')).paddingLeft),
+            paddingRight: parseFloat(getComputedStyle(document.querySelector('.tariff-sheet')).paddingRight),
+            page: getComputedStyle(document.querySelector('.tariff-sheet')).page,
           };
         })()`);
         assert.equal(layout.hidden, true); assert.equal(layout.overflow, false);
         assert.equal(layout.recipient, recipient); assert.equal(layout.sheets, 1);
-        const pdf = await browser.command("Page.printToPDF", { preferCSSPageSize: true, displayHeaderFooter: false, printBackground: true });
+        assert.ok(Math.abs(layout.paddingLeft - 14 * 96 / 25.4) < 0.1, "14 mm left inset must be part of the sheet even without browser margins");
+        assert.ok(Math.abs(layout.paddingRight - layout.paddingLeft) < 0.1, "Balanced print margins");
+        assert.equal(layout.page, "khmera-tariff", "Tariffs must use their own page settings");
+        const pdf = await browser.command("Page.printToPDF", {
+          preferCSSPageSize: true, displayHeaderFooter: false, printBackground: true,
+          marginTop: 0, marginRight: 0, marginBottom: 0, marginLeft: 0,
+        });
         const text = Buffer.from(pdf.data, "base64").toString("latin1");
         assert.equal((text.match(/\/Type\s*\/Page\b/g) ?? []).length, 1, `${locale}/${slug} must fit one A4 page with a 160-character recipient`);
         const dimensions = text.match(/\/MediaBox\s*\[0 0 ([\d.]+) ([\d.]+)\]/);
@@ -71,6 +80,7 @@ test("tariff language/package navigation keeps recipient and prints sixteen one-
     await browser.command("Page.reload");
     await browser.until("document.querySelector('.tariff-sheet')?.lang==='de' && !!document.querySelector('#tariff-recipient')");
     assert.equal(await browser.evaluate("document.querySelector('#tariff-recipient').value"), "");
+    await browser.until("Object.keys(document.querySelector('.tariff-controls button')).some(key=>key.startsWith('__reactProps$'))");
     await browser.evaluate("window.__tariffPrintCalls=0; window.print=()=>{window.__tariffPrintCalls++;}; true");
     await browser.click(".tariff-controls button");
     await browser.until("window.__tariffPrintCalls===1");

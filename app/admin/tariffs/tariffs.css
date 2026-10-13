@@ -22,10 +22,10 @@
   .tariff-sheet { padding: 20px; }
 }
 @media print {
-  @page { size: A4; margin: 14mm; }
+  @page khmera-tariff { size: A4; margin: 0; }
   body:has(.tariff-sheet), body:has(.tariff-sheet) .admin-shell { min-height: 0 !important; height: auto !important; background: white !important; }
   body:has(.tariff-sheet) .admin-banner, .tariff-controls { display: none !important; }
-  .tariff-sheet { max-width: none; padding: 0; border: 0; border-radius: 0; background: white; color: #111; font-size: 9pt; line-height: 1.35; }
+  .tariff-sheet { page: khmera-tariff; box-sizing: border-box; max-width: none; padding: 14mm; border: 0; border-radius: 0; background: white; color: #111; font-size: 9pt; line-height: 1.35; }
   .tariff-sheet * { color: #111 !important; }
   .tariff-sheet h2 { font-size: 22pt; }
   .tariff-sheet h3 { font-size: 12pt; }

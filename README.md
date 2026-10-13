@@ -191,6 +191,10 @@ public localized dictionaries, while private labels and recipient instructions
 are centralized in `lib/admin/tariff-copy.ts`. The printed slogan and USD amount
 format follow the selected language. The recipient is not translated and remains
 in page memory when changing language or package through these links.
+Tariff printing uses a dedicated named A4 page with zero outer margins and a
+14 mm inset built into the sheet on every side. This keeps the left/right margin
+visible even when browser margins are disabled, and isolates tariffs from other
+admin print page settings. Use 100% scale with browser headers/footers disabled.
 
 The private dashboard includes a business-card editor (`#business-cards`),
 prefilled for Manfred Parbatia, "Conseiller en mise en relation", with
