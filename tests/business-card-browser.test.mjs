@@ -113,6 +113,21 @@ test("admin card editing, optional portrait and one-page A4 printing", {
       return text.right <= bounds.right && text.bottom <= tagline.top;
     })()`), true, "Khmer-inspired wordmark must fit without overlapping the tagline");
     await until("[...document.querySelectorAll('.khmera-business-card img')].every(img=>img.complete && img.naturalWidth>0)");
+    const checkCredit = async () => {
+      assert.equal(await evaluate(`(() => {
+        const credit = document.querySelector('.business-card-credit');
+        const style = getComputedStyle(credit);
+        const bounds = credit.getBoundingClientRect();
+        const card = credit.closest('.khmera-business-card').getBoundingClientRect();
+        const text = document.createRange();
+        text.selectNodeContents(credit);
+        const textBounds = text.getBoundingClientRect();
+        return style.writingMode === 'vertical-rl' && parseFloat(style.fontSize) <= 4
+          && bounds.left >= card.left && bounds.right < card.left + 12
+          && textBounds.top >= card.top && textBounds.bottom <= card.bottom;
+      })()`), true, "Tiny vertical photo credit must fit inside the left edge in every language");
+    };
+    await checkCredit();
     await evaluate("window.__cardPrintCalls=0; window.print=()=>{window.__cardPrintCalls+=1;}; document.querySelector('#business-cards button[type=submit]').click()");
     await until("window.__cardPrintCalls===1");
     assert.equal(await evaluate("document.querySelectorAll('.business-card-agent-photo').length"), 0);
@@ -130,6 +145,7 @@ test("admin card editing, optional portrait and one-page A4 printing", {
       assert.equal(await evaluate("document.querySelector('.business-card-tagline').innerText"), tagline);
       assert.equal(await evaluate("document.querySelectorAll('.khmera-business-card:first-child .business-card-contact-icon').length"), 3);
       assert.equal(await evaluate("document.querySelector('.business-card-email a').getAttribute('href')"), "mailto:manfredparbatia@gmail.com");
+      await checkCredit();
       await printAndCheck(8, `khmera-cartes-manfred-${locale}-a4.pdf`);
     }
     await fill(2, "Mein lokaler Ansprechpartner");
@@ -177,7 +193,7 @@ test("admin card editing, optional portrait and one-page A4 printing", {
       const photo = card.querySelector('.business-card-agent-photo').getBoundingClientRect();
       const role = card.querySelector('.business-card-role').getBoundingClientRect();
       const email = card.querySelector('.business-card-email a').getBoundingClientRect();
-      return names.every(el=>el.scrollWidth<=el.clientWidth) && site.bottom<credit.top && site.right<=content.right && role.right<photo.left && email.right<content.right;
+      return names.every(el=>el.scrollWidth<=el.clientWidth) && credit.right<site.left && site.bottom<content.bottom-4 && site.right<=content.right && role.right<photo.left && email.right<content.right;
     })()`);
     assert.equal(layoutFits, true, "Longest supported names/role must not clip or overlap credits");
     await evaluate("[...document.querySelectorAll('#business-cards button')].find(b=>b.innerText==='Retirer la photo').click()");

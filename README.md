@@ -95,7 +95,9 @@ translations, the selected card locale and the editable email address (default
 `manfredparbatia@gmail.com`). Prisma prepares the same fields with
 `AgentTranslation`, `Agent.email` and `BusinessCard.locale`.
 Telegram/WhatsApp pictograms and the email envelope print as inline vector
-icons. A lighter blue/white overlay keeps Angkor visible with dark navy text.
+icons. A translucent pale-green overlay keeps Angkor visible with dark navy text.
+The complete photo credit is printed vertically in tiny type along the left
+edge, away from the contact details.
 Only the card's Khmera wordmark uses Taprom, a Khmer handwriting-inspired
 typeface by Danh Hong and Neapolitan. The brand remains in Latin letters
 (Taprom's Latin design derives from Seaweed Script), with flowing handwritten
