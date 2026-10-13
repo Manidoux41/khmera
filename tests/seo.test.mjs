@@ -155,6 +155,10 @@ test("service JSON-LD describes real quote-based prices, not fabricated ratings 
       const breadcrumb = data["@graph"].find((item) => item["@type"] === "BreadcrumbList");
       assert.equal(service.offers.price, offer.priceUsd);
       assert.equal(service.offers.priceCurrency, "USD");
+      assert.equal(service.areaServed["@type"], "City");
+      assert.equal(service.areaServed.name, "Siem Reap");
+      assert.equal(service.areaServed.containedInPlace["@type"], "Country");
+      assert.equal(service.areaServed.containedInPlace.name, "Cambodia");
       assert.equal(service.offers.description, i18n.dictionaries[locale].commerce.pricingNote);
       assert.ok(service.description.includes(i18n.dictionaries[locale].commerce.exclusions));
       assert.equal(webpage.inLanguage, locale);
@@ -202,6 +206,10 @@ test("crawler HTML exposes single page-specific head tags, alternates and valid 
       if (expected.index) {
         const data = JSON.parse(schemas[0][1]);
         assert.equal(data["@graph"].find((item) => item["@type"] === "WebPage").url, expected.canonical);
+        if (route.page === "offer") {
+          assert.equal(data["@graph"].find((item) => item["@type"] === "Service").areaServed.name, "Siem Reap");
+          assert.match(html, /name="city"[^>]*value="Siem Reap"/);
+        }
       }
     }
   }

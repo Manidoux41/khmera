@@ -36,14 +36,14 @@ async function ServicesPageContent({
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
       <PageSeo locale={locale} route={{ page: "services" }} />
       <CreditedPhoto
-        photo={photos["street-food"]}
-        alt={messages.photos.alt["street-food"]}
+        photo={photos["angkor-wat-sunrise"]}
+        alt={messages.photos.alt["angkor-wat-sunrise"]}
         sizes="(min-width: 1152px) 1152px, 100vw"
         eager
         className="mb-10 h-56 rounded-[2rem] border border-slate-800 sm:h-72"
       >
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 to-transparent" />
-        <p className="absolute bottom-4 left-5 text-sm font-medium text-white">{messages.photos.places["street-food"]}</p>
+        <p className="absolute bottom-4 left-5 text-sm font-medium text-white">{messages.photos.places["angkor-wat-sunrise"]}</p>
       </CreditedPhoto>
       <ServiceOffers locale={locale} messages={messages} primary />
       <section className="my-12 rounded-3xl border border-slate-800 bg-slate-900/40 p-8">

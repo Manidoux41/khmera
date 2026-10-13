@@ -189,11 +189,9 @@ export const photos: Record<PhotoId, Photo> = {
 
 export const galleryPhotoIds: PhotoId[] = [
   "pub-street",
-  "royal-palace",
+  "angkor-wat-sunrise",
   "tonle-sap",
-  "riverside",
-  "central-market",
-  "rice-fields",
+  "siem-reap-fisherman",
 ];
 
 // Indexed like listingSlugs in lib/i18n.ts.

@@ -195,10 +195,10 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     seo: {
       blog: { title: "KHMERA blog: stories from Cambodia", description: "Discover the KHMERA blog. Its founder is preparing the first story about arriving in Siem Reap and creating the project." },
-      home: { title: "Cambodia relocation, business & travel planning", description: "Prepare your move, business project or discovery trip in Cambodia with KHMERA. Explore guidance packages for Phnom Penh, Siem Reap and beyond." },
-      services: { title: "Cambodia guidance packages & prices", description: "Compare KHMERA's Cambodia diagnostic, relocation, business and discovery trip packages. Clear fees, personalised plans and requests subject to a written quote." },
-      guide: { title: "Cambodia visa guide: preparing your move", description: "Plan your Cambodia visa preparation: identify your visa type, collect documents and review arrival steps. Explore KHMERA's relocation guidance." },
-      business: { title: "Preparing a business project in Cambodia", description: "Prepare your Cambodia business project with a personalised launch plan. Review your budget and questions to validate with local professionals." },
+      home: { title: "Siem Reap: relocation, business & travel planning", description: "Prepare your move, business project or discovery trip in Siem Reap with KHMERA. Personalised guidance for newcomers, entrepreneurs and travellers." },
+      services: { title: "Siem Reap guidance packages & prices", description: "Compare KHMERA's diagnostic, relocation, business and discovery trip packages for Siem Reap. Clear fees and personalised plans, subject to a written quote." },
+      guide: { title: "Cambodia visa guide: moving to Siem Reap", description: "Prepare for a move to Siem Reap: review Cambodia visa types, documents and arrival steps. Visa rules apply nationally; explore KHMERA's relocation guidance." },
+      business: { title: "Preparing a business project in Siem Reap", description: "Prepare your business project in Siem Reap with a personalised launch plan. Review your budget and questions to validate with local professionals." },
       marketplace: { title: "Cambodia marketplace: illustrative listings", description: "Explore example housing, business, relocation and transport listings in Cambodia. These illustrative offers cannot be booked on KHMERA." },
       testimonials: { title: "Illustrative Cambodia journeys", description: "Read fictional examples of relocation, business and travel journeys with KHMERA. These scenarios are illustrations, not verified customer reviews." },
       credits: { title: "Cambodia photos: sources & licence credits", description: "Find the authors, sources and Creative Commons licences for the Cambodia photos used by KHMERA, from Phnom Penh to Siem Reap." },
@@ -216,8 +216,8 @@ export const dictionaries: Record<Locale, Dictionary> = {
         subjectLabel: "Email subject",
       },
       eyebrow: "KHMERA launch packages",
-      heading: "A clear service. A clear price. Your Cambodia project.",
-      description: "Choose practical guidance for exploring Cambodia, planning your move or preparing a business. Phnom Penh, Siem Reap and beyond: start with remote consultations and a personalised written plan.",
+      heading: "A clear service. A clear price. Your Siem Reap project.",
+      description: "Our current focus is Siem Reap: guidance for newcomers, entrepreneurs and travellers. Prepare your move, business project or visit to Angkor with remote consultations and a personalised written plan. Other Cambodia destinations may be discussed separately, subject to a quote.",
       pricingNote: "Proposed launch fees in USD, subject to a written quote. Availability, schedule, any applicable taxes and the final amount are confirmed before booking. No online payment or automatic reservation.",
       quoteLabel: "Subject to a quote",
       exclusions: "Guidance fees only. Visa and government fees, rent, flights, transport, accommodation, guides, admission tickets and third-party professionals are not included. Travellers make and pay for their own travel bookings. No visa approval, company registration or investment outcome is guaranteed. This is not legal or tax advice.",
@@ -227,10 +227,10 @@ export const dictionaries: Record<Locale, Dictionary> = {
       steps: ["Choose a package and prepare your request.", "Send the email; KHMERA discusses your needs and sends a written quote.", "Accept the quote and agree on payment and appointment arrangements before the service starts."],
       back: "Compare all packages",
       offers: {
-        "cambodia-diagnostic": { name: "Cambodia diagnostic", audience: "Travellers and first-time arrivals", summary: "Clarify your plans before committing to a trip or a move.", includes: ["One 45-minute remote consultation", "Review of your goals, destination and budget", "A personalised written roadmap after the call"] },
-        "settle-in": { name: "Settle in with confidence", audience: "Individuals, couples and families", summary: "Structure your relocation without committing blindly to housing or administrative steps.", includes: ["Two 45-minute remote consultations", "A personalised housing, budget and arrival checklist", "A written relocation plan and review at the second meeting"] },
-        "business-launch": { name: "Business project", audience: "Founders and independent professionals", summary: "Prepare your launch and identify questions to validate with qualified local professionals.", includes: ["Three 45-minute remote consultations", "Review of your idea, startup budget and operational needs", "A written launch plan with administrative questions to verify"] },
-        "discovery-trip": { name: "Discovery trip", audience: "Solo travellers, couples and families", summary: "Prepare a Cambodia discovery trip around your dates, interests and pace: Phnom Penh, Siem Reap, Angkor and your chosen stops. Trip planning only, not a booked tour.", includes: ["One 45-minute remote consultation about your travel plans", "A personalised written itinerary with sightseeing suggestions and travel times between stops", "An estimated trip budget and a departure checklist; you book and pay for travel services yourself"] },
+        "cambodia-diagnostic": { name: "Siem Reap diagnostic", audience: "Travellers and first-time arrivals", summary: "Clarify your plans for Siem Reap before committing to a trip or a move.", includes: ["One 45-minute remote consultation", "Review of your goals, destination and budget", "A personalised written roadmap after the call"] },
+        "settle-in": { name: "Settle in with confidence", audience: "Individuals, couples and families", summary: "Structure your relocation to Siem Reap without committing blindly to housing or administrative steps.", includes: ["Two 45-minute remote consultations", "A personalised housing, budget and arrival checklist", "A written relocation plan and review at the second meeting"] },
+        "business-launch": { name: "Business project", audience: "Founders and independent professionals", summary: "Prepare your launch in Siem Reap and identify questions to validate with qualified local professionals.", includes: ["Three 45-minute remote consultations", "Review of your idea, startup budget and operational needs", "A written launch plan with administrative questions to verify"] },
+        "discovery-trip": { name: "Discovery trip", audience: "Solo travellers, couples and families", summary: "Prepare a discovery trip centred on Siem Reap, Angkor and the surrounding area, around your dates, interests and pace. Trip planning only, not a booked tour.", includes: ["One 45-minute remote consultation about your travel plans", "A personalised written itinerary with sightseeing suggestions and travel times between stops", "An estimated trip budget and a departure checklist; you book and pay for travel services yourself"] },
       },
       form: {
         heading: "Prepare your booking request",
@@ -244,14 +244,14 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     home: {
       nextMove: "Next move",
-      city: "Phnom Penh",
+      city: "Siem Reap",
       ready: "Live-ready",
       explore: "Explore by need",
       heading: "Everything required for a confident move.",
       discover: "Discover more",
     },
     services: {
-      heading: "Services built for relocation and growth.",
+      heading: "Guidance for settling in and building your project in Siem Reap.",
       items: [
         { name: "Visa support", detail: "Fast-track documentation and filing guidance." },
         { name: "Property search", detail: "Apartment and condo discovery for families and teams." },
@@ -259,7 +259,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         { name: "Local advisor", detail: "On-demand guidance for expat life and service access." },
       ],
       planHeading: "Need a tailored plan?",
-      planDescription: "Start with a guided discovery call and create a personalized roadmap for living, working or investing in Cambodia.",
+      planDescription: "Start with a guided discovery call and create a personalized roadmap for living, working or travelling in Siem Reap.",
       advisor: "Talk to an advisor",
     },
     marketplace: {
@@ -281,7 +281,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       availability: "These are illustrative offers. Prices and availability are not confirmed. Booking and payment are not currently available on this site.",
     },
     visa: {
-      heading: "A practical roadmap for your move to Cambodia.",
+      heading: "A practical roadmap for your move to Siem Reap, under Cambodia's visa rules.",
       steps: [
         "Confirm your eligibility and visa type.",
         "Gather supporting documents and housing details.",
@@ -290,7 +290,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       ],
     },
     business: {
-      heading: "Build your presence in Cambodia with a reliable local foundation.",
+      heading: "Prepare your business project in Siem Reap with a clear local plan.",
       pillars: [
         "Company formation and jurisdiction guidance",
         "Accounting, payroll and operational support",
@@ -312,7 +312,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       name: "KHMERA",
       tagline: "Move smarter. Build locally. Explore more.",
       description:
-        "International platform for expats, entrepreneurs, travellers and professionals relocating to Cambodia.",
+        "Guidance for expats, entrepreneurs and travellers planning to settle, start a project or discover Siem Reap, Cambodia.",
     },
     nav: {
       home: "Home",
@@ -326,14 +326,14 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     hero: {
       eyebrow: "Expat • Business • Travel",
-      title: "Settle and grow with confidence in Cambodia.",
+      title: "Settle, build your project and discover Siem Reap.",
       description:
-        "Find the trusted guidance, local services and business opportunities you need to move, work and thrive in Phnom Penh and beyond.",
+        "Planning to move to Siem Reap, prepare a business or visit Angkor? KHMERA focuses on your project in Siem Reap with clear packages and personalised plans.",
       primaryCta: "Compare packages and prices",
       secondaryCta: "Speak with an advisor",
     },
     stats: [
-      { value: "$49", label: "Cambodia diagnostic" },
+      { value: "$49", label: "Siem Reap diagnostic" },
       { value: "$249", label: "Relocation guidance" },
       { value: "$399", label: "Business planning" },
     ],
@@ -370,7 +370,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       },
     ],
     cta: {
-      heading: "Ready to build your base in Cambodia?",
+      heading: "Ready to prepare your project in Siem Reap?",
       description:
         "Whether you are relocating, investing or exploring, KHMERA gives you the right next step.",
       button: "Start your plan",
@@ -413,7 +413,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         "siem-reap-fisherman": "Angkor Thom, Siem Reap",
       },
       galleryEyebrow: "Life in Cambodia",
-      galleryHeading: "From the temples of Siem Reap to the riverside of Phnom Penh.",
+      galleryHeading: "Discover Siem Reap, Angkor and the surrounding area.",
       galleryDescription: "A glimpse of everyday life you will discover: markets, floating villages, rice fields and city nights.",
       creditsLink: "Photo credits",
       creditsHeading: "Photo credits",
@@ -502,10 +502,10 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     seo: {
       blog: { title: "Blog Khmera : récits du Cambodge", description: "Découvrez le blog Khmera. Son créateur prépare un premier récit sur son arrivée à Siem Reap et la naissance du projet." },
-      home: { title: "Cambodge : installation, business et préparation de voyage", description: "Préparez votre installation, votre projet business ou votre voyage au Cambodge avec KHMERA. Découvrez nos offres pour Phnom Penh, Siem Reap et ailleurs." },
-      services: { title: "Accompagnement au Cambodge : offres et tarifs", description: "Comparez les offres KHMERA : diagnostic, installation, projet business et voyage découverte. Tarifs clairs et plans personnalisés, sous réserve de devis." },
-      guide: { title: "Guide visa Cambodge : préparer son installation", description: "Préparez vos démarches de visa au Cambodge : type de visa, documents et étapes d'arrivée. Découvrez l'accompagnement à l'installation de KHMERA." },
-      business: { title: "Préparer un projet d'entreprise au Cambodge", description: "Préparez votre projet business au Cambodge avec un plan de lancement personnalisé : budget, besoins et points à valider avec des professionnels locaux." },
+      home: { title: "Siem Reap : installation, business et préparation de voyage", description: "Préparez votre installation, votre projet business ou votre voyage à Siem Reap avec KHMERA. Un accompagnement pour futurs expatriés, entrepreneurs et voyageurs." },
+      services: { title: "Accompagnement à Siem Reap : offres et tarifs", description: "Comparez les offres KHMERA pour Siem Reap : diagnostic, installation, projet business et voyage découverte. Tarifs clairs et plans personnalisés, sur devis." },
+      guide: { title: "Guide visa Cambodge : s'installer à Siem Reap", description: "Préparez votre arrivée à Siem Reap : visas cambodgiens, documents et étapes d'installation. Les règles de visa sont nationales ; découvrez nos offres." },
+      business: { title: "Préparer un projet d'entreprise à Siem Reap", description: "Préparez votre projet business à Siem Reap avec un plan de lancement personnalisé : budget, besoins et points à valider avec des professionnels locaux." },
       marketplace: { title: "Marché Cambodge : annonces illustratives", description: "Découvrez des exemples d'offres de logement, création d'entreprise, installation et transport au Cambodge. Ces annonces ne sont pas réservables sur KHMERA." },
       testimonials: { title: "Exemples fictifs de parcours au Cambodge", description: "Découvrez des récits fictifs d'installation, de business et de voyage avec KHMERA. Ces illustrations ne sont pas des avis clients vérifiés." },
       credits: { title: "Photos du Cambodge : sources et crédits", description: "Retrouvez les auteurs, sources et licences Creative Commons des photos du Cambodge utilisées par KHMERA, de Phnom Penh à Siem Reap." },
@@ -523,8 +523,8 @@ export const dictionaries: Record<Locale, Dictionary> = {
         subjectLabel: "Objet de l'e-mail",
       },
       eyebrow: "Les offres de lancement KHMERA",
-      heading: "Une prestation claire. Un prix clair. Votre projet au Cambodge.",
-      description: "Choisissez un accompagnement concret pour découvrir le Cambodge, préparer votre installation ou lancer votre activité. Phnom Penh, Siem Reap et ailleurs : commencez par des rendez-vous à distance et un plan écrit personnalisé.",
+      heading: "Une prestation claire. Un prix clair. Votre projet à Siem Reap.",
+      description: "Notre priorité actuelle : Siem Reap, pour les futurs expatriés, entrepreneurs et voyageurs. Préparez votre installation, votre activité ou votre découverte d'Angkor avec des rendez-vous à distance et un plan écrit personnalisé. Les autres destinations du Cambodge peuvent être étudiées séparément, sur devis.",
       pricingNote: "Honoraires de lancement proposés en dollars américains, sous réserve d'un devis écrit. Disponibilité, calendrier, taxes éventuelles et montant final sont confirmés avant réservation. Aucun paiement en ligne ni réservation automatique.",
       quoteLabel: "Sous réserve de devis",
       exclusions: "Honoraires d'accompagnement uniquement. Frais de visa et administratifs, loyers, vols, transports, hébergement, guides, entrées et professionnels tiers non inclus. Le voyageur effectue et règle lui-même ses réservations de voyage. Aucun visa, enregistrement de société ni résultat d'investissement garanti. Ce service ne constitue pas un conseil juridique ou fiscal.",
@@ -534,10 +534,10 @@ export const dictionaries: Record<Locale, Dictionary> = {
       steps: ["Choisissez une offre et préparez votre demande.", "Envoyez l'e-mail ; KHMERA échange avec vous et vous transmet un devis écrit.", "Acceptez le devis et convenez du paiement et des rendez-vous avant le début de la prestation."],
       back: "Comparer toutes les offres",
       offers: {
-        "cambodia-diagnostic": { name: "Diagnostic Cambodge", audience: "Voyageurs et futurs arrivants", summary: "Clarifiez votre projet avant de vous engager dans un séjour ou une installation.", includes: ["Un rendez-vous de 45 minutes à distance", "Un bilan de vos objectifs, de votre destination et de votre budget", "Une feuille de route écrite personnalisée après l'appel"] },
-        "settle-in": { name: "Installation sereine", audience: "Personnes seules, couples et familles", summary: "Organisez votre installation sans vous engager à l'aveugle dans un logement ou des démarches.", includes: ["Deux rendez-vous de 45 minutes à distance", "Une checklist personnalisée : logement, budget et arrivée", "Un plan d'installation écrit et un bilan au second rendez-vous"] },
-        "business-launch": { name: "Projet business", audience: "Entrepreneurs et indépendants", summary: "Préparez votre lancement et identifiez les points à valider avec des professionnels locaux qualifiés.", includes: ["Trois rendez-vous de 45 minutes à distance", "Un bilan de votre idée, du budget de lancement et des besoins opérationnels", "Un plan de lancement écrit avec les questions administratives à vérifier"] },
-        "discovery-trip": { name: "Voyage découverte", audience: "Voyageurs seuls, couples et familles", summary: "Préparez un voyage découverte au Cambodge selon vos dates, vos envies et votre rythme : Phnom Penh, Siem Reap, Angkor et les étapes de votre choix. Une préparation de voyage, pas un circuit réservé.", includes: ["Un rendez-vous de 45 minutes à distance pour définir votre projet de voyage", "Un itinéraire écrit personnalisé avec suggestions de visites et temps de trajet entre les étapes", "Un budget prévisionnel et une checklist de départ ; vous réservez et réglez vous-même les prestations de voyage"] },
+        "cambodia-diagnostic": { name: "Diagnostic Siem Reap", audience: "Voyageurs et futurs arrivants", summary: "Clarifiez votre projet à Siem Reap avant de vous engager dans un séjour ou une installation.", includes: ["Un rendez-vous de 45 minutes à distance", "Un bilan de vos objectifs, de votre destination et de votre budget", "Une feuille de route écrite personnalisée après l'appel"] },
+        "settle-in": { name: "Installation sereine", audience: "Personnes seules, couples et familles", summary: "Organisez votre installation à Siem Reap sans vous engager à l'aveugle dans un logement ou des démarches.", includes: ["Deux rendez-vous de 45 minutes à distance", "Une checklist personnalisée : logement, budget et arrivée", "Un plan d'installation écrit et un bilan au second rendez-vous"] },
+        "business-launch": { name: "Projet business", audience: "Entrepreneurs et indépendants", summary: "Préparez votre lancement à Siem Reap et identifiez les points à valider avec des professionnels locaux qualifiés.", includes: ["Trois rendez-vous de 45 minutes à distance", "Un bilan de votre idée, du budget de lancement et des besoins opérationnels", "Un plan de lancement écrit avec les questions administratives à vérifier"] },
+        "discovery-trip": { name: "Voyage découverte", audience: "Voyageurs seuls, couples et familles", summary: "Préparez un voyage découverte centré sur Siem Reap, Angkor et leurs environs, selon vos dates, vos envies et votre rythme. Une préparation de voyage, pas un circuit réservé.", includes: ["Un rendez-vous de 45 minutes à distance pour définir votre projet de voyage", "Un itinéraire écrit personnalisé avec suggestions de visites et temps de trajet entre les étapes", "Un budget prévisionnel et une checklist de départ ; vous réservez et réglez vous-même les prestations de voyage"] },
       },
       form: {
         heading: "Préparer votre demande de réservation",
@@ -551,14 +551,14 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     home: {
       nextMove: "Votre prochaine destination",
-      city: "Phnom Penh",
+      city: "Siem Reap",
       ready: "Prêt à s'installer",
       explore: "Explorez selon vos besoins",
       heading: "Tout ce qu'il faut pour s'installer en toute confiance.",
       discover: "En savoir plus",
     },
     services: {
-      heading: "Des services pour vous installer et vous développer.",
+      heading: "Un accompagnement pour vous installer et entreprendre à Siem Reap.",
       items: [
         { name: "Accompagnement visa", detail: "Aide à la préparation des documents et au dépôt des dossiers." },
         { name: "Recherche de logement", detail: "Recherche d'appartements et de résidences pour les familles et les équipes." },
@@ -566,7 +566,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         { name: "Conseiller local", detail: "Conseils à la demande pour la vie d'expatrié et l'accès aux services." },
       ],
       planHeading: "Besoin d'un accompagnement sur mesure ?",
-      planDescription: "Commencez par un entretien avec un conseiller et créez une feuille de route personnalisée pour vivre, travailler ou investir au Cambodge.",
+      planDescription: "Commencez par un entretien avec un conseiller et créez une feuille de route personnalisée pour vivre, travailler ou voyager à Siem Reap.",
       advisor: "Parler à un conseiller",
     },
     marketplace: {
@@ -588,7 +588,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       availability: "Ces offres sont présentées à titre d'exemple. Les prix et disponibilités ne sont pas confirmés. La réservation et le paiement ne sont pas encore disponibles sur ce site.",
     },
     visa: {
-      heading: "Une feuille de route pratique pour votre installation au Cambodge.",
+      heading: "Préparez votre installation à Siem Reap dans le cadre des règles de visa du Cambodge.",
       steps: [
         "Vérifiez votre éligibilité et le type de visa adapté.",
         "Rassemblez les pièces justificatives et les informations sur votre logement.",
@@ -597,7 +597,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       ],
     },
     business: {
-      heading: "Développez votre activité au Cambodge sur des bases locales solides.",
+      heading: "Préparez votre projet d'activité à Siem Reap avec un plan local clair.",
       pillars: [
         "Création d'entreprise et conseils sur le cadre juridique",
         "Comptabilité, gestion de la paie et accompagnement opérationnel",
@@ -619,7 +619,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       name: "KHMERA",
       tagline: "Déplacez-vous plus intelligemment. Construisez localement. Explorez davantage.",
       description:
-        "Plateforme internationale pour les expatriés, entrepreneurs, voyageurs et professionnels installés au Cambodge.",
+        "Accompagnement des expatriés, entrepreneurs et voyageurs qui souhaitent s'installer, entreprendre ou découvrir Siem Reap, au Cambodge.",
     },
     nav: {
       home: "Accueil",
@@ -633,14 +633,14 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     hero: {
       eyebrow: "Expatriation • Affaires • Voyages",
-      title: "Installez-vous et développez-vous sereinement au Cambodge.",
+      title: "Installez-vous, entreprenez et découvrez Siem Reap.",
       description:
-        "Trouvez les bons conseils, services locaux et opportunités professionnelles pour vivre, travailler et réussir à Phnom Penh et ailleurs.",
+        "Vous préparez votre installation à Siem Reap, un projet d'activité ou un séjour autour d'Angkor ? Khmera se concentre sur votre projet à Siem Reap, avec des offres claires et des plans personnalisés.",
       primaryCta: "Comparer les offres et les tarifs",
       secondaryCta: "Parler à un conseiller",
     },
     stats: [
-      { value: "49 $", label: "Diagnostic Cambodge" },
+      { value: "49 $", label: "Diagnostic Siem Reap" },
       { value: "249 $", label: "Accompagnement installation" },
       { value: "399 $", label: "Préparation business" },
     ],
@@ -677,7 +677,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       },
     ],
     cta: {
-      heading: "Prêt à vous installer au Cambodge ?",
+      heading: "Prêt à préparer votre projet à Siem Reap ?",
       description:
         "Que vous veniez pour vous installer, investir ou voyager, KHMERA vous aide à trouver la bonne étape suivante.",
       button: "Commencer mon plan",
@@ -720,7 +720,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         "siem-reap-fisherman": "Angkor Thom, Siem Reap",
       },
       galleryEyebrow: "La vie au Cambodge",
-      galleryHeading: "Des temples de Siem Reap aux quais de Phnom Penh.",
+      galleryHeading: "Découvrez Siem Reap, Angkor et leurs environs.",
       galleryDescription: "Un aperçu du quotidien qui vous attend : marchés, villages flottants, rizières et nuits animées.",
       creditsLink: "Crédits photo",
       creditsHeading: "Crédits photo",
@@ -809,10 +809,10 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     seo: {
       blog: { title: "Blog KHMERA: relatos de Camboya", description: "Descubre el blog KHMERA. Su creador prepara el primer relato sobre su llegada a Siem Reap y el nacimiento del proyecto." },
-      home: { title: "Camboya: traslado, negocios y planificación de viajes", description: "Prepara tu traslado, proyecto empresarial o viaje a Camboya con KHMERA. Descubre paquetes de orientación para Phnom Penh, Siem Reap y otros destinos." },
-      services: { title: "Orientación en Camboya: paquetes y precios", description: "Compara los paquetes KHMERA de diagnóstico, traslado, negocios y viaje de descubrimiento. Precios claros y planes personalizados, sujetos a presupuesto." },
-      guide: { title: "Guía de visado de Camboya: preparar tu traslado", description: "Prepara los trámites de visado de Camboya: tipo de visado, documentos y pasos de llegada. Descubre la orientación de KHMERA para instalarte." },
-      business: { title: "Preparar un proyecto empresarial en Camboya", description: "Prepara tu negocio en Camboya con un plan de lanzamiento personalizado: presupuesto, necesidades y cuestiones para validar con profesionales locales." },
+      home: { title: "Siem Reap: traslado, negocios y planificación de viajes", description: "Prepara tu traslado, proyecto empresarial o viaje a Siem Reap con KHMERA. Orientación personalizada para futuros residentes, emprendedores y viajeros." },
+      services: { title: "Orientación en Siem Reap: paquetes y precios", description: "Compara los paquetes KHMERA para Siem Reap: diagnóstico, traslado, negocios y viaje de descubrimiento. Precios claros y planes personalizados, bajo presupuesto." },
+      guide: { title: "Guía de visado de Camboya: vivir en Siem Reap", description: "Prepara tu llegada a Siem Reap: visados camboyanos, documentos y pasos de traslado. Las reglas de visado son nacionales; descubre nuestra orientación." },
+      business: { title: "Preparar un proyecto empresarial en Siem Reap", description: "Prepara tu negocio en Siem Reap con un plan de lanzamiento personalizado: presupuesto, necesidades y cuestiones para validar con profesionales locales." },
       marketplace: { title: "Mercado de Camboya: anuncios ilustrativos", description: "Descubre ejemplos de vivienda, negocios, traslado y transporte en Camboya. Estas ofertas ilustrativas no se pueden reservar en KHMERA." },
       testimonials: { title: "Historias ficticias de proyectos en Camboya", description: "Lee ejemplos ficticios de traslado, negocios y viajes con KHMERA. Son ilustraciones, no opiniones verificadas de clientes." },
       credits: { title: "Fotos de Camboya: fuentes y licencias", description: "Consulta autores, fuentes y licencias Creative Commons de las fotos de Camboya utilizadas por KHMERA, desde Phnom Penh hasta Siem Reap." },
@@ -830,8 +830,8 @@ export const dictionaries: Record<Locale, Dictionary> = {
         subjectLabel: "Asunto del correo",
       },
       eyebrow: "Paquetes de lanzamiento KHMERA",
-      heading: "Un servicio claro. Un precio claro. Tu proyecto en Camboya.",
-      description: "Elige orientación práctica para descubrir Camboya, organizar tu traslado o preparar un negocio. Phnom Penh, Siem Reap y más allá: empieza con consultas a distancia y un plan escrito personalizado.",
+      heading: "Un servicio claro. Un precio claro. Tu proyecto en Siem Reap.",
+      description: "Nuestra prioridad actual es Siem Reap: orientación para futuros residentes, emprendedores y viajeros. Prepara tu traslado, negocio o visita a Angkor con consultas a distancia y un plan escrito personalizado. Otros destinos de Camboya pueden estudiarse por separado, bajo presupuesto.",
       pricingNote: "Honorarios de lanzamiento propuestos en dólares estadounidenses, sujetos a un presupuesto escrito. Disponibilidad, calendario, posibles impuestos e importe final se confirman antes de reservar. Sin pago en línea ni reserva automática.",
       quoteLabel: "Sujeto a presupuesto",
       exclusions: "Solo honorarios de orientación. No incluyen visados, tasas oficiales, alquileres, vuelos, transporte, alojamiento, guías, entradas ni profesionales externos. El viajero realiza y paga sus propias reservas de viaje. No se garantiza ningún visado, registro de empresa ni resultado de inversión. No es asesoramiento jurídico ni fiscal.",
@@ -841,10 +841,10 @@ export const dictionaries: Record<Locale, Dictionary> = {
       steps: ["Elige un paquete y prepara tu solicitud.", "Envía el correo; KHMERA analiza tus necesidades y envía un presupuesto escrito.", "Acepta el presupuesto y acuerda el pago y las citas antes de comenzar el servicio."],
       back: "Comparar todos los paquetes",
       offers: {
-        "cambodia-diagnostic": { name: "Diagnóstico Camboya", audience: "Viajeros y futuros residentes", summary: "Aclara tus planes antes de comprometerte con un viaje o un traslado.", includes: ["Una consulta de 45 minutos a distancia", "Revisión de tus objetivos, destino y presupuesto", "Una hoja de ruta escrita personalizada después de la llamada"] },
-        "settle-in": { name: "Instalación tranquila", audience: "Personas, parejas y familias", summary: "Organiza tu instalación antes de comprometerte con una vivienda o trámites.", includes: ["Dos consultas de 45 minutos a distancia", "Lista personalizada de vivienda, presupuesto y llegada", "Un plan escrito de instalación y revisión en la segunda cita"] },
-        "business-launch": { name: "Proyecto empresarial", audience: "Emprendedores y autónomos", summary: "Prepara tu lanzamiento e identifica los puntos a validar con profesionales locales cualificados.", includes: ["Tres consultas de 45 minutos a distancia", "Revisión de tu idea, presupuesto inicial y necesidades operativas", "Un plan escrito de lanzamiento con cuestiones administrativas a verificar"] },
-        "discovery-trip": { name: "Viaje de descubrimiento", audience: "Viajeros solos, parejas y familias", summary: "Prepara un viaje para descubrir Camboya según tus fechas, intereses y ritmo: Phnom Penh, Siem Reap, Angkor y las etapas que elijas. Es planificación de viaje, no un circuito reservado.", includes: ["Una consulta de 45 minutos a distancia sobre tu proyecto de viaje", "Un itinerario escrito personalizado con sugerencias de visitas y tiempos de traslado entre etapas", "Un presupuesto estimado y una lista para la salida; tú reservas y pagas los servicios de viaje"] },
+        "cambodia-diagnostic": { name: "Diagnóstico Siem Reap", audience: "Viajeros y futuros residentes", summary: "Aclara tus planes para Siem Reap antes de comprometerte con un viaje o un traslado.", includes: ["Una consulta de 45 minutos a distancia", "Revisión de tus objetivos, destino y presupuesto", "Una hoja de ruta escrita personalizada después de la llamada"] },
+        "settle-in": { name: "Instalación tranquila", audience: "Personas, parejas y familias", summary: "Organiza tu instalación en Siem Reap antes de comprometerte con una vivienda o trámites.", includes: ["Dos consultas de 45 minutos a distancia", "Lista personalizada de vivienda, presupuesto y llegada", "Un plan escrito de instalación y revisión en la segunda cita"] },
+        "business-launch": { name: "Proyecto empresarial", audience: "Emprendedores y autónomos", summary: "Prepara tu lanzamiento en Siem Reap e identifica los puntos a validar con profesionales locales cualificados.", includes: ["Tres consultas de 45 minutos a distancia", "Revisión de tu idea, presupuesto inicial y necesidades operativas", "Un plan escrito de lanzamiento con cuestiones administrativas a verificar"] },
+        "discovery-trip": { name: "Viaje de descubrimiento", audience: "Viajeros solos, parejas y familias", summary: "Prepara un viaje centrado en Siem Reap, Angkor y sus alrededores, según tus fechas, intereses y ritmo. Es planificación de viaje, no un circuito reservado.", includes: ["Una consulta de 45 minutos a distancia sobre tu proyecto de viaje", "Un itinerario escrito personalizado con sugerencias de visitas y tiempos de traslado entre etapas", "Un presupuesto estimado y una lista para la salida; tú reservas y pagas los servicios de viaje"] },
       },
       form: {
         heading: "Prepara tu solicitud de reserva",
@@ -858,14 +858,14 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     home: {
       nextMove: "Tu próximo destino",
-      city: "Nom Pen",
+      city: "Siem Reap",
       ready: "Listo para instalarte",
       explore: "Explora según tus necesidades",
       heading: "Todo lo necesario para mudarte con confianza.",
       discover: "Descubrir más",
     },
     services: {
-      heading: "Servicios para instalarte y crecer.",
+      heading: "Orientación para instalarte y emprender en Siem Reap.",
       items: [
         { name: "Asistencia con el visado", detail: "Ayuda para preparar documentos y presentar solicitudes." },
         { name: "Búsqueda de vivienda", detail: "Búsqueda de apartamentos y residencias para familias y equipos." },
@@ -873,7 +873,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         { name: "Asesor local", detail: "Orientación a demanda para la vida de expatriado y el acceso a servicios." },
       ],
       planHeading: "¿Necesitas un plan a medida?",
-      planDescription: "Empieza con una consulta guiada y crea una hoja de ruta personalizada para vivir, trabajar o invertir en Camboya.",
+      planDescription: "Empieza con una consulta guiada y crea una hoja de ruta personalizada para vivir, trabajar o viajar en Siem Reap.",
       advisor: "Hablar con un asesor",
     },
     marketplace: {
@@ -895,7 +895,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       availability: "Estas ofertas son ejemplos. Los precios y la disponibilidad no están confirmados. Las reservas y los pagos aún no están disponibles en este sitio.",
     },
     visa: {
-      heading: "Una hoja de ruta práctica para tu traslado a Camboya.",
+      heading: "Prepara tu traslado a Siem Reap según las reglas de visado de Camboya.",
       steps: [
         "Comprueba tu elegibilidad y el tipo de visado.",
         "Reúne los documentos justificativos y los datos de tu alojamiento.",
@@ -904,7 +904,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       ],
     },
     business: {
-      heading: "Establece tu actividad en Camboya sobre una base local fiable.",
+      heading: "Prepara tu proyecto empresarial en Siem Reap con un plan local claro.",
       pillars: [
         "Constitución de empresas y orientación sobre el marco jurídico",
         "Contabilidad, nóminas y apoyo operativo",
@@ -926,7 +926,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       name: "KHMERA",
       tagline: "Muévete mejor. Construye localmente. Explora más.",
       description:
-        "Plataforma internacional para expatriados, emprendedores, viajeros y profesionales que se instalan en Camboya.",
+        "Orientación para expatriados, emprendedores y viajeros que quieren instalarse, emprender o descubrir Siem Reap, Camboya.",
     },
     nav: {
       home: "Inicio",
@@ -940,14 +940,14 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     hero: {
       eyebrow: "Expat • Negocios • Viajes",
-      title: "Instálate y crece con confianza en Camboya.",
+      title: "Instálate, emprende y descubre Siem Reap.",
       description:
-        "Encuentra la orientación fiable, servicios locales y oportunidades de negocio que necesitas para mudarte, trabajar y prosperar.",
+        "¿Preparas tu traslado a Siem Reap, un negocio o una visita a Angkor? KHMERA se centra en tu proyecto en Siem Reap con paquetes claros y planes personalizados.",
       primaryCta: "Comparar paquetes y precios",
       secondaryCta: "Hablar con un asesor",
     },
     stats: [
-      { value: "49 US$", label: "Diagnóstico Camboya" },
+      { value: "49 US$", label: "Diagnóstico Siem Reap" },
       { value: "249 US$", label: "Orientación para instalarse" },
       { value: "399 US$", label: "Planificación empresarial" },
     ],
@@ -984,7 +984,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       },
     ],
     cta: {
-      heading: "¿Listo para establecer tu base en Camboya?",
+      heading: "¿Listo para preparar tu proyecto en Siem Reap?",
       description:
         "Ya sea que te mudes, inviertas o viajes, KHMERA te guiará hacia el siguiente paso correcto.",
       button: "Comienza mi plan",
@@ -1027,7 +1027,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         "siem-reap-fisherman": "Angkor Thom, Siem Reap",
       },
       galleryEyebrow: "La vida en Camboya",
-      galleryHeading: "De los templos de Siem Reap a la ribera de Phnom Penh.",
+      galleryHeading: "Descubre Siem Reap, Angkor y sus alrededores.",
       galleryDescription: "Un vistazo a la vida cotidiana que descubrirás: mercados, aldeas flotantes, arrozales y noches animadas.",
       creditsLink: "Créditos de las fotos",
       creditsHeading: "Créditos de las fotos",
@@ -1116,10 +1116,10 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     seo: {
       blog: { title: "KHMERA-Blog: Geschichten aus Kambodscha", description: "Entdecken Sie den KHMERA-Blog. Der Gründer bereitet die erste Geschichte über seine Ankunft in Siem Reap und die Entstehung des Projekts vor." },
-      home: { title: "Kambodscha: Umzug, Geschäft und Reiseplanung", description: "Bereiten Sie Ihren Umzug, Ihr Geschäftsprojekt oder Ihre Reise nach Kambodscha mit KHMERA vor. Beratungspakete für Phnom Penh, Siem Reap und weitere Ziele." },
-      services: { title: "Kambodscha-Beratung: Pakete und Preise", description: "Vergleichen Sie KHMERA-Pakete für Erstberatung, Umzug, Geschäftsprojekt und Entdeckungsreise. Klare Honorare und persönliche Pläne, vorbehaltlich Angebot." },
-      guide: { title: "Kambodscha-Visumguide: Umzug vorbereiten", description: "Planen Sie Ihre Visumvorbereitung für Kambodscha: Visumtyp, Unterlagen und Ankunftsschritte. Entdecken Sie die Umzugsbegleitung von KHMERA." },
-      business: { title: "Ein Geschäftsprojekt in Kambodscha vorbereiten", description: "Bereiten Sie Ihr Geschäftsprojekt in Kambodscha mit einem persönlichen Startplan vor: Budget, Bedarf und Fragen für qualifizierte Fachleute vor Ort." },
+      home: { title: "Siem Reap: Umzug, Geschäft und Reiseplanung", description: "Bereiten Sie Ihren Umzug, Ihr Geschäftsprojekt oder Ihre Reise nach Siem Reap mit KHMERA vor. Persönliche Orientierung für Neuankömmlinge, Gründer und Reisende." },
+      services: { title: "Beratung in Siem Reap: Pakete und Preise", description: "Vergleichen Sie KHMERA-Pakete für Siem Reap: Erstberatung, Umzug, Geschäftsprojekt und Entdeckungsreise. Klare Honorare und persönliche Pläne, vorbehaltlich Angebot." },
+      guide: { title: "Kambodscha-Visumguide: nach Siem Reap ziehen", description: "Bereiten Sie Ihre Ankunft in Siem Reap vor: kambodschanische Visa, Unterlagen und Umzugsschritte. Visaregeln gelten landesweit; entdecken Sie unsere Beratung." },
+      business: { title: "Ein Geschäftsprojekt in Siem Reap vorbereiten", description: "Bereiten Sie Ihr Geschäftsprojekt in Siem Reap mit einem persönlichen Startplan vor: Budget, Bedarf und Fragen für qualifizierte Fachleute vor Ort." },
       marketplace: { title: "Kambodscha-Marktplatz: Beispielangebote", description: "Entdecken Sie Beispielangebote für Wohnung, Geschäft, Umzug und Transport in Kambodscha. Diese Angebote sind bei KHMERA nicht buchbar." },
       testimonials: { title: "Fiktive Projektgeschichten aus Kambodscha", description: "Lesen Sie fiktive Beispiele für Umzug, Geschäft und Reisen mit KHMERA. Diese Illustrationen sind keine verifizierten Kundenbewertungen." },
       credits: { title: "Kambodscha-Fotos: Quellen und Bildnachweise", description: "Hier finden Sie Urheber, Quellen und Creative-Commons-Lizenzen der Kambodscha-Fotos bei KHMERA, von Phnom Penh bis Siem Reap." },
@@ -1137,8 +1137,8 @@ export const dictionaries: Record<Locale, Dictionary> = {
         subjectLabel: "E-Mail-Betreff",
       },
       eyebrow: "KHMERA Einführungspakete",
-      heading: "Klare Leistung. Klarer Preis. Ihr Kambodscha-Projekt.",
-      description: "Wählen Sie praktische Orientierung für Ihre Reise, Ihren Umzug oder die Vorbereitung einer Geschäftsidee. Phnom Penh, Siem Reap und darüber hinaus: beginnen Sie mit Online-Gesprächen und einem persönlichen schriftlichen Plan.",
+      heading: "Klare Leistung. Klarer Preis. Ihr Projekt in Siem Reap.",
+      description: "Unser aktueller Schwerpunkt ist Siem Reap: Orientierung für Neuankömmlinge, Gründer und Reisende. Bereiten Sie Ihren Umzug, Ihr Geschäft oder Ihren Angkor-Besuch mit Online-Gesprächen und einem persönlichen schriftlichen Plan vor. Andere Ziele in Kambodscha können separat besprochen werden, vorbehaltlich Angebot.",
       pricingNote: "Vorgeschlagene Einführungshonorare in US-Dollar, vorbehaltlich eines schriftlichen Angebots. Verfügbarkeit, Termine, mögliche Steuern und Endbetrag werden vor der Buchung bestätigt. Keine Online-Zahlung oder automatische Reservierung.",
       quoteLabel: "Vorbehaltlich eines Angebots",
       exclusions: "Nur Beratungshonorare. Visa- und Behördengebühren, Miete, Flüge, Transport, Unterkunft, Reiseführer, Eintrittskarten und externe Fachleute sind nicht enthalten. Reisende buchen und bezahlen ihre Reiseleistungen selbst. Keine Garantie für Visa, Firmeneintragung oder Investitionsergebnisse. Keine Rechts- oder Steuerberatung.",
@@ -1148,10 +1148,10 @@ export const dictionaries: Record<Locale, Dictionary> = {
       steps: ["Wählen Sie ein Paket und bereiten Sie Ihre Anfrage vor.", "Senden Sie die E-Mail; KHMERA bespricht Ihren Bedarf und erstellt ein schriftliches Angebot.", "Nehmen Sie das Angebot an und vereinbaren Sie Zahlung und Termine vor Leistungsbeginn."],
       back: "Alle Pakete vergleichen",
       offers: {
-        "cambodia-diagnostic": { name: "Kambodscha-Erstberatung", audience: "Reisende und künftige Neuankömmlinge", summary: "Klären Sie Ihre Pläne, bevor Sie eine Reise oder einen Umzug verbindlich planen.", includes: ["Ein Online-Gespräch von 45 Minuten", "Besprechung Ihrer Ziele, Ihres Reiseziels und Budgets", "Ein persönlicher schriftlicher Fahrplan nach dem Gespräch"] },
-        "settle-in": { name: "Entspannt ankommen", audience: "Einzelpersonen, Paare und Familien", summary: "Planen Sie Ihren Umzug, bevor Sie sich auf eine Wohnung oder Behördenschritte festlegen.", includes: ["Zwei Online-Gespräche von je 45 Minuten", "Persönliche Checkliste für Wohnung, Budget und Ankunft", "Ein schriftlicher Umzugsplan und Auswertung im zweiten Gespräch"] },
-        "business-launch": { name: "Geschäftsprojekt", audience: "Gründer und Selbstständige", summary: "Bereiten Sie Ihren Start vor und erkennen Sie Fragen für qualifizierte Fachleute vor Ort.", includes: ["Drei Online-Gespräche von je 45 Minuten", "Besprechung Ihrer Idee, Ihres Startbudgets und Betriebsbedarfs", "Ein schriftlicher Startplan mit zu prüfenden Behördenfragen"] },
-        "discovery-trip": { name: "Entdeckungsreise", audience: "Alleinreisende, Paare und Familien", summary: "Planen Sie Ihre Kambodscha-Entdeckungsreise nach Ihren Terminen, Interessen und Ihrem Tempo: Phnom Penh, Siem Reap, Angkor und Ihre Wunschziele. Reisevorbereitung, keine gebuchte Rundreise.", includes: ["Ein Online-Gespräch von 45 Minuten über Ihre Reisepläne", "Eine persönliche schriftliche Reiseroute mit Besichtigungsvorschlägen und Fahrtzeiten zwischen den Etappen", "Ein geschätztes Reisebudget und eine Abreise-Checkliste; Reiseleistungen buchen und bezahlen Sie selbst"] },
+        "cambodia-diagnostic": { name: "Erstberatung Siem Reap", audience: "Reisende und künftige Neuankömmlinge", summary: "Klären Sie Ihre Pläne für Siem Reap, bevor Sie eine Reise oder einen Umzug verbindlich planen.", includes: ["Ein Online-Gespräch von 45 Minuten", "Besprechung Ihrer Ziele, Ihres Reiseziels und Budgets", "Ein persönlicher schriftlicher Fahrplan nach dem Gespräch"] },
+        "settle-in": { name: "Entspannt ankommen", audience: "Einzelpersonen, Paare und Familien", summary: "Planen Sie Ihren Umzug nach Siem Reap, bevor Sie sich auf eine Wohnung oder Behördenschritte festlegen.", includes: ["Zwei Online-Gespräche von je 45 Minuten", "Persönliche Checkliste für Wohnung, Budget und Ankunft", "Ein schriftlicher Umzugsplan und Auswertung im zweiten Gespräch"] },
+        "business-launch": { name: "Geschäftsprojekt", audience: "Gründer und Selbstständige", summary: "Bereiten Sie Ihren Start in Siem Reap vor und erkennen Sie Fragen für qualifizierte Fachleute vor Ort.", includes: ["Drei Online-Gespräche von je 45 Minuten", "Besprechung Ihrer Idee, Ihres Startbudgets und Betriebsbedarfs", "Ein schriftlicher Startplan mit zu prüfenden Behördenfragen"] },
+        "discovery-trip": { name: "Entdeckungsreise", audience: "Alleinreisende, Paare und Familien", summary: "Planen Sie eine Entdeckungsreise rund um Siem Reap, Angkor und die Umgebung nach Ihren Terminen, Interessen und Ihrem Tempo. Reisevorbereitung, keine gebuchte Rundreise.", includes: ["Ein Online-Gespräch von 45 Minuten über Ihre Reisepläne", "Eine persönliche schriftliche Reiseroute mit Besichtigungsvorschlägen und Fahrtzeiten zwischen den Etappen", "Ein geschätztes Reisebudget und eine Abreise-Checkliste; Reiseleistungen buchen und bezahlen Sie selbst"] },
       },
       form: {
         heading: "Buchungsanfrage vorbereiten",
@@ -1165,14 +1165,14 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     home: {
       nextMove: "Ihr nächstes Ziel",
-      city: "Phnom Penh",
+      city: "Siem Reap",
       ready: "Bereit zum Einleben",
       explore: "Nach Bedarf entdecken",
       heading: "Alles für einen Umzug mit Zuversicht.",
       discover: "Mehr erfahren",
     },
     services: {
-      heading: "Dienstleistungen für Ihren Umzug und Ihr Wachstum.",
+      heading: "Orientierung für Ihren Umzug und Ihr Geschäftsprojekt in Siem Reap.",
       items: [
         { name: "Visumunterstützung", detail: "Hilfe bei der Vorbereitung von Unterlagen und der Antragstellung." },
         { name: "Wohnungssuche", detail: "Suche nach Wohnungen und Wohnanlagen für Familien und Teams." },
@@ -1180,7 +1180,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         { name: "Lokale Beratung", detail: "Beratung nach Bedarf zum Leben im Ausland und zu lokalen Dienstleistungen." },
       ],
       planHeading: "Benötigen Sie einen individuellen Plan?",
-      planDescription: "Beginnen Sie mit einem Beratungsgespräch und erstellen Sie einen persönlichen Fahrplan zum Leben, Arbeiten oder Investieren in Kambodscha.",
+      planDescription: "Beginnen Sie mit einem Beratungsgespräch und erstellen Sie einen persönlichen Fahrplan zum Leben, Arbeiten oder Reisen in Siem Reap.",
       advisor: "Mit einer Beratungsperson sprechen",
     },
     marketplace: {
@@ -1202,7 +1202,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       availability: "Diese Angebote dienen als Beispiele. Preise und Verfügbarkeit sind nicht bestätigt. Buchungen und Zahlungen sind auf dieser Website noch nicht verfügbar.",
     },
     visa: {
-      heading: "Ein praktischer Fahrplan für Ihren Umzug nach Kambodscha.",
+      heading: "Ihr Umzug nach Siem Reap im Rahmen der kambodschanischen Visaregeln.",
       steps: [
         "Prüfen Sie Ihre Voraussetzungen und den passenden Visumtyp.",
         "Sammeln Sie Nachweise und Angaben zu Ihrer Unterkunft.",
@@ -1211,7 +1211,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       ],
     },
     business: {
-      heading: "Bauen Sie Ihre Präsenz in Kambodscha auf einer verlässlichen lokalen Grundlage auf.",
+      heading: "Bereiten Sie Ihr Geschäftsprojekt in Siem Reap mit einem klaren lokalen Plan vor.",
       pillars: [
         "Unternehmensgründung und Beratung zum rechtlichen Rahmen",
         "Buchhaltung, Lohnabrechnung und betriebliche Unterstützung",
@@ -1233,7 +1233,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       name: "KHMERA",
       tagline: "Intelligenter bewegen. Lokal bauen. Mehr entdecken.",
       description:
-        "Internationale Plattform für Expatriates, Unternehmer, Reisende und Fachleute in Kambodscha.",
+        "Orientierung für Expatriates, Gründer und Reisende, die in Siem Reap, Kambodscha, leben, ein Projekt starten oder die Region entdecken möchten.",
     },
     nav: {
       home: "Startseite",
@@ -1247,14 +1247,14 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     hero: {
       eyebrow: "Expat • Business • Reisen",
-      title: "Wohnort und Geschäft in Kambodscha sicher aufbauen.",
+      title: "Ankommen, ein Projekt starten und Siem Reap entdecken.",
       description:
-        "Finden Sie verlässliche Beratung, lokale Dienstleistungen und Geschäftsmöglichkeiten für Ihren Umzug, Ihr Arbeiten und Ihr Leben in Phnom Penh.",
+        "Planen Sie einen Umzug nach Siem Reap, ein Geschäft oder einen Angkor-Besuch? KHMERA konzentriert sich auf Ihr Projekt in Siem Reap mit klaren Paketen und persönlichen Plänen.",
       primaryCta: "Pakete und Preise vergleichen",
       secondaryCta: "Mit einem Berater sprechen",
     },
     stats: [
-      { value: "49 $", label: "Kambodscha-Erstberatung" },
+      { value: "49 $", label: "Erstberatung Siem Reap" },
       { value: "249 $", label: "Umzugsbegleitung" },
       { value: "399 $", label: "Geschäftsplanung" },
     ],
@@ -1291,7 +1291,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       },
     ],
     cta: {
-      heading: "Bereit, Ihre Basis in Kambodscha zu schaffen?",
+      heading: "Bereit, Ihr Projekt in Siem Reap vorzubereiten?",
       description:
         "Ob Sie umziehen, investieren oder reisen, KHMERA hilft Ihnen, den richtigen nächsten Schritt zu wählen.",
       button: "Plan starten",
@@ -1334,7 +1334,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         "siem-reap-fisherman": "Angkor Thom, Siem Reap",
       },
       galleryEyebrow: "Leben in Kambodscha",
-      galleryHeading: "Von den Tempeln Siem Reaps bis zum Flussufer von Phnom Penh.",
+      galleryHeading: "Entdecken Sie Siem Reap, Angkor und die Umgebung.",
       galleryDescription: "Ein Einblick in den Alltag, der Sie erwartet: Märkte, schwimmende Dörfer, Reisfelder und lebhafte Nächte.",
       creditsLink: "Bildnachweis",
       creditsHeading: "Bildnachweis",

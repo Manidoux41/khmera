@@ -47,7 +47,7 @@ export function BookingRequestForm({ locale, offer, copy }: {
             <input name="email" type="email" autoComplete="email" required maxLength={254} className={inputClass} />
           </label>
           <label className="block text-sm text-slate-200">{labels.city}
-            <input name="city" required maxLength={100} pattern=".*\S.*" className={inputClass} />
+            <input name="city" defaultValue="Siem Reap" required maxLength={100} pattern=".*\S.*" className={inputClass} />
           </label>
           <label className="block text-sm text-slate-200">{labels.date}
             <input name="date" type="date" className={inputClass} />

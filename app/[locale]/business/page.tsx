@@ -34,14 +34,14 @@ async function BusinessPageContent({
     <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
       <PageSeo locale={locale} route={{ page: "business" }} />
       <CreditedPhoto
-        photo={photos["phnom-penh-skyline"]}
-        alt={messages.photos.alt["phnom-penh-skyline"]}
+        photo={photos["pub-street"]}
+        alt={messages.photos.alt["pub-street"]}
         sizes="(min-width: 1024px) 1024px, 100vw"
         eager
         className="mb-10 h-56 rounded-[2rem] border border-slate-800 sm:h-72"
       >
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 to-transparent" />
-        <p className="absolute bottom-4 left-5 text-sm font-medium text-white">{messages.photos.places["phnom-penh-skyline"]}</p>
+        <p className="absolute bottom-4 left-5 text-sm font-medium text-white">{messages.photos.places["pub-street"]}</p>
       </CreditedPhoto>
       <div className="mb-10 max-w-2xl">
         <p className="text-sm uppercase tracking-[0.2em] text-emerald-300">{messages.pageTitles.business}</p>

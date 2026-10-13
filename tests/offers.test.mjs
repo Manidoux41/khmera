@@ -47,8 +47,9 @@ test("discovery travel is a tourism planning offer with localized email requests
   for (const locale of i18n.locales) {
     const copy = i18n.dictionaries[locale].commerce;
     const item = copy.offers[offer.slug];
-    assert.match(item.summary, /Phnom Penh/);
+    assert.doesNotMatch(item.summary, /Phnom Penh/);
     assert.match(item.summary, /Siem Reap/);
+    assert.match(item.summary, /Angkor/);
     assert.match(item.includes[0], /45/);
     const services = await catalog.listServices(locale, { kind: "core", status: "active" });
     const record = services.find((service) => service.id === "offer_discovery-trip");
@@ -58,6 +59,29 @@ test("discovery travel is a tourism planning offer with localized email requests
     const link = new URL(pricing.bookingMailto(subject, item.includes.join("\n")));
     assert.equal(link.searchParams.get("subject"), subject);
     assert.equal(link.searchParams.get("body"), item.includes.join("\n"));
+  }
+});
+
+test("launch positioning focuses all four locales and packages on Siem Reap", () => {
+  for (const locale of i18n.locales) {
+    const copy = i18n.dictionaries[locale];
+    assert.equal(copy.home.city, "Siem Reap");
+    for (const text of [
+      copy.hero.title, copy.hero.description, copy.site.description,
+      copy.commerce.heading, copy.commerce.description, copy.services.heading,
+      copy.services.planDescription, copy.visa.heading, copy.business.heading,
+      copy.cta.heading, copy.photos.galleryHeading,
+    ]) {
+      assert.match(text, /Siem Reap/, locale);
+      assert.doesNotMatch(text, /Phnom Penh/, locale);
+    }
+    for (const offer of pricing.offers) {
+      assert.match(copy.commerce.offers[offer.slug].summary, /Siem Reap/);
+    }
+    for (const page of ["home", "services", "guide", "business"]) {
+      assert.match(copy.seo[page].title, /Siem Reap/);
+      assert.match(copy.seo[page].description, /Siem Reap/);
+    }
   }
 });
 

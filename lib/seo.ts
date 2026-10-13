@@ -158,7 +158,7 @@ export function pageStructuredData(locale: Locale, route: SeoPage) {
       description: `${copy.summary} ${copy.includes.join(". ")} ${messages.commerce.pricingNote} ${messages.commerce.exclusions}`,
       url: seo.canonical,
       provider: { "@id": organizationId },
-      areaServed: { "@type": "Country", name: "Cambodia" },
+      areaServed: { "@type": "City", name: "Siem Reap", containedInPlace: { "@type": "Country", name: "Cambodia" } },
       offers: {
         "@type": "Offer",
         url: seo.canonical,

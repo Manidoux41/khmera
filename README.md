@@ -87,9 +87,18 @@ API (JSON, same session cookie):
 
 The home page and `/{locale}/services` present four KHMERA launch packages:
 
+The current launch audience is newcomers, entrepreneurs and travellers planning
+a project in **Siem Reap and its surroundings**, including Angkor. Public copy,
+local SEO and service structured data reflect this focus in EN/FR/ES/DE.
+Other Cambodian destinations are secondary and discussed separately on request,
+subject to a written quote. The booking form defaults to Siem Reap but the
+destination remains editable. Cambodia visa rules remain national.
+Existing route slugs and fees are unchanged; the admin catalog and localized
+request emails reuse the updated package copy.
+
 | Package | Proposed fee (USD) | Deliverables |
 | --- | --- | --- |
-| Cambodia diagnostic | 49 | One 45-minute remote consultation and a written roadmap |
+| Siem Reap diagnostic | 49 | One 45-minute remote consultation and a written roadmap |
 | Settle in with confidence | 249 | Two 45-minute remote consultations, arrival checklist and relocation plan |
 | Business project | 399 | Three 45-minute remote consultations, budget review and launch plan |
 | Discovery trip | 99 | One 45-minute remote consultation, personalised itinerary, estimated travel budget and departure checklist |
@@ -124,8 +133,8 @@ No legal or tax advice is sold.
 
 The tourism planning package is available at
 `/{locale}/services/discovery-trip`, translated in all four locales and listed
-under Tourism in the admin catalog. It covers Phnom Penh, Siem Reap, Angkor and
-the traveller's chosen stops. The 99 USD fee is for planning only, subject to a
+under Tourism in the admin catalog. It focuses on Siem Reap, Angkor and the
+surrounding area. The 99 USD fee is for planning only, subject to a
 written quote: KHMERA does not book a tour or include flights, hotels, transport,
 guides or admission tickets. Travellers book and pay for those services themselves.
 
