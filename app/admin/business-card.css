@@ -59,7 +59,7 @@
 .business-card-credit { position: absolute; top: 8px; bottom: 8px; left: 2px; margin: 0; writing-mode: vertical-rl; transform: rotate(180deg); white-space: nowrap; font-size: 4px; line-height: 5px; color: #10214b; }
 
 @media print {
-  @page { size: A4; margin: 12mm; }
+  @page khmera-business-cards { size: A4; margin: 0; }
   html:has(.business-card-editor),
   body:has(.business-card-editor),
   body:has(.business-card-editor) .admin-shell { min-height: 0 !important; height: auto !important; background: white !important; }
@@ -68,7 +68,7 @@
   .business-card-controls { display: none !important; }
   .admin-dashboard:has(.business-card-editor),
   .business-card-editor { margin: 0 !important; padding: 0 !important; border: 0 !important; max-width: none !important; background: none !important; }
-  .business-card-scroll { padding: 0; overflow: visible; }
+  .business-card-scroll { page: khmera-business-cards; box-sizing: border-box; padding: 12mm; overflow: visible; }
   .admin-dashboard > [data-admin-panel="business-cards"] { display: block !important; }
   .business-card-sheet { display: grid; grid-template-columns: repeat(2, 85mm); gap: 5mm; }
   .khmera-business-card:not(:first-child) { display: block; }

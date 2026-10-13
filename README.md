@@ -235,6 +235,9 @@ is no professional bleed. The Angkor Wat background reuses Vladimir Pankratov's
 CC BY-SA 2.0 photo, cropped/tinted under the same license, with source/license
 links retained on every printed card. Add an international calling code when
 needed; the tool does not infer it or verify messaging-account availability.
+The printable sheet has a built-in 12 mm inset on all sides and its own named
+A4 page with zero outer margins. The inset remains when browser margins are
+disabled, without changing card dimensions or the 5 mm cutting gaps.
 
 Card unit tests are included in `node --test tests/*.test.mjs`. The optional
 real-browser/PDF test runs with `ADMIN_TEST_BASE_URL=http://localhost:3100`

@@ -77,13 +77,27 @@ test("admin card editing, optional portrait and one-page A4 printing", {
       const first = cards[0].getBoundingClientRect();
       const hidden = ['.admin-banner','.admin-sidebar','.admin-section-header','.business-card-controls','.admin-dashboard > dl']
         .every(selector => getComputedStyle(document.querySelector(selector)).display === 'none');
-      return {width:first.width,height:first.height,hidden,visible:cards.filter(c=>c.getBoundingClientRect().height>0).length};
+      const page=document.querySelector('.business-card-scroll');
+      const inset=getComputedStyle(page);
+      const pageBounds=page.getBoundingClientRect();
+      return {
+        width:first.width,height:first.height,hidden,visible:cards.filter(c=>c.getBoundingClientRect().height>0).length,
+        left:first.left-pageBounds.left,top:first.top-pageBounds.top,
+        paddingRight:parseFloat(inset.paddingRight),paddingBottom:parseFloat(inset.paddingBottom),page:inset.page,
+      };
     })()`);
     assert.ok(Math.abs(measurements.width - 85 * 96 / 25.4) < 1);
     assert.ok(Math.abs(measurements.height - 55 * 96 / 25.4) < 1);
     assert.equal(measurements.hidden, true);
     assert.equal(measurements.visible, copies);
-    const { data } = await command("Page.printToPDF", { preferCSSPageSize: true, displayHeaderFooter: false, printBackground: true });
+    for (const value of [measurements.left, measurements.top, measurements.paddingRight, measurements.paddingBottom]) {
+      assert.ok(Math.abs(value - 12 * 96 / 25.4) < 0.1, "12 mm print inset must remain with browser margins disabled");
+    }
+    assert.equal(measurements.page, "khmera-business-cards");
+    const { data } = await command("Page.printToPDF", {
+      preferCSSPageSize: true, displayHeaderFooter: false, printBackground: true,
+      marginTop: 0, marginRight: 0, marginBottom: 0, marginLeft: 0,
+    });
     const pdf = Buffer.from(data, "base64");
     const content = pdf.toString("latin1");
     assert.equal((content.match(/\/Type\s*\/Page\b/g) ?? []).length, 1);
