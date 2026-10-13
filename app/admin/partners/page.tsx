@@ -12,6 +12,7 @@ import { getCurrentAdmin } from "@/lib/admin/session";
 import { bookingEmail } from "@/lib/services/offers";
 import { localizedUrl } from "@/lib/seo";
 import "./print.css";
+import { AdminWorkspace } from "../admin-workspace";
 
 type PartnersPageProps = { searchParams: Promise<Record<string, string | string[] | undefined>> };
 
@@ -29,9 +30,9 @@ async function PartnersPageContent({ searchParams }: PartnersPageProps) {
   const demoPaths = ["", "/services", "/services/discovery-trip"];
 
   return (
+    <AdminWorkspace baseHref={adminHref()} page="partners">
     <div lang={locale} className="partner-page mx-auto max-w-5xl space-y-12 px-4 py-12 sm:px-6 lg:px-8">
       <div className="partner-screen-only flex flex-wrap gap-4">
-        <Link href={adminHref()} className="text-emerald-300">Retour au tableau de bord</Link>
         {locales.map((language) => <Link key={language} href={adminHref(`/partners?locale=${language}`)} aria-current={locale === language ? "page" : undefined} className="text-slate-300">{localeLabels[language]}</Link>)}
       </div>
       <div className="partner-screen-only flex flex-wrap gap-4">
@@ -85,5 +86,6 @@ async function PartnersPageContent({ searchParams }: PartnersPageProps) {
       </section>
       <div className="partner-screen-only"><PartnerContactForm locale={locale} messages={messages} /></div>
     </div>
+    </AdminWorkspace>
   );
 }

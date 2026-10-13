@@ -64,11 +64,12 @@
   body:has(.business-card-editor),
   body:has(.business-card-editor) .admin-shell { min-height: 0 !important; height: auto !important; background: white !important; }
   body:has(.business-card-editor) .admin-banner,
-  .admin-dashboard:has(.business-card-editor) > :not(.business-card-editor),
+  .admin-dashboard:has(.business-card-editor) > :not([data-admin-panel="business-cards"]),
   .business-card-controls { display: none !important; }
   .admin-dashboard:has(.business-card-editor),
   .business-card-editor { margin: 0 !important; padding: 0 !important; border: 0 !important; max-width: none !important; background: none !important; }
   .business-card-scroll { padding: 0; overflow: visible; }
+  .admin-dashboard > [data-admin-panel="business-cards"] { display: block !important; }
   .business-card-sheet { display: grid; grid-template-columns: repeat(2, 85mm); gap: 5mm; }
   .khmera-business-card:not(:first-child) { display: block; }
 }

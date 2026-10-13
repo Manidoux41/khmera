@@ -74,7 +74,17 @@ are in-memory mocks; localized names come from `lib/i18n.ts`.
   Production, then redeploy. If you set `ADMIN_ACCESS_PATH` there, the secret
   link becomes `https://<your-domain>/<ADMIN_ACCESS_PATH>`.
 
-The private dashboard also includes a business-card editor (`#business-cards`),
+The private administration uses a left sidebar with collapsible menu groups:
+activity (service catalogue and commercial offers), relationships (contact
+directory, partner presentation, business cards), content (blog) and data
+(future Prisma export). The selected section appears in the central workspace;
+the menu moves above the content on narrow screens. Login remains separate.
+Dashboard sections use hash navigation (`#services`, `#offers`,
+`#business-cards`, `#data`) without reloading or unmounting the card editor.
+Browser back/forward restores the section. Visiting another page or reloading
+still discards temporary data; export first. Navigation is excluded from PDFs.
+
+The private dashboard includes a business-card editor (`#business-cards`),
 prefilled for Manfred Parbatia, "Conseiller en mise en relation", with
 Telegram/WhatsApp `076-252-3154`. All identity,
 role and contact fields are editable for future agents. Optional JPEG/PNG/WebP

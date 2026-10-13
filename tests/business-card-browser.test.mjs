@@ -75,7 +75,7 @@ test("admin card editing, optional portrait and one-page A4 printing", {
     const measurements = await evaluate(`(() => {
       const cards = [...document.querySelectorAll('.khmera-business-card')];
       const first = cards[0].getBoundingClientRect();
-      const hidden = ['.admin-banner','.business-card-controls','.admin-dashboard > dl']
+      const hidden = ['.admin-banner','.admin-sidebar','.admin-section-header','.business-card-controls','.admin-dashboard > dl']
         .every(selector => getComputedStyle(document.querySelector(selector)).display === 'none');
       return {width:first.width,height:first.height,hidden,visible:cards.filter(c=>c.getBoundingClientRect().height>0).length};
     })()`);
@@ -99,9 +99,50 @@ test("admin card editing, optional portrait and one-page A4 printing", {
     assert.equal((await command("Network.setCookie", {
       name: cookie.slice(0, separator), value: cookie.slice(separator + 1), url: base, httpOnly: true, secure: true, sameSite: "Strict",
     })).success, true);
-    await command("Page.navigate", { url: new URL("/khm-console-7f3a9c", base).toString() });
+    await command("Page.navigate", { url: new URL("/khm-console-7f3a9c#business-cards", base).toString() });
     await until("!!document.querySelector('#business-cards input')");
     await until("Object.keys(document.querySelector('#business-cards input')).some(key=>key.startsWith('__reactProps$'))");
+    await until("document.querySelector('.admin-workspace').dataset.section==='business-cards'");
+    const selectSection = async section => {
+      await evaluate(`document.querySelector('.admin-sidebar a[href$="#${section}"]').click()`);
+      await until(`document.querySelector('.admin-workspace').dataset.section==='${section}'`);
+      assert.equal(await evaluate(`document.querySelector('.admin-sidebar a[aria-current="page"]').getAttribute('href').endsWith('#${section}')`), true);
+      assert.equal(await evaluate(`[...document.querySelectorAll('[data-admin-panel]')].filter(el => getComputedStyle(el).display !== 'none').every(el => el.dataset.adminPanel === '${section}')`), true);
+    };
+    for (const section of ["overview", "services", "offers", "data", "business-cards"]) await selectSection(section);
+    await evaluate("document.querySelector('.admin-skip-link').click()");
+    assert.equal(await evaluate("document.activeElement.id"), "admin-main");
+    assert.equal(await evaluate("document.querySelector('.admin-workspace').dataset.section"), "business-cards", "Skipping navigation must not change the active section");
+    await fill(0, "Navigation");
+    await until("document.querySelector('.business-card-name').innerText.includes('Navigation')");
+    await selectSection("offers");
+    await selectSection("business-cards");
+    assert.equal(await evaluate("document.querySelector('#business-cards input').value"), "Navigation", "Switching dashboard sections must retain the card draft");
+    await evaluate("history.back()");
+    await until("document.querySelector('.admin-workspace').dataset.section==='offers'");
+    await evaluate("history.forward()");
+    await until("document.querySelector('.admin-workspace').dataset.section==='business-cards'");
+    await evaluate("document.querySelector('.admin-sidebar details summary').click()");
+    assert.equal(await evaluate("document.querySelector('.admin-sidebar details').open"), false, "Menu groups must collapse");
+    await evaluate("document.querySelector('.admin-sidebar details summary').click()");
+    await selectSection("services");
+    await evaluate("[...document.querySelectorAll('nav[aria-label=\"Filtrer par type\"] a')].find(a=>a.innerText==='Marketplace').click()");
+    await until("location.search.includes('kind=marketplace') && [...document.querySelectorAll('tbody tr')].every(row=>row.innerText.includes('Marketplace'))");
+    assert.equal(await evaluate("location.hash"), "#services", "Service filters must retain the selected central panel");
+    await selectSection("business-cards");
+    assert.equal(await evaluate("document.querySelector('#business-cards input').value"), "Navigation", "Service filtering must retain the card draft");
+    await command("Page.navigate", { url: new URL("/khm-console-7f3a9c?kind=marketplace#services", base).toString() });
+    await until("document.querySelector('.admin-workspace').dataset.section==='services'");
+    await command("Page.navigate", { url: new URL("/khm-console-7f3a9c?kind=marketplace#business-cards", base).toString() });
+    await until("document.querySelector('.admin-workspace').dataset.section==='business-cards'");
+    await fill(0, "Manfred");
+    await command("Emulation.setDeviceMetricsOverride", { width: 390, height: 844, deviceScaleFactor: 1, mobile: false });
+    assert.equal(await evaluate(`(() => {
+      const sidebar = document.querySelector('.admin-sidebar').getBoundingClientRect();
+      const main = document.querySelector('.admin-main').getBoundingClientRect();
+      return sidebar.bottom <= main.top && document.documentElement.scrollWidth <= 390;
+    })()`), true, "On mobile the navigation must sit above the content without page overflow");
+    await command("Emulation.setDeviceMetricsOverride", { width: 1440, height: 1000, deviceScaleFactor: 1, mobile: false });
     await evaluate("document.fonts.ready");
     assert.equal(await evaluate(`document.fonts.check('30px "Khmera Taprom"', 'Khmera')`), true);
     assert.match(await evaluate("getComputedStyle(document.querySelector('.business-card-brand strong')).fontFamily"), /Khmera Taprom/);
@@ -203,6 +244,16 @@ test("admin card editing, optional portrait and one-page A4 printing", {
     await command("Page.reload");
     await until("document.querySelector('.business-card-name')?.innerText.includes('Manfred')");
     assert.equal(await evaluate("document.querySelectorAll('.business-card-agent-photo').length"), 0);
+    for (const page of ["contacts", "blog", "partners"]) {
+      await command("Page.navigate", { url: new URL(`/khm-console-7f3a9c/${page}`, base).toString() });
+      await until(`document.querySelector('.admin-workspace')?.dataset.section==='${page}'`);
+      assert.equal(await evaluate(`document.querySelector('.admin-sidebar a[aria-current="page"]').getAttribute('href').endsWith('/${page}')`), true);
+    }
+    await command("Emulation.setEmulatedMedia", { media: "print" });
+    assert.equal(await evaluate("getComputedStyle(document.querySelector('.admin-sidebar')).display"), "none");
+    assert.equal(await evaluate("getComputedStyle(document.querySelector('.admin-section-header')).display"), "none");
+    const partnerPdf = await command("Page.printToPDF", { preferCSSPageSize: true, displayHeaderFooter: false, printBackground: true });
+    assert.equal((Buffer.from(partnerPdf.data, "base64").toString("latin1").match(/\/Type\s*\/Page\b/g) ?? []).length, 1, "Partner presentation must still print on one A4 page");
   } finally {
     await fetch(new URL("/api/admin/session", base), { method: "DELETE", headers: { Cookie: cookie } });
     await command("Page.close");

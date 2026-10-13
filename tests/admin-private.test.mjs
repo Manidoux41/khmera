@@ -13,7 +13,7 @@ test("private presentation and directory require a valid admin session", {
   assert.equal((await login("wrong-password")).status, 401);
   assert.equal((await fetch(new URL("/api/admin/data-export", base))).status, 401);
   assert.equal((await fetch(new URL("/api/admin/data-export", base), { headers: { Cookie: "khmera_admin_session=invalid" } })).status, 401);
-  const paths = ["/khm-console-7f3a9c/partners", "/khm-console-7f3a9c/contacts", "/khm-console-7f3a9c"];
+  const paths = ["/khm-console-7f3a9c/partners", "/khm-console-7f3a9c/contacts", "/khm-console-7f3a9c", "/khm-console-7f3a9c/blog"];
   for (const path of paths) {
     for (const headers of [{}, { Cookie: "khmera_admin_session=invalid" }]) {
       const response = await fetch(new URL(path, base), { headers });
@@ -21,6 +21,7 @@ test("private presentation and directory require a valid admin session", {
       assert.ok(!html.includes('class="partner-presentation'));
       assert.ok(!html.includes("Répertoire privé — clients et partenaires"));
       assert.ok(!html.includes('id="business-cards"'));
+      assert.ok(!html.includes('class="admin-sidebar"'));
       assert.equal(response.headers.get("x-robots-tag"), "noindex, nofollow, noarchive");
     }
   }
@@ -52,6 +53,9 @@ test("private presentation and directory require a valid admin session", {
     const dashboardHtml = await dashboard.text();
     assert.ok(dashboardHtml.includes('id="business-cards"'));
     assert.ok(dashboardHtml.includes("076-252-3154"));
+    assert.ok(dashboardHtml.includes('aria-label="Navigation administration"'));
+    const loginPage = await fetch(new URL("/khm-console-7f3a9c/login", base));
+    assert.ok(!(await loginPage.text()).includes('class="admin-sidebar"'));
     const contacts = await fetch(new URL(paths[1], base), { headers: { Cookie: cookie } });
     assert.ok((await contacts.text()).includes("Répertoire privé — clients et partenaires"));
     for (const locale of ["fr", "en", "es", "de"]) {

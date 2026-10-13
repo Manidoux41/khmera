@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
-import { LogoutButton } from "@/app/admin/logout-button";
+import { AdminWorkspace } from "./admin-workspace";
 import { BusinessCardEditor } from "@/app/admin/business-card-editor";
 import { blogPosts } from "@/lib/blog/posts";
 import { RouteSkeleton } from "@/components/route-skeleton";
@@ -87,26 +87,26 @@ async function AdminDashboard({ searchParams }: { searchParams: SearchParams }) 
     if (nextKind) query.set("kind", nextKind);
     if (nextLocale !== "fr") query.set("locale", nextLocale);
     const search = query.toString();
-    return adminHref(search ? `?${search}` : "");
+    return adminHref(`${search ? `?${search}` : ""}#services`);
   };
 
   const chip = (active: boolean) =>
     `rounded-full border px-3 py-1.5 text-xs transition ${active ? "border-emerald-400 bg-emerald-500/15 text-emerald-100" : "border-slate-700 text-slate-300 hover:border-slate-500 hover:text-white"}`;
 
   return (
+    <AdminWorkspace baseHref={adminHref()}>
     <div className="admin-dashboard mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-      <div className="flex flex-wrap items-start justify-between gap-4">
+      <div data-admin-panel="overview" className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <p className="text-sm uppercase tracking-[0.2em] text-emerald-300">Tableau de bord</p>
-          <h1 className="mt-2 text-3xl font-semibold tracking-tight text-white">Services disponibles</h1>
+          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white">Bienvenue dans votre espace privé</h2>
           <p className="mt-2 text-sm text-slate-400">
             Connecté en tant que <span className="text-slate-200">{admin.name}</span> ({admin.email})
           </p>
         </div>
-        <LogoutButton loginHref={adminHref("/login")} />
       </div>
 
-      <dl className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <dl data-admin-panel="overview" className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {[
           { label: "Services au total", value: counts.total },
           { label: "Actifs", value: counts.active },
@@ -120,7 +120,7 @@ async function AdminDashboard({ searchParams }: { searchParams: SearchParams }) 
         ))}
       </dl>
 
-      <section className="mt-8 rounded-3xl border border-slate-700 bg-slate-900/60 p-6">
+      <section data-admin-panel="overview" className="mt-8 rounded-3xl border border-slate-700 bg-slate-900/60 p-6">
         <h2 className="text-2xl font-semibold text-white">Clients et partenaires</h2>
         <p className="mt-3 text-sm leading-7 text-slate-300">Gérez vos futurs contacts : touristes, retraités, apporteurs d&apos;affaires et partenaires. Plusieurs catégories sont possibles par fiche. Sans base de données, exportez vos modifications avant de quitter l&apos;onglet.</p>
         <div className="mt-5 flex flex-wrap gap-4">
@@ -130,15 +130,15 @@ async function AdminDashboard({ searchParams }: { searchParams: SearchParams }) 
         </div>
       </section>
 
-      <BusinessCardEditor publicUrl={siteUrl.toString()} />
+      <div data-admin-panel="business-cards"><BusinessCardEditor publicUrl={siteUrl.toString()} /></div>
 
-      <section className="mt-8 rounded-3xl border border-slate-700 bg-slate-900/60 p-6">
+      <section data-admin-panel="data" className="rounded-3xl border border-slate-700 bg-slate-900/60 p-6">
         <h2 className="text-2xl font-semibold text-white">Préparation de la future base Prisma</h2>
         <p className="mt-3 text-sm leading-7 text-slate-300">Schéma PostgreSQL préparé, aucune base connectée. Exportez le catalogue et ses quatre langues pour une future importation contrôlée. Les contacts temporaires et les agents se téléchargent séparément depuis leurs éditeurs ; les photos de profil restent des fichiers à conserver à part. Aucun identifiant de connexion, session ou demande e-mail non envoyée n&apos;est exporté.</p>
         <a href="/api/admin/data-export" download className="mt-5 inline-flex rounded-full border border-slate-600 px-5 py-3 text-sm font-medium text-white">Exporter le catalogue pour Prisma</a>
       </section>
 
-      <section className="mt-8 rounded-3xl border border-slate-700 bg-slate-900/60 p-6">
+      <section data-admin-panel="overview" className="mt-8 rounded-3xl border border-slate-700 bg-slate-900/60 p-6">
         <h2 className="text-2xl font-semibold text-white">Blog</h2>
         <p className="mt-4 text-lg text-slate-200">{blogPosts[0].translations.fr.title}</p>
         <p className="mt-2 text-sm text-slate-400">
@@ -149,7 +149,7 @@ async function AdminDashboard({ searchParams }: { searchParams: SearchParams }) 
         <Link href={adminHref("/blog")} className="mt-5 inline-flex rounded-full bg-emerald-500 px-5 py-3 text-sm font-medium text-white">Modifier et prévisualiser l&apos;article</Link>
       </section>
 
-      <section className="mt-8 rounded-3xl border border-emerald-500/30 bg-slate-900/60 p-6">
+      <section data-admin-panel="offers" className="rounded-3xl border border-emerald-500/30 bg-slate-900/60 p-6">
         <h2 className="text-2xl font-semibold text-white">Vos offres commerciales</h2>
         <p className="mt-3 text-sm leading-7 text-slate-300">
           KHMERA facture ses prestations de conseil : diagnostic, installation, préparation business et voyage découverte.
@@ -176,7 +176,7 @@ async function AdminDashboard({ searchParams }: { searchParams: SearchParams }) 
         </p>
       </section>
 
-      <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+      <div data-admin-panel="services" className="flex flex-wrap items-center gap-x-6 gap-y-3">
         <nav aria-label="Filtrer par statut" className="flex flex-wrap gap-2">
           <Link href={hrefWith({ status: null })} className={chip(!status)}>Tous les statuts</Link>
           {(Object.keys(statusLabels) as ServiceStatus[]).map((value) => (
@@ -198,7 +198,7 @@ async function AdminDashboard({ searchParams }: { searchParams: SearchParams }) 
         </nav>
       </div>
 
-      <div className="mt-6 overflow-x-auto rounded-2xl border border-slate-800">
+      <div data-admin-panel="services" className="mt-6 overflow-x-auto rounded-2xl border border-slate-800">
         <table className="min-w-full divide-y divide-slate-800 text-left text-sm">
           <thead className="bg-slate-900/80 text-xs uppercase tracking-wider text-slate-400">
             <tr>
@@ -249,9 +249,10 @@ async function AdminDashboard({ searchParams }: { searchParams: SearchParams }) 
         </table>
       </div>
 
-      <p className="mt-4 text-xs text-slate-500">
+      <p data-admin-panel="services" className="mt-4 text-xs text-slate-500">
         Données de démonstration (mock en mémoire) — également exposées via <code className="font-mono">GET /api/admin/services</code>.
       </p>
     </div>
+    </AdminWorkspace>
   );
 }
