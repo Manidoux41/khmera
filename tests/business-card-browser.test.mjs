@@ -11,7 +11,7 @@ test("admin card editing, optional portrait and one-page A4 printing", {
   for (const url of [base, cdp]) assert.ok(["localhost", "127.0.0.1"].includes(new URL(url).hostname), "Only run against isolated local previews");
   const login = await fetch(new URL("/api/admin/session", base), {
     method: "POST", headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email: "admin@khmera.local", password: "Khmera#Admin2026" }),
+    body: JSON.stringify({ email: process.env.ADMIN_TEST_EMAIL || "admin@khmera.local", password: process.env.ADMIN_TEST_PASSWORD || "Khmera#Admin2026" }),
   });
   assert.equal(login.status, 200);
   const cookie = login.headers.get("set-cookie").split(";")[0];
@@ -254,6 +254,45 @@ test("admin card editing, optional portrait and one-page A4 printing", {
     assert.equal(await evaluate("getComputedStyle(document.querySelector('.admin-section-header')).display"), "none");
     const partnerPdf = await command("Page.printToPDF", { preferCSSPageSize: true, displayHeaderFooter: false, printBackground: true });
     assert.equal((Buffer.from(partnerPdf.data, "base64").toString("latin1").match(/\/Type\s*\/Page\b/g) ?? []).length, 1, "Partner presentation must still print on one A4 page");
+    await command("Emulation.setEmulatedMedia", { media: "screen" });
+    await command("Page.navigate", { url: new URL("/khm-console-7f3a9c/tariffs", base).toString() });
+    await until("document.querySelector('.tariff-sheet') && Object.keys(document.querySelector('.tariff-controls button')).some(key=>key.startsWith('__reactProps$'))");
+    await evaluate("window.__tariffPrintCalls=0; window.print=()=>{window.__tariffPrintCalls++;}; document.querySelector('.tariff-controls button').click()");
+    await until("window.__tariffPrintCalls===1");
+    for (const slug of ["cambodia-diagnostic", "settle-in", "business-launch", "discovery-trip"]) {
+      await command("Emulation.setEmulatedMedia", { media: "screen" });
+      await evaluate(`document.querySelector('nav[aria-label="Choisir une fiche tarifaire"] a[href$="${slug}"]').click()`);
+      await until(`document.querySelector('.tariff-sheet')?.dataset.offer==='${slug}'`);
+      assert.equal(await evaluate("document.querySelectorAll('.tariff-sheet').length"), 1);
+      await until("document.querySelector('.tariff-letterhead img').complete && document.querySelector('.tariff-letterhead img').naturalWidth>0");
+      await until("Object.keys(document.querySelector('#tariff-recipient')).some(key=>key.startsWith('__reactProps$'))");
+      const recipient = slug === "cambodia-diagnostic" ? "" : `Mme Andréa - Organisation ${"W".repeat(135)}`.slice(0, 160);
+      await evaluate(`(() => {
+        const input=document.querySelector('#tariff-recipient');
+        Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(input,${JSON.stringify(recipient)});
+        input.dispatchEvent(new Event('input',{bubbles:true}));
+      })()`);
+      await until(`document.querySelector('.tariff-recipient-value').textContent.trim()===${JSON.stringify(recipient)}`);
+      await command("Emulation.setEmulatedMedia", { media: "print" });
+      assert.equal(await evaluate(`['.admin-banner','.admin-sidebar','.admin-section-header','.tariff-controls'].every(selector=>getComputedStyle(document.querySelector(selector)).display==='none')`), true);
+      assert.equal(await evaluate(`(() => {
+        const printed=document.querySelector('.tariff-recipient-print');
+        const logo=document.querySelector('.tariff-letterhead img');
+        return getComputedStyle(printed).display!=='none'
+          && getComputedStyle(document.querySelector('.tariff-recipient-editor')).display==='none'
+          && printed.getBoundingClientRect().height>20 && logo.getBoundingClientRect().height>0
+          && document.querySelector('.tariff-slogan').textContent==='INSTALLATION · VOYAGE · BUSINESS'
+          && document.querySelector('.tariff-recipient-value').scrollWidth<=printed.clientWidth;
+      })()`), true, "Letterhead and recipient space must print without editor controls or overflow");
+      const pdf = await command("Page.printToPDF", { preferCSSPageSize: true, displayHeaderFooter: false, printBackground: true });
+      const bytes = Buffer.from(pdf.data, "base64");
+      assert.equal((bytes.toString("latin1").match(/\/Type\s*\/Page\b/g) ?? []).length, 1, `${slug} tariff sheet must fit on one A4 page`);
+      if (process.env.CARD_PDF_DIR) writeFileSync(`${process.env.CARD_PDF_DIR}/khmera-tarif-${slug}.pdf`, bytes);
+    }
+    await command("Emulation.setEmulatedMedia", { media: "screen" });
+    await command("Page.reload");
+    await until("!!document.querySelector('#tariff-recipient')");
+    assert.equal(await evaluate("document.querySelector('#tariff-recipient').value"), "", "Recipient must not persist after reload");
   } finally {
     await fetch(new URL("/api/admin/session", base), { method: "DELETE", headers: { Cookie: cookie } });
     await command("Page.close");

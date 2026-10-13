@@ -374,7 +374,137 @@ model AuditEvent {
   action    String
   entity    String
   entityId  String
+  changedFields String[]
+  before    Json?
+  after     Json?
   createdAt DateTime      @default(now())
 
   @@index([entity, entityId, createdAt])
+}
+
+enum ReviewStatus {
+  draft
+  pending
+  approved
+  suspended
+}
+
+enum VerificationLevel {
+  unverified
+  checked
+  official
+}
+
+enum ListingPlan {
+  free
+  premium
+  sponsored
+}
+
+enum CampaignStatus {
+  draft
+  pending
+  approved
+  suspended
+  expired
+}
+
+enum ReportStatus {
+  new
+  in_progress
+  closed
+}
+
+enum RegulatoryStatus {
+  to_verify
+  in_progress
+  confirmed
+  not_applicable
+}
+
+// Preparation only: no runtime client, publication or payments are connected.
+model ProfessionalListing {
+  id                 String            @id @default(cuid())
+  name               String            @db.VarChar(160)
+  category           String            @db.VarChar(300)
+  description        String            @db.VarChar(2000)
+  address            String            @db.VarChar(300)
+  email              String            @db.VarChar(254)
+  phone              String?           @db.VarChar(300)
+  website            String?           @db.VarChar(300)
+  imageReference     String?           @db.VarChar(300)
+  reviewStatus       ReviewStatus      @default(draft)
+  verification       VerificationLevel @default(unverified)
+  publicationConsent Boolean           @default(false)
+  consentEvidence    String?
+  verificationAt     DateTime?         @db.Date
+  verificationBy     String?
+  verificationSource String?
+  verificationProof  String?
+  plan               ListingPlan       @default(free)
+  publishedAt        DateTime?
+  campaigns          AdvertisingCampaign[]
+  reports            ContentReport[]
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+
+  @@index([reviewStatus, verification])
+}
+
+model ContentReport {
+  id               String             @id @default(cuid())
+  subject          String             @db.VarChar(160)
+  contentPath      String?
+  replyEmail       String?            @db.VarChar(254)
+  reason           String
+  details          String             @db.VarChar(2000)
+  status           ReportStatus       @default(new)
+  receivedAt       DateTime
+  acknowledgedAt   DateTime?
+  handledBy        String?
+  actionTaken      String?
+  notes            String?
+  listingId        String?
+  listing          ProfessionalListing? @relation(fields: [listingId], references: [id], onDelete: SetNull)
+  campaignId       String?
+  campaign         AdvertisingCampaign? @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+  closedAt         DateTime?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+
+  @@index([status, receivedAt])
+}
+
+model AdvertisingCampaign {
+  id                   String               @id @default(cuid())
+  name                 String               @db.VarChar(160)
+  description          String               @db.VarChar(2000)
+  listingId            String?
+  listing              ProfessionalListing? @relation(fields: [listingId], references: [id], onDelete: SetNull)
+  plan                 ListingPlan          @default(free)
+  reviewStatus         CampaignStatus       @default(draft)
+  placement            String?              @db.VarChar(300)
+  startsAt             DateTime?
+  endsAt               DateTime?
+  authorization        Boolean              @default(false)
+  authorizationProof   String?
+  billingProofReference String?             @db.VarChar(300)
+  publicActivation     Boolean              @default(false)
+  reports              ContentReport[]
+  createdAt            DateTime             @default(now())
+  updatedAt            DateTime             @updatedAt
+
+  @@index([reviewStatus, startsAt, endsAt])
+}
+
+model RegulatoryCheck {
+  id              String           @id
+  subject         String           @db.VarChar(160)
+  authority       String           @db.VarChar(300)
+  officialSource  String           @db.VarChar(300)
+  status          RegulatoryStatus @default(to_verify)
+  checkedAt       DateTime?        @db.Date
+  evidenceReference String?
+  comments        String?
+  updatedAt       DateTime         @updatedAt
 }

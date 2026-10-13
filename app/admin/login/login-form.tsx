@@ -5,6 +5,8 @@ import { useState, type FormEvent } from "react";
 const errorMessages: Record<string, string> = {
   missing_credentials: "Veuillez saisir votre e-mail et votre mot de passe.",
   invalid_credentials: "Identifiants invalides.",
+  admin_credentials_missing: "Connexion indisponible : configurez ADMIN_EMAIL, ADMIN_PASSWORD_HASH et ADMIN_PASSWORD_SALT. Le compte de démonstration est désactivé en production.",
+  rate_limited: "Trop de tentatives. Patientez avant de réessayer.",
   session_secret_too_short:
     "Connexion indisponible : la variable ADMIN_SESSION_SECRET est trop courte (32 caractères minimum).",
   session_secret_missing:

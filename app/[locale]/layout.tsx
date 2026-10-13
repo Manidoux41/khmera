@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { RouteSkeleton } from "@/components/route-skeleton";
 import { getDictionary, isLocale, locales } from "@/lib/i18n";
+import { legalCopy, legalPages } from "@/lib/legal/copy";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -82,6 +83,7 @@ async function LocaleLayoutContent({
             <Link href={`/${locale}/testimonials`} className="hover:text-white">{messages.nav.testimonials}</Link>
             <Link href={`/${locale}/credits`} className="hover:text-white">{messages.photos.creditsLink}</Link>
             <Link href={`/${locale}/blog`} className="hover:text-white">{messages.blog.title}</Link>
+            {legalPages.map(page => <Link key={page} href={`/${locale}/${page}`} className="hover:text-white">{legalCopy[locale].pages[page].title}</Link>)}
           </div>
         </div>
       </footer>

@@ -151,6 +151,7 @@ async function AdminDashboard({ searchParams }: { searchParams: SearchParams }) 
 
       <section data-admin-panel="offers" className="rounded-3xl border border-emerald-500/30 bg-slate-900/60 p-6">
         <h2 className="text-2xl font-semibold text-white">Vos offres commerciales</h2>
+        <Link href={adminHref("/tariffs")} className="mt-4 inline-flex rounded-full border border-emerald-500/40 px-5 py-3 text-sm text-emerald-200">Consulter les fiches tarifaires privées</Link>
         <p className="mt-3 text-sm leading-7 text-slate-300">
           KHMERA facture ses prestations de conseil : diagnostic, installation, préparation business et voyage découverte.
           Les prix ci-dessous sont des honoraires proposés par vente, pas un chiffre d&apos;affaires encaissé.

@@ -6,7 +6,7 @@ import "./admin-workspace.css";
 
 const dashboardSections = ["overview", "services", "offers", "business-cards", "data"] as const;
 type DashboardSection = typeof dashboardSections[number];
-type Section = DashboardSection | "contacts" | "blog" | "partners";
+type Section = DashboardSection | "contacts" | "blog" | "partners" | "tariffs" | "launch" | "launch-professionals" | "launch-reports" | "launch-campaigns" | "launch-regulatory";
 
 const titles: Record<Section, string> = {
   overview: "Tableau de bord",
@@ -17,12 +17,19 @@ const titles: Record<Section, string> = {
   contacts: "Répertoire privé — clients et partenaires",
   blog: "Blog — le récit du créateur",
   partners: "Présentation partenaires",
+  tariffs: "Fiches tarifaires",
+  launch: "Lancement et modération",
+  "launch-professionals": "Professionnels et vérifications",
+  "launch-reports": "Suivi des signalements",
+  "launch-campaigns": "Annonces et campagnes",
+  "launch-regulatory": "Checklist réglementaire",
 };
 
 const groups: { label: string; items: Section[] }[] = [
-  { label: "Activité et services", items: ["services", "offers"] },
+  { label: "Activité et services", items: ["services", "offers", "tariffs"] },
   { label: "Relations et prospection", items: ["contacts", "partners", "business-cards"] },
   { label: "Contenus du site", items: ["blog"] },
+  { label: "Préparation du lancement", items: ["launch-professionals", "launch-reports", "launch-campaigns", "launch-regulatory"] },
   { label: "Données et configuration", items: ["data"] },
 ];
 
@@ -39,6 +46,15 @@ export function AdminWorkspace({ baseHref, page = "overview", children }: {
   const [section, setSection] = useState<Section>(page);
 
   useEffect(() => {
+    if (page !== "launch") return;
+    const sync = () => {
+      const item = `launch-${window.location.hash.slice(1)}`;
+      setSection(groups.flatMap(group => group.items).find(value => value === item) ?? "launch");
+    };
+    sync(); window.addEventListener("hashchange", sync);
+    return () => window.removeEventListener("hashchange", sync);
+  }, [page]);
+  useEffect(() => {
     if (!dashboard) return;
     const syncSection = () => {
       const hash = window.location.hash.slice(1);
@@ -50,6 +66,7 @@ export function AdminWorkspace({ baseHref, page = "overview", children }: {
   }, [dashboard]);
 
   function hrefFor(item: Section) {
+    if (item.startsWith("launch-")) return `${baseHref}/launch#${item.slice(7)}`;
     return isDashboardSection(item)
       ? `${baseHref}#${item}`
       : `${baseHref}/${item}`;

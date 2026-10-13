@@ -100,7 +100,7 @@ test("each package is translated with explicit deliverables in all four locales"
   }
 });
 
-test("admin catalog exposes the public package prices and localized paths", async () => {
+test("admin catalog retains internal package prices and localized paths", async () => {
   for (const locale of i18n.locales) {
     const records = await catalog.listServices(locale);
     assert.equal(new Set(records.map((record) => record.id)).size, records.length);
@@ -116,6 +116,29 @@ test("admin catalog exposes the public package prices and localized paths", asyn
     const marketplace = await catalog.listServices(locale, { kind: "marketplace" });
     assert.equal(marketplace.length, 4);
     assert.ok(marketplace.every((record) => !record.id.startsWith("offer_")));
+  }
+});
+
+test("public pages show quote labels without numeric fees or serialized private price props", {
+  skip: !process.env.ADMIN_TEST_BASE_URL,
+}, async () => {
+  const base = process.env.ADMIN_TEST_BASE_URL;
+  assert.ok(["localhost", "127.0.0.1"].includes(new URL(base).hostname));
+  for (const locale of i18n.locales) {
+    for (const path of ["", "/services", ...pricing.offerSlugs.map(slug => `/services/${slug}`)]) {
+      const response = await fetch(new URL(`/${locale}${path}`, base));
+      assert.equal(response.status, 200);
+      const html = await response.text();
+      assert.ok(html.includes(i18n.dictionaries[locale].commerce.quoteLabel));
+      assert.doesNotMatch(html, /priceUsd|(?:\$|US\$)\s*(?:49|249|399|99)\b|\b(?:49|249|399|99)\s*(?:\$|USD)/);
+      if (path.startsWith("/services/")) {
+        for (const match of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+          const data = JSON.parse(match[1]);
+          const service = data["@graph"]?.find(item => item["@type"] === "Service");
+          if (service) assert.equal(Object.hasOwn(service.offers, "price"), false);
+        }
+      }
+    }
   }
 });
 
@@ -154,7 +177,7 @@ test("complete booking emails follow the locale for every package and preserve v
       for (const text of [
         copy.email.introduction,
         `${copy.email.offer}: ${copy.offers[offer.slug].name}`,
-        `${copy.email.price}: ${pricing.formatOfferPrice(offer.priceUsd, locale)}`,
+        `${copy.email.price}: ${copy.quoteLabel}`,
         `${copy.email.preferredDate}: ${expectedDates[locale]}`,
         `${copy.email.language}: ${copy.email.languageName} (${locale})`,
         `${copy.form.name}: André & Léa`,
@@ -164,6 +187,7 @@ test("complete booking emails follow the locale for every package and preserve v
         copy.exclusions,
         ...copy.offers[offer.slug].includes,
       ]) assert.ok(draft.body.includes(text), `${locale}/${offer.slug}: ${text}`);
+      assert.ok(!draft.body.includes(pricing.formatOfferPrice(offer.priceUsd, locale)));
       const link = new URL(pricing.bookingMailto(draft.subject, draft.body));
       assert.equal(link.searchParams.get("subject"), draft.subject);
       assert.equal(link.searchParams.get("body"), draft.body);

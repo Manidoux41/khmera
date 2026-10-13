@@ -6,7 +6,7 @@ import { BookingRequestForm } from "@/components/booking-request-form";
 import { RouteSkeleton } from "@/components/route-skeleton";
 import { PageSeo } from "@/components/page-seo";
 import { getDictionary, isLocale } from "@/lib/i18n";
-import { formatOfferPrice, getOffer, offerSlugs } from "@/lib/services/offers";
+import { getOffer, offerSlugs } from "@/lib/services/offers";
 
 type OfferPageProps = { params: Promise<{ locale: string; offer: string }> };
 
@@ -33,7 +33,7 @@ async function OfferContent({ params }: OfferPageProps) {
         <div>
           <p className="text-sm uppercase tracking-[0.2em] text-emerald-300">{item.audience}</p>
           <h1 className="mt-3 text-4xl font-semibold text-white">{item.name}</h1>
-          <p className="mt-5 text-4xl font-semibold text-white">{formatOfferPrice(offer.priceUsd, locale)}</p>
+          <p className="mt-5 text-sm text-emerald-300">{copy.quoteLabel}</p>
           <p className="mt-5 leading-7 text-slate-300">{item.summary}</p>
           <h2 className="mt-8 text-xl font-semibold text-white">{copy.included}</h2>
           <ul className="mt-4 list-disc space-y-3 pl-5 leading-7 text-slate-300">
@@ -42,7 +42,7 @@ async function OfferContent({ params }: OfferPageProps) {
           <p className="mt-6 text-sm leading-6 text-slate-400">{copy.pricingNote}</p>
           <p className="mt-4 text-sm leading-6 text-slate-400">{copy.exclusions}</p>
         </div>
-        <BookingRequestForm key={`${locale}/${offer.slug}`} locale={locale} offer={offer} copy={copy} />
+        <BookingRequestForm key={`${locale}/${offer.slug}`} locale={locale} offer={{ slug: offer.slug }} copy={copy} />
       </div>
     </div>
   );

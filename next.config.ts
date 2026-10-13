@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  distDir: process.env.KHMERA_BUILD_DIR || ".next",
   /* config options here */
   experimental: {
     agentFeedback: true,

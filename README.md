@@ -59,20 +59,107 @@ offline support or guarantee PWA installation.
 The admin area lists every service available on the platform (core KHMERA
 services and marketplace offers). There is no database yet: the admin account
 (`lib/admin/accounts.ts`) and the service registry (`lib/services/catalog.ts`)
-are in-memory mocks; localized names come from `lib/i18n.ts`.
+use a development mock or server-configured account; localized names come from `lib/i18n.ts`.
 
 - Secret link: `http://localhost:3000/khm-console-7f3a9c` (override with the
   `ADMIN_ACCESS_PATH` env variable, 8+ chars `[a-zA-Z0-9-_]`). `proxy.ts`
   rewrites it to the internal `/admin` routes; `/admin` itself returns a 404.
 - Mock account: `admin@khmera.local` / `Khmera#Admin2026` (dev only, stored as a
-  scrypt hash).
+  scrypt hash). **Production no longer accepts this fallback.** Set `ADMIN_EMAIL`,
+  `ADMIN_PASSWORD_HASH`, `ADMIN_PASSWORD_SALT`, optionally `ADMIN_NAME`, in addition
+  to the session secret. Missing or malformed credentials fail closed with `503`
+  (`admin_credentials_missing`). A partially supplied account also disables the
+  development fallback. Never reuse the example password for a real account.
 - Sessions use an HMAC-signed, `httpOnly` cookie valid for 8 hours. Set
   `ADMIN_SESSION_SECRET` (32+ chars) in production; without it the login form
   shows "Connexion indisponible" and the API answers `503` (`session_secret_missing` or `session_secret_too_short`).
 - On Vercel: Project → Settings → Environment Variables, add
-  `ADMIN_SESSION_SECRET` (e.g. output of `openssl rand -hex 32`) for
+  `ADMIN_SESSION_SECRET` (e.g. output of `openssl rand -hex 32`) and the account variables above for
   Production, then redeploy. If you set `ADMIN_ACCESS_PATH` there, the secret
   link becomes `https://<your-domain>/<ADMIN_ACCESS_PATH>`.
+
+Generate the scrypt salt/hash locally without writing the password to a file or
+passing it in process arguments (macOS default zsh):
+
+```zsh
+read -s 'admin_password?Unique administrator password (12+ characters): '
+printf '\n'
+printf '%s' "$admin_password" | node scripts/admin-password.mjs
+unset admin_password
+```
+
+Keep the resulting hash/salt and session secret in server-side environment
+configuration, never in `NEXT_PUBLIC_*`, source control or exported catalogues.
+Rotate `ADMIN_SESSION_SECRET` to invalidate all cookies after account/password
+changes. Login rejects cross-origin requests, bodies over 4096 bytes, invalid
+JSON and oversized credential fields. Its bounded per-process limiter allows
+10 attempts per email per 15 minutes. This is **not distributed protection**:
+configure platform/edge throttling before launch, especially on Vercel.
+`KHMERA_BUILD_DIR=.next/launch-validation npm run build` creates an isolated
+preview build without overwriting the user's development build; use the same
+variable with `next start` for that preview.
+
+## Commercial launch preparation (no connected database)
+
+- Eight public pages in EN/FR/ES/DE: `about`, `contact`, `legal-notice`, `terms`,
+  `privacy`, `listing-terms`, `advertising`, `report`. Footer links are localized.
+  Copy is centralized in `lib/legal/copy.ts`. These are explicitly **drafts**,
+  with `noindex, follow` and canonical/language alternatives; they are deliberately
+  excluded from the indexable sitemap until legal review.
+- Complete `LEGAL_OPERATOR_NAME`, `LEGAL_OPERATOR_FORM`, `LEGAL_OPERATOR_ADDRESS`,
+  `LEGAL_OPERATOR_REGISTRATION`, `LEGAL_OPERATOR_TAX`,
+  `LEGAL_PUBLICATION_DIRECTOR`, `LEGAL_HOSTING_DETAILS`, and validate
+  `LEGAL_CONTACT_EMAIL`. Absent official fields visibly say they must be completed.
+  The contact defaults to the existing founder email, not a newly provisioned mailbox.
+  These values are public legal disclosures. Rebuild/redeploy after changing them.
+- Marketplace cards/details disclose their illustrative, unverified,
+  non-sponsored nature. Directory introductions and Khmera's own quote-based
+  advice packages are distinguished. Unsupported verified-provider and active
+  payment claims have been removed; existing tariff sheets remain private.
+- Reporting links prepare a mail draft with a bounded internal content path,
+  reason, optional reply email and details. No network submission, receipt or
+  case number is created. The user must send the email; an administrator must
+  acknowledge and register its actual receipt manually. Copyable text is provided
+  if no mail application is configured.
+- Private `/launch` has dedicated sidebar submenus for professionals, reports,
+  campaigns and the regulatory checklist. Fiches can be added, edited, suspended
+  (professionals/campaigns) and deleted. Review approval never publishes anything.
+  Professional validation requires category, description, address and contact;
+  approval requires publishing consent/evidence. Verification badges require
+  dated evidence; an official partnership requires written permission, checked
+  by the administrator, not automatically certified by the software.
+- Reports require a real reception date and support received/in-progress/closed
+  tracking and comments. Future free/premium/sponsored campaigns prepare
+  placement, dates, review and billing-proof references, without invoices,
+  checkout, subscriptions, payments or public ad activation. Images are reference
+  URLs only, never downloaded/uploaded by this editor.
+- The nine-question **Cambodia Regulatory Checklist** starts at “À vérifier”.
+  Documented confirmation or non-applicability requires authority, date,
+  source and evidence. Refer to `docs/CAMBODIA-REGULATORY-CHECKLIST.md` for official
+  starting sites and the pre-production checklist. Written answers and local
+  legal review remain outstanding; no licence or compliance is claimed.
+- Editor records/history live only in page memory. Submenus keep unapplied
+  drafts; leaving/reloading loses all of it. A browser unload warning is provided
+  after changes. Apply each form before export. Version-1 private JSON import
+  replaces records/history only after validation and confirmation (2 MB,
+  500 records, 2000 events maximum). Strict fields, dates, safe HTTP(S) URLs and
+  evidence gates apply to imported records too. This JSON is not a Prisma seed
+  or a tamper-proof audit log. New Prisma models prepare a future durable store
+  and review backend; no migration/client/database query is introduced.
+- Keep exports and evidence documents in access-controlled storage; define
+  backups and remove obsolete copies manually, including mailbox copies where
+  applicable. Hosting/mailbox log retention, countries of processing, legal bases,
+  rights handling and transfers still require provider/legal validation.
+  Do not store sensitive identity or banking documents in the temporary editor.
+- No analytics, marketing cookies or embedded media are installed. Existing
+  admin session cookies are essential. No dummy consent banner is introduced.
+  Future trackers require inventory and blocking before the required consent
+  with accept/refuse/customise/revise controls.
+
+Targeted tests: `node --test tests/admin-security.test.mjs tests/launch-preparation.test.mjs`.
+Live tests use `ADMIN_TEST_BASE_URL` (localhost only) and optional
+`ADMIN_TEST_EMAIL` / `ADMIN_TEST_PASSWORD` for an explicitly configured preview
+account. Never run the development-password test against production.
 
 The private administration uses a left sidebar with collapsible menu groups:
 activity (service catalogue and commercial offers), relationships (contact
@@ -83,6 +170,27 @@ Dashboard sections use hash navigation (`#services`, `#offers`,
 `#business-cards`, `#data`) without reloading or unmounting the card editor.
 Browser back/forward restores the section. Visiting another page or reloading
 still discards temporary data; export first. Navigation is excluded from PDFs.
+
+The "Fiches tarifaires" submenu (`/tariffs` under the secret admin URL) contains
+one private reference sheet per commercial package. Select a package to see its
+USD reference fee, audience, deliverables, exclusions and written-quote
+conditions. Print the selected sheet as a single A4 page or save it as PDF;
+menus and controls are excluded. These are internal references, not client
+quotes or confirmed bookings. Fees are read-only and reuse the existing offer
+registry; no database or separate pricing store is introduced. Public pages
+continue to display quote-only labels without numeric fees.
+Printed tariff sheets include the Khmera logo and the card slogan in the
+letterhead. An optional recipient field prints below it; leave it empty for
+a handwritten recipient. It stays in page memory only, never in a URL,
+database or request. Reloading or leaving the page clears it.
+Tariff sheets support FR/EN/ES/DE using a language menu that keeps the selected
+package. Package links retain the selected language (`locale` query parameter).
+French remains the administration default; unsupported languages fall back to
+French, as with the private partner presentation. Package content reuses the
+public localized dictionaries, while private labels and recipient instructions
+are centralized in `lib/admin/tariff-copy.ts`. The printed slogan and USD amount
+format follow the selected language. The recipient is not translated and remains
+in page memory when changing language or package through these links.
 
 The private dashboard includes a business-card editor (`#business-cards`),
 prefilled for Manfred Parbatia, "Conseiller en mise en relation", with
@@ -223,7 +331,12 @@ destination remains editable. Cambodia visa rules remain national.
 Existing route slugs and fees are unchanged; the admin catalog and localized
 request emails reuse the updated package copy.
 
-| Package | Proposed fee (USD) | Deliverables |
+Public package pages, homepage highlights and email drafts use "Sur devis" /
+"On request" / "Bajo presupuesto" / "Auf Anfrage" instead of numeric fees.
+Public structured data also omits price and currency. The amounts below remain
+internal reference fees in the authenticated administration and Prisma export.
+
+| Package | Internal proposed fee (USD) | Deliverables |
 | --- | --- | --- |
 | Siem Reap diagnostic | 49 | One 45-minute remote consultation and a written roadmap |
 | Settle in with confidence | 249 | Two 45-minute remote consultations, arrival checklist and relocation plan |
@@ -246,11 +359,12 @@ the preferred reply language. Visitor-written text is preserved, not translated.
 Both subject and body can be copied from the preview if no mail app is configured.
 There are no automatic outgoing emails or translated auto-replies yet.
 
-The admin dashboard and services API list these packages using the same prices
-as the public pages. The dashboard explains manual qualification, written
+The admin dashboard and authenticated services API retain these internal prices.
+The dashboard explains manual qualification, written
 quotes and invoicing. There is no orders table, payment ledger or claimed revenue.
 Marketplace listings remain illustrative; no partner commissions are collected.
-The old fictional home-page customer counts have been replaced with package fees.
+The home-page highlights describe the service areas without prices or fictional
+customer counts.
 
 Before accepting a request, confirm that you can deliver the package and agree
 on scope, dates, any applicable taxes, final price, payment and cancellation terms
@@ -338,8 +452,8 @@ Do not use a Vercel preview URL as the canonical origin.
   from the sitemap, and have no structured data. Replace these with genuine
   validated content before changing their indexing policy.
 - Public pages provide `Organization`, `WebSite`, `WebPage` and breadcrumb JSON-LD.
-  Package details additionally provide `Service`/`Offer`, with actual proposed
-  USD fees and quote conditions. No invented ratings, customer reviews, office
+  Package details additionally provide `Service`/`Offer` and quote conditions,
+  without exposing internal prices or currency. No invented ratings, customer reviews, office
   address, accreditation or guaranteed availability is included.
 
 After production deployment:

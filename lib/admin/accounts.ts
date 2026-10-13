@@ -32,13 +32,31 @@ function toPublicAccount({ id, name, email, role }: StoredAdminAccount): AdminAc
   return { id, name, email, role };
 }
 
+function configuredAccounts(): StoredAdminAccount[] {
+  const email = process.env.ADMIN_EMAIL?.trim().toLowerCase();
+  const passwordHash = process.env.ADMIN_PASSWORD_HASH?.trim();
+  const passwordSalt = process.env.ADMIN_PASSWORD_SALT?.trim();
+  if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    && email.length <= 254
+    && passwordHash && /^[a-f0-9]{128}$/i.test(passwordHash)
+    && passwordSalt && /^[a-f0-9]{32,128}$/i.test(passwordSalt)) {
+    return [{ id: "configured_admin", name: process.env.ADMIN_NAME?.trim() || "Administrateur KHMERA", email, role: "superadmin", passwordHash, passwordSalt }];
+  }
+  const supplied = [process.env.ADMIN_EMAIL, process.env.ADMIN_PASSWORD_HASH, process.env.ADMIN_PASSWORD_SALT].some(value => value !== undefined);
+  return process.env.NODE_ENV === "production" || supplied ? [] : mockAdminAccounts;
+}
+
+export function adminCredentialsConfigured() {
+  return configuredAccounts().length > 0;
+}
+
 export function findAdminById(id: string): AdminAccount | null {
-  const account = mockAdminAccounts.find((candidate) => candidate.id === id);
+  const account = configuredAccounts().find((candidate) => candidate.id === id);
   return account ? toPublicAccount(account) : null;
 }
 
 export function verifyAdminCredentials(email: string, password: string): AdminAccount | null {
-  const account = mockAdminAccounts.find(
+  const account = configuredAccounts().find(
     (candidate) => candidate.email === email.trim().toLowerCase(),
   );
   // Hash even when the account is unknown to keep response timing uniform.

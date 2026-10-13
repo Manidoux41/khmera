@@ -8,6 +8,7 @@ import { PageSeo } from "@/components/page-seo";
 import { getDictionary, isLocale, listingSlugs } from "@/lib/i18n";
 import { listingPhotoIds, photos } from "@/lib/photos";
 import { Pictogram, listingIcons } from "@/components/pictogram";
+import { legalCopy } from "@/lib/legal/copy";
 
 type MarketplacePageProps = { params: Promise<{ locale: string }> };
 
@@ -37,6 +38,8 @@ async function MarketplacePageContent({
       <div className="mb-10 max-w-2xl">
         <p className="text-sm uppercase tracking-[0.2em] text-emerald-300">{messages.pageTitles.marketplace}</p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight text-white">{messages.marketplace.heading}</h1>
+        <p className="mt-4 text-sm leading-7 text-amber-200">{legalCopy[locale].demo}</p>
+        <p className="mt-3 text-sm leading-7 text-slate-300">{legalCopy[locale].role}</p>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
@@ -54,10 +57,12 @@ async function MarketplacePageContent({
               </div>
             </CreditedPhoto>
             <h2 className="text-2xl font-semibold text-white">{listing.title}</h2>
+            <p className="mt-3 text-xs leading-5 text-amber-200">{legalCopy[locale].demo}</p>
             <p className="mt-2 text-sm text-slate-300">{listing.subtitle}</p>
             <Link href={`/${locale}/marketplace/${listingSlugs[index]}`} className="mt-6 inline-flex rounded-full border border-slate-700 bg-slate-950 px-4 py-2 text-sm font-medium text-white transition hover:border-emerald-400 hover:text-emerald-200">
               {messages.marketplace.details}
             </Link>
+            <Link href={`/${locale}/report?target=${encodeURIComponent(`/${locale}/marketplace/${listingSlugs[index]}`)}`} className="mt-4 block text-sm text-emerald-300 underline">{legalCopy[locale].reportLink}</Link>
           </article>
         ))}
       </div>

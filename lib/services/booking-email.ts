@@ -1,5 +1,5 @@
 import { getDictionary, type Locale } from "@/lib/i18n";
-import { formatOfferPrice, type Offer } from "@/lib/services/offers";
+import type { Offer } from "@/lib/services/offers";
 
 export type BookingRequestDetails = {
   name: string;
@@ -17,7 +17,7 @@ export function formatBookingDate(value: string, locale: Locale) {
   return new Intl.DateTimeFormat(locale, { dateStyle: "long", timeZone: "UTC" }).format(date);
 }
 
-export function createBookingEmail(locale: Locale, offer: Offer, details: BookingRequestDetails) {
+export function createBookingEmail(locale: Locale, offer: Pick<Offer, "slug">, details: BookingRequestDetails) {
   const copy = getDictionary(locale).commerce;
   const labels = copy.form;
   const email = copy.email;
@@ -29,7 +29,7 @@ export function createBookingEmail(locale: Locale, offer: Offer, details: Bookin
     email.introduction,
     "",
     `${email.offer}: ${item.name}`,
-    `${email.price}: ${formatOfferPrice(offer.priceUsd, locale)}`,
+    `${email.price}: ${copy.quoteLabel}`,
     `${copy.included}:`,
     ...item.includes.map((detail) => `- ${detail}`),
     "",

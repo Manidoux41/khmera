@@ -8,7 +8,7 @@ import { createBookingEmail } from "@/lib/services/booking-email";
 
 export function BookingRequestForm({ locale, offer, copy }: {
   locale: Locale;
-  offer: Offer;
+  offer: Pick<Offer, "slug">;
   copy: Messages["commerce"];
 }) {
   const [draft, setDraft] = useState<{ subject: string; body: string } | null>(null);

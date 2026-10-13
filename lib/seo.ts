@@ -162,8 +162,6 @@ export function pageStructuredData(locale: Locale, route: SeoPage) {
       offers: {
         "@type": "Offer",
         url: seo.canonical,
-        price: offer.priceUsd,
-        priceCurrency: "USD",
         description: messages.commerce.pricingNote,
         seller: { "@id": organizationId },
       },

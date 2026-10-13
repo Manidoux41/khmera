@@ -148,7 +148,7 @@ test("preview deployments cannot be indexed and canonical URLs never use a previ
   assert.equal(setup({ VERCEL_ENV: "production" }).seo.getPageSeo("fr", { page: "home" }).index, true);
 });
 
-test("service JSON-LD describes real quote-based prices, not fabricated ratings or availability", () => {
+test("service JSON-LD describes quote-based services without publishing internal prices", () => {
   const { seo } = setup();
   for (const locale of i18n.locales) {
     for (const offer of offers.offers) {
@@ -157,8 +157,8 @@ test("service JSON-LD describes real quote-based prices, not fabricated ratings 
       const service = data["@graph"].find((item) => item["@type"] === "Service");
       const webpage = data["@graph"].find((item) => item["@type"] === "WebPage");
       const breadcrumb = data["@graph"].find((item) => item["@type"] === "BreadcrumbList");
-      assert.equal(service.offers.price, offer.priceUsd);
-      assert.equal(service.offers.priceCurrency, "USD");
+      assert.equal(Object.hasOwn(service.offers, "price"), false);
+      assert.equal(Object.hasOwn(service.offers, "priceCurrency"), false);
       assert.equal(service.areaServed["@type"], "City");
       assert.equal(service.areaServed.name, "Siem Reap");
       assert.equal(service.areaServed.containedInPlace["@type"], "Country");

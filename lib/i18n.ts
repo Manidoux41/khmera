@@ -211,7 +211,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         greeting: "Hello KHMERA,",
         introduction: "I would like to request a written quote for the following package. Please confirm availability and the next steps.",
         offer: "Requested package",
-        price: "Proposed fee (USD)",
+        price: "Pricing",
         preferredDate: "Preferred date",
         language: "Preferred reply language",
         languageName: "English",
@@ -219,10 +219,10 @@ export const dictionaries: Record<Locale, Dictionary> = {
         subjectLabel: "Email subject",
       },
       eyebrow: "KHMERA launch packages",
-      heading: "A clear service. A clear price. Your Siem Reap project.",
+      heading: "Personalised guidance for your Siem Reap project.",
       description: "Our current focus is Siem Reap: guidance for newcomers, entrepreneurs and travellers. Prepare your move, business project or visit to Angkor with remote consultations and a personalised written plan. Other Cambodia destinations may be discussed separately, subject to a quote.",
-      pricingNote: "Proposed launch fees in USD, subject to a written quote. Availability, schedule, any applicable taxes and the final amount are confirmed before booking. No online payment or automatic reservation.",
-      quoteLabel: "Subject to a quote",
+      pricingNote: "Personalised fees are provided in a written quote after discussing your needs. Availability, schedule, any applicable taxes and the final amount are confirmed before booking. No online payment or automatic reservation.",
+      quoteLabel: "On request",
       exclusions: "Guidance fees only. Visa and government fees, rent, flights, transport, accommodation, guides, admission tickets and third-party professionals are not included. Travellers make and pay for their own travel bookings. No visa approval, company registration or investment outcome is guaranteed. This is not legal or tax advice.",
       request: "Request this package",
       included: "What is included",
@@ -239,7 +239,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         heading: "Prepare your booking request",
         explanation: "This form prepares an email, not a confirmed booking. You send it from your own mail app; KHMERA confirms the scope and quote with you.",
         name: "Full name", email: "Your email", city: "Destination or city", date: "Preferred date (optional)", project: "Your project and expectations",
-        consent: "I understand the proposed fee and exclusions, and agree to send these details to KHMERA for a response to my request.",
+        consent: "I understand that the service is subject to a written quote and the stated exclusions, and agree to send these details to KHMERA for a response to my request.",
         privacy: "Nothing is saved to a database or sent automatically. Only the email you choose to send shares your details with KHMERA. Do not include passports, banking details or other sensitive documents.",
         prepare: "Prepare my email", draftHeading: "Email ready to send", draftNotice: "Your request has NOT been sent. Open your mail app and send the email to submit it. No booking or payment is confirmed.",
         openEmail: "Open my mail app", fallback: "No mail app configured? Copy this text into your email and send it to:", subject: "KHMERA booking request",
@@ -266,7 +266,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       advisor: "Talk to an advisor",
     },
     marketplace: {
-      heading: "Verified local experiences and business support.",
+      heading: "Illustrative local services and business connections.",
       listings: [
         { title: "Premium condo rentals", subtitle: "Central Phnom Penh • $1,200/mo" },
         { title: "Business registration", subtitle: "Incorporation support • from $500" },
@@ -336,9 +336,9 @@ export const dictionaries: Record<Locale, Dictionary> = {
       secondaryCta: "Speak with an advisor",
     },
     stats: [
-      { value: "$49", label: "Siem Reap diagnostic" },
-      { value: "$249", label: "Relocation guidance" },
-      { value: "$399", label: "Business planning" },
+      { value: "Advice", label: "Siem Reap diagnostic" },
+      { value: "Relocation", label: "Relocation guidance" },
+      { value: "Business", label: "Business planning" },
     ],
     categories: [
       {
@@ -364,12 +364,12 @@ export const dictionaries: Record<Locale, Dictionary> = {
         text: "Navigate requirements with clear checklists and expert guidance.",
       },
       {
-        title: "Verified service marketplace",
-        text: "Discover legal, lifestyle and professional support from trusted local providers.",
+        title: "Local services directory",
+        text: "Explore illustrative listings. Professional identities and permissions must be checked before publication.",
       },
       {
-        title: "Payments that fit real life",
-        text: "Book and pay with secure local and international payment methods.",
+        title: "Direct professional introductions",
+        text: "Discuss third-party services directly with the professional. No online payment or automatic booking.",
       },
     ],
     cta: {
@@ -519,7 +519,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         greeting: "Bonjour KHMERA,",
         introduction: "Je souhaite recevoir un devis écrit pour l'offre suivante. Merci de me confirmer les disponibilités et les prochaines étapes.",
         offer: "Offre demandée",
-        price: "Honoraires proposés (USD)",
+        price: "Tarification",
         preferredDate: "Date souhaitée",
         language: "Langue de réponse souhaitée",
         languageName: "Français",
@@ -527,10 +527,10 @@ export const dictionaries: Record<Locale, Dictionary> = {
         subjectLabel: "Objet de l'e-mail",
       },
       eyebrow: "Les offres de lancement KHMERA",
-      heading: "Une prestation claire. Un prix clair. Votre projet à Siem Reap.",
+      heading: "Un accompagnement personnalisé pour votre projet à Siem Reap.",
       description: "Notre priorité actuelle : Siem Reap, pour les futurs expatriés, entrepreneurs et voyageurs. Préparez votre installation, votre activité ou votre découverte d'Angkor avec des rendez-vous à distance et un plan écrit personnalisé. Les autres destinations du Cambodge peuvent être étudiées séparément, sur devis.",
-      pricingNote: "Honoraires de lancement proposés en dollars américains, sous réserve d'un devis écrit. Disponibilité, calendrier, taxes éventuelles et montant final sont confirmés avant réservation. Aucun paiement en ligne ni réservation automatique.",
-      quoteLabel: "Sous réserve de devis",
+      pricingNote: "Honoraires personnalisés sur devis écrit après échange sur vos besoins. Disponibilité, calendrier, taxes éventuelles et montant final sont confirmés avant réservation. Aucun paiement en ligne ni réservation automatique.",
+      quoteLabel: "Sur devis",
       exclusions: "Honoraires d'accompagnement uniquement. Frais de visa et administratifs, loyers, vols, transports, hébergement, guides, entrées et professionnels tiers non inclus. Le voyageur effectue et règle lui-même ses réservations de voyage. Aucun visa, enregistrement de société ni résultat d'investissement garanti. Ce service ne constitue pas un conseil juridique ou fiscal.",
       request: "Demander cette offre",
       included: "Ce qui est inclus",
@@ -547,7 +547,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         heading: "Préparer votre demande de réservation",
         explanation: "Ce formulaire prépare un e-mail, pas une réservation confirmée. Vous l'envoyez depuis votre messagerie ; KHMERA confirme avec vous le périmètre et le devis.",
         name: "Nom complet", email: "Votre e-mail", city: "Destination ou ville", date: "Date souhaitée (facultative)", project: "Votre projet et vos attentes",
-        consent: "Je comprends le tarif proposé et les exclusions, et j'accepte de transmettre ces informations à KHMERA pour obtenir une réponse à ma demande.",
+        consent: "Je comprends que la prestation est sur devis écrit, avec les exclusions indiquées, et j'accepte de transmettre ces informations à KHMERA pour obtenir une réponse à ma demande.",
         privacy: "Rien n'est enregistré en base de données ni envoyé automatiquement. Seul l'e-mail que vous choisissez d'envoyer transmet vos coordonnées à KHMERA. N'incluez pas de passeport, coordonnées bancaires ou documents sensibles.",
         prepare: "Préparer mon e-mail", draftHeading: "E-mail prêt à envoyer", draftNotice: "Votre demande n'a PAS été envoyée. Ouvrez votre messagerie et envoyez l'e-mail pour la transmettre. Aucune réservation ni aucun paiement n'est confirmé.",
         openEmail: "Ouvrir ma messagerie", fallback: "Pas de messagerie configurée ? Copiez ce texte dans un e-mail et envoyez-le à :", subject: "Demande de réservation KHMERA",
@@ -574,7 +574,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       advisor: "Parler à un conseiller",
     },
     marketplace: {
-      heading: "Des expériences locales vérifiées et un accompagnement professionnel.",
+      heading: "Des exemples de services locaux et de mises en relation.",
       listings: [
         { title: "Location de résidences haut de gamme", subtitle: "Centre de Phnom Penh • 1 200 $ US/mois" },
         { title: "Immatriculation d'entreprise", subtitle: "Accompagnement à la création • à partir de 500 $ US" },
@@ -644,9 +644,9 @@ export const dictionaries: Record<Locale, Dictionary> = {
       secondaryCta: "Parler à un conseiller",
     },
     stats: [
-      { value: "49 $", label: "Diagnostic Siem Reap" },
-      { value: "249 $", label: "Accompagnement installation" },
-      { value: "399 $", label: "Préparation business" },
+      { value: "Conseil", label: "Diagnostic Siem Reap" },
+      { value: "Installation", label: "Accompagnement installation" },
+      { value: "Business", label: "Préparation business" },
     ],
     categories: [
       {
@@ -672,12 +672,12 @@ export const dictionaries: Record<Locale, Dictionary> = {
         text: "Suivez des étapes claires et obtenez des conseils utiles.",
       },
       {
-        title: "Marché de services vérifiés",
-        text: "Découvrir des prestataires locaux fiables pour les besoins professionnels et quotidiens.",
+        title: "Annuaire de services locaux",
+        text: "Explorez des fiches illustratives. Identité et autorisation des professionnels à contrôler avant publication.",
       },
       {
-        title: "Paiements adaptés au quotidien",
-        text: "Réservez et payez en toute sécurité avec des modes de paiement locaux et internationaux.",
+        title: "Mise en relation directe",
+        text: "Convenez des prestations tierces directement avec le professionnel. Aucun paiement en ligne ni réservation automatique.",
       },
     ],
     cta: {
@@ -827,7 +827,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         greeting: "Hola KHMERA:",
         introduction: "Me gustaría recibir un presupuesto escrito para el siguiente paquete. Por favor, confirmen la disponibilidad y los próximos pasos.",
         offer: "Paquete solicitado",
-        price: "Honorarios propuestos (USD)",
+        price: "Tarificación",
         preferredDate: "Fecha preferida",
         language: "Idioma preferido para la respuesta",
         languageName: "Español",
@@ -835,10 +835,10 @@ export const dictionaries: Record<Locale, Dictionary> = {
         subjectLabel: "Asunto del correo",
       },
       eyebrow: "Paquetes de lanzamiento KHMERA",
-      heading: "Un servicio claro. Un precio claro. Tu proyecto en Siem Reap.",
+      heading: "Orientación personalizada para tu proyecto en Siem Reap.",
       description: "Nuestra prioridad actual es Siem Reap: orientación para futuros residentes, emprendedores y viajeros. Prepara tu traslado, negocio o visita a Angkor con consultas a distancia y un plan escrito personalizado. Otros destinos de Camboya pueden estudiarse por separado, bajo presupuesto.",
-      pricingNote: "Honorarios de lanzamiento propuestos en dólares estadounidenses, sujetos a un presupuesto escrito. Disponibilidad, calendario, posibles impuestos e importe final se confirman antes de reservar. Sin pago en línea ni reserva automática.",
-      quoteLabel: "Sujeto a presupuesto",
+      pricingNote: "Honorarios personalizados mediante presupuesto escrito tras hablar de tus necesidades. Disponibilidad, calendario, posibles impuestos e importe final se confirman antes de reservar. Sin pago en línea ni reserva automática.",
+      quoteLabel: "Bajo presupuesto",
       exclusions: "Solo honorarios de orientación. No incluyen visados, tasas oficiales, alquileres, vuelos, transporte, alojamiento, guías, entradas ni profesionales externos. El viajero realiza y paga sus propias reservas de viaje. No se garantiza ningún visado, registro de empresa ni resultado de inversión. No es asesoramiento jurídico ni fiscal.",
       request: "Solicitar este paquete",
       included: "Qué incluye",
@@ -855,7 +855,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         heading: "Prepara tu solicitud de reserva",
         explanation: "Este formulario prepara un correo, no una reserva confirmada. Lo envías desde tu aplicación de correo; KHMERA confirma contigo el alcance y el presupuesto.",
         name: "Nombre completo", email: "Tu correo electrónico", city: "Destino o ciudad", date: "Fecha preferida (opcional)", project: "Tu proyecto y expectativas",
-        consent: "Entiendo el precio propuesto y las exclusiones, y acepto enviar estos datos a KHMERA para recibir una respuesta a mi solicitud.",
+        consent: "Entiendo que el servicio está sujeto a un presupuesto escrito y a las exclusiones indicadas, y acepto enviar estos datos a KHMERA para recibir una respuesta a mi solicitud.",
         privacy: "Nada se guarda en una base de datos ni se envía automáticamente. Solo el correo que decidas enviar comparte tus datos con KHMERA. No incluyas pasaportes, datos bancarios ni documentos sensibles.",
         prepare: "Preparar mi correo", draftHeading: "Correo listo para enviar", draftNotice: "Tu solicitud NO se ha enviado. Abre tu aplicación de correo y envíalo para transmitirla. No hay reserva ni pago confirmado.",
         openEmail: "Abrir mi correo", fallback: "¿No tienes aplicación de correo? Copia este texto en un correo y envíalo a:", subject: "Solicitud de reserva KHMERA",
@@ -882,7 +882,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       advisor: "Hablar con un asesor",
     },
     marketplace: {
-      heading: "Experiencias locales verificadas y apoyo empresarial.",
+      heading: "Ejemplos de servicios locales y contactos profesionales.",
       listings: [
         { title: "Alquiler de residencias de alta gama", subtitle: "Centro de Nom Pen • 1200 US$/mes" },
         { title: "Registro de empresas", subtitle: "Asistencia para la constitución • desde 500 US$" },
@@ -952,9 +952,9 @@ export const dictionaries: Record<Locale, Dictionary> = {
       secondaryCta: "Hablar con un asesor",
     },
     stats: [
-      { value: "49 US$", label: "Diagnóstico Siem Reap" },
-      { value: "249 US$", label: "Orientación para instalarse" },
-      { value: "399 US$", label: "Planificación empresarial" },
+      { value: "Orientación", label: "Diagnóstico Siem Reap" },
+      { value: "Instalación", label: "Orientación para instalarse" },
+      { value: "Negocios", label: "Planificación empresarial" },
     ],
     categories: [
       {
@@ -980,12 +980,12 @@ export const dictionaries: Record<Locale, Dictionary> = {
         text: "Sigue requisitos claros con orientación experta y listas de verificación.",
       },
       {
-        title: "Mercado de servicios verificados",
-        text: "Descubre proveedores locales confiables para necesidades cotidianas y profesionales.",
+        title: "Directorio de servicios locales",
+        text: "Explora anuncios ilustrativos. La identidad y el permiso del profesional deben comprobarse antes de publicar.",
       },
       {
-        title: "Pagos pensados para la vida real",
-        text: "Reserva y paga con seguridad usando métodos locales e internacionales.",
+        title: "Contacto directo con profesionales",
+        text: "Acuerda los servicios externos directamente con el profesional. Sin pago en línea ni reserva automática.",
       },
     ],
     cta: {
@@ -1135,7 +1135,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         greeting: "Guten Tag KHMERA,",
         introduction: "Ich möchte ein schriftliches Angebot für das folgende Paket erhalten. Bitte bestätigen Sie die Verfügbarkeit und die nächsten Schritte.",
         offer: "Angefragtes Paket",
-        price: "Vorgeschlagenes Honorar (USD)",
+        price: "Honorar",
         preferredDate: "Wunschtermin",
         language: "Gewünschte Antwortsprache",
         languageName: "Deutsch",
@@ -1143,10 +1143,10 @@ export const dictionaries: Record<Locale, Dictionary> = {
         subjectLabel: "E-Mail-Betreff",
       },
       eyebrow: "KHMERA Einführungspakete",
-      heading: "Klare Leistung. Klarer Preis. Ihr Projekt in Siem Reap.",
+      heading: "Persönliche Begleitung für Ihr Projekt in Siem Reap.",
       description: "Unser aktueller Schwerpunkt ist Siem Reap: Orientierung für Neuankömmlinge, Gründer und Reisende. Bereiten Sie Ihren Umzug, Ihr Geschäft oder Ihren Angkor-Besuch mit Online-Gesprächen und einem persönlichen schriftlichen Plan vor. Andere Ziele in Kambodscha können separat besprochen werden, vorbehaltlich Angebot.",
-      pricingNote: "Vorgeschlagene Einführungshonorare in US-Dollar, vorbehaltlich eines schriftlichen Angebots. Verfügbarkeit, Termine, mögliche Steuern und Endbetrag werden vor der Buchung bestätigt. Keine Online-Zahlung oder automatische Reservierung.",
-      quoteLabel: "Vorbehaltlich eines Angebots",
+      pricingNote: "Individuelle Honorare auf schriftliches Angebot nach einem Gespräch über Ihren Bedarf. Verfügbarkeit, Termine, mögliche Steuern und Endbetrag werden vor der Buchung bestätigt. Keine Online-Zahlung oder automatische Reservierung.",
+      quoteLabel: "Auf Anfrage",
       exclusions: "Nur Beratungshonorare. Visa- und Behördengebühren, Miete, Flüge, Transport, Unterkunft, Reiseführer, Eintrittskarten und externe Fachleute sind nicht enthalten. Reisende buchen und bezahlen ihre Reiseleistungen selbst. Keine Garantie für Visa, Firmeneintragung oder Investitionsergebnisse. Keine Rechts- oder Steuerberatung.",
       request: "Dieses Paket anfragen",
       included: "Enthaltene Leistungen",
@@ -1163,7 +1163,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         heading: "Buchungsanfrage vorbereiten",
         explanation: "Dieses Formular erstellt eine E-Mail, keine bestätigte Buchung. Sie senden sie über Ihr E-Mail-Programm; KHMERA bestätigt Leistungsumfang und Angebot mit Ihnen.",
         name: "Vollständiger Name", email: "Ihre E-Mail-Adresse", city: "Ziel oder Stadt", date: "Wunschtermin (optional)", project: "Ihr Projekt und Ihre Erwartungen",
-        consent: "Ich verstehe das vorgeschlagene Honorar und die Ausschlüsse und möchte diese Angaben für eine Antwort auf meine Anfrage an KHMERA senden.",
+        consent: "Ich verstehe, dass die Leistung einem schriftlichen Angebot und den genannten Ausschlüssen unterliegt, und möchte diese Angaben für eine Antwort auf meine Anfrage an KHMERA senden.",
         privacy: "Nichts wird in einer Datenbank gespeichert oder automatisch versendet. Nur Ihre bewusst gesendete E-Mail übermittelt Ihre Angaben an KHMERA. Bitte keine Pässe, Bankdaten oder vertraulichen Dokumente angeben.",
         prepare: "E-Mail vorbereiten", draftHeading: "E-Mail zum Versenden bereit", draftNotice: "Ihre Anfrage wurde NICHT gesendet. Öffnen Sie Ihr E-Mail-Programm und senden Sie die Nachricht. Keine Buchung oder Zahlung ist bestätigt.",
         openEmail: "E-Mail-Programm öffnen", fallback: "Kein E-Mail-Programm eingerichtet? Kopieren Sie diesen Text in eine E-Mail und senden Sie ihn an:", subject: "KHMERA Buchungsanfrage",
@@ -1190,7 +1190,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       advisor: "Mit einer Beratungsperson sprechen",
     },
     marketplace: {
-      heading: "Verifizierte lokale Erlebnisse und Unterstützung für Unternehmen.",
+      heading: "Beispiele für lokale Dienstleistungen und Geschäftskontakte.",
       listings: [
         { title: "Hochwertige Mietwohnungen", subtitle: "Zentrum von Phnom Penh • 1.200 US$/Monat" },
         { title: "Unternehmensregistrierung", subtitle: "Unterstützung bei der Gründung • ab 500 US$" },
@@ -1260,9 +1260,9 @@ export const dictionaries: Record<Locale, Dictionary> = {
       secondaryCta: "Mit einem Berater sprechen",
     },
     stats: [
-      { value: "49 $", label: "Erstberatung Siem Reap" },
-      { value: "249 $", label: "Umzugsbegleitung" },
-      { value: "399 $", label: "Geschäftsplanung" },
+      { value: "Beratung", label: "Erstberatung Siem Reap" },
+      { value: "Umzug", label: "Umzugsbegleitung" },
+      { value: "Geschäft", label: "Geschäftsplanung" },
     ],
     categories: [
       {
@@ -1288,12 +1288,12 @@ export const dictionaries: Record<Locale, Dictionary> = {
         text: "Verstehen Sie Anforderungen mit klaren Checklisten und Expertenhilfe.",
       },
       {
-        title: "Verifizierter Dienstleistungsmarkt",
-        text: "Entdecken Sie zuverlässige lokale Anbieter für Alltag und Geschäft.",
+        title: "Verzeichnis lokaler Dienstleistungen",
+        text: "Entdecken Sie illustrative Einträge. Identität und Genehmigung müssen vor Veröffentlichung geprüft werden.",
       },
       {
-        title: "Zahlungen für den echten Alltag",
-        text: "Buchen und zahlen Sie sicher mit lokalen und internationalen Methoden.",
+        title: "Direkte Kontakte zu Fachleuten",
+        text: "Vereinbaren Sie Leistungen Dritter direkt mit dem Anbieter. Keine Online-Zahlung oder automatische Buchung.",
       },
     ],
     cta: {

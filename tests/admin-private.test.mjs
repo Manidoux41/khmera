@@ -8,12 +8,12 @@ test("private presentation and directory require a valid admin session", {
   assert.ok(["localhost", "127.0.0.1"].includes(new URL(base).hostname), "Run mock login tests only against a local preview");
   const login = (password) => fetch(new URL("/api/admin/session", base), {
     method: "POST", headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email: "admin@khmera.local", password }),
+    body: JSON.stringify({ email: process.env.ADMIN_TEST_EMAIL || "admin@khmera.local", password }),
   });
   assert.equal((await login("wrong-password")).status, 401);
   assert.equal((await fetch(new URL("/api/admin/data-export", base))).status, 401);
   assert.equal((await fetch(new URL("/api/admin/data-export", base), { headers: { Cookie: "khmera_admin_session=invalid" } })).status, 401);
-  const paths = ["/khm-console-7f3a9c/partners", "/khm-console-7f3a9c/contacts", "/khm-console-7f3a9c", "/khm-console-7f3a9c/blog"];
+  const paths = ["/khm-console-7f3a9c/partners", "/khm-console-7f3a9c/contacts", "/khm-console-7f3a9c", "/khm-console-7f3a9c/blog", "/khm-console-7f3a9c/tariffs", "/khm-console-7f3a9c/launch"];
   for (const path of paths) {
     for (const headers of [{}, { Cookie: "khmera_admin_session=invalid" }]) {
       const response = await fetch(new URL(path, base), { headers });
@@ -22,10 +22,11 @@ test("private presentation and directory require a valid admin session", {
       assert.ok(!html.includes("Répertoire privé — clients et partenaires"));
       assert.ok(!html.includes('id="business-cards"'));
       assert.ok(!html.includes('class="admin-sidebar"'));
+      assert.ok(!html.includes('class="tariff-sheet"'));
       assert.equal(response.headers.get("x-robots-tag"), "noindex, nofollow, noarchive");
     }
   }
-  const response = await login("Khmera#Admin2026");
+  const response = await login(process.env.ADMIN_TEST_PASSWORD || "Khmera#Admin2026");
   assert.equal(response.status, 200);
   const cookie = response.headers.get("set-cookie")?.split(";")[0];
   assert.ok(cookie);
@@ -54,6 +55,26 @@ test("private presentation and directory require a valid admin session", {
     assert.ok(dashboardHtml.includes('id="business-cards"'));
     assert.ok(dashboardHtml.includes("076-252-3154"));
     assert.ok(dashboardHtml.includes('aria-label="Navigation administration"'));
+    for (const offer of [
+      { slug: "cambodia-diagnostic", price: 49, title: "Diagnostic Siem Reap" },
+      { slug: "settle-in", price: 249, title: "Installation sereine" },
+      { slug: "business-launch", price: 399, title: "Projet business" },
+      { slug: "discovery-trip", price: 99, title: "Voyage découverte" },
+    ]) {
+      const response = await fetch(new URL(`${paths[4]}?offer=${offer.slug}`, base), { headers: { Cookie: cookie } });
+      assert.equal(response.status, 200);
+      const html = await response.text();
+      const sheet = html.match(/<article class="tariff-sheet"[\s\S]*?<\/article>/)?.[0];
+      assert.ok(sheet);
+      assert.ok(sheet.includes(offer.title));
+      assert.ok(sheet.includes(`data-offer="${offer.slug}"`));
+      assert.ok(sheet.includes(new Intl.NumberFormat("fr", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(offer.price)));
+      assert.ok(sheet.includes("Exclusions et limites"));
+      assert.ok(sheet.includes("Ne constitue pas un devis"));
+      assert.equal(response.headers.get("x-robots-tag"), "noindex, nofollow, noarchive");
+    }
+    assert.equal((await fetch(new URL("/fr/tariffs", base))).status, 404);
+    assert.equal((await fetch(new URL("/admin/tariffs", base), { headers: { Cookie: cookie } })).status, 404);
     const loginPage = await fetch(new URL("/khm-console-7f3a9c/login", base));
     assert.ok(!(await loginPage.text()).includes('class="admin-sidebar"'));
     const contacts = await fetch(new URL(paths[1], base), { headers: { Cookie: cookie } });
